@@ -1,0 +1,51 @@
+name: webhook
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+  get@1.0:
+    description: Performs a GET webhook
+    inputs:
+      Url:
+        required: true
+        description: ""
+        sample:
+      Header:
+        required: false
+        description: "A list of headers with an array of values to add to that header."
+        sample:
+          Content-Type:
+            - application/json
+    outputs:
+      ResponseBody:
+        description: ""
+        sample:
+  post@1.0:
+    description: Posts a webhook
+    inputs:
+      Body:
+        required: true
+        description: ""
+      ContentType:
+        required: false
+        description: ""
+      Header:
+        required: false
+        description: "A list of headers with an array of values to add to that header."
+        sample:
+          Content-Type:
+            - application/json
+      Url:
+        required: true
+        description: ""
+    outputs:
+      ResponseBody:
+        description: ""

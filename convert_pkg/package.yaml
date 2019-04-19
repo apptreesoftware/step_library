@@ -1,0 +1,187 @@
+name: convert
+version: 1.0
+lang: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  parse_xml_to_object@1.0:
+    inputs:
+      XML:
+        required: true
+        description: XML you'd like to parse in a string
+    outputs:
+      Record:
+        description: parsed XML as json object
+  queue_children@1.0:
+    inputs:
+      Record:
+        required: true
+        description: the parent record which you would like to extract child value(s) from
+      FieldName:
+        required: true
+        description: the field/path which the sub item(s) can be found at
+      Workflow:
+        required: true
+        description: the workflow to queue with the found records
+  parse_json_object@1.0:
+    inputs:
+      String:
+        required: true
+        description: The string to parse into a json object
+        samp: '{"key" : "value"}'
+    outputs:
+      Record:
+        description: The json object
+  map_records@1.0:
+    inputs:
+      From:
+        required: true
+        description: The json record to map to a new record
+      MapValues:
+        required: true
+        description: A json object of the field mappings
+    outputs:
+      To:
+        description: The json record to return
+  set_fields@1.0:
+      inputs:
+        Record:
+          required: false
+          description: the json object to add the given fields to
+        Fields:
+          required: true
+          description: the fields to add to the record
+      outputs:
+        Record:
+          description: the record with the fields added
+  extract_fields@1.0:
+      inputs:
+        Record:
+          required: true
+          description: the record you would like to extract fields from
+        Fields:
+          required: true
+          description: the fields to extract to returned record
+      outputs:
+        Record:
+          description: the record with the fields extracted
+  parse_line@1.0:
+    inputs:
+      String:
+        required: true
+        description: The line of text you want to parse
+        sample: "Field1|Field2|Field3"
+      Delimiter:
+        required: true
+        description: Delimiter used to separate the fields
+        sample: "|"
+      StringFields:
+        required: false
+        description: A list of fields to parse as a string. The field name you want to parse out should be on the left, the index of the field on the right
+        sample: |
+          FieldA: 1
+          FieldB: 2
+      IntFields:
+        required: false
+        description: A list of fields to parse as an int. The field name you want to parse out should be on the left, the index of the field on the right
+        sample: |
+          FieldA: 1
+          FieldB: 2
+      FloatFields:
+        required: false
+        description: A list of fields to parse as an float. The field name you want to parse out should be on the left, the index of the field on the right
+        sample: |
+          FieldA: 1
+          FieldB: 2
+    outputs:
+      Record:
+        description: An object containing the parsed fields
+  date_format@1.0:
+    inputs:
+      Date:
+        required: true
+        description: The date you are wanting to change the format of
+        sample: 2019-10-09
+      InputFormat:
+        required: true
+        sample: 2006-01-02
+        description: |
+          The format of the date currently. Use this table to determine your format
+          Year	06   2006
+          Month	01   1   Jan   January
+          Day	02   2   _2   (width two, right justified)
+          Weekday	Mon   Monday
+          Hours	03   3   15
+          Minutes	04   4
+          Seconds	05   5
+          ms μs ns	.000   .000000   .000000000
+          ms μs ns	.999   .999999   .999999999   (trailing zeros removed)
+          am/pm	PM   pm
+          Timezone	MST
+          Offset	-0700   -07   -07:00   Z0700   Z07:00
+
+          For example, to parse a date in the format of 2019-09-10 you would use the input format of
+
+          2006-01-02
+
+          You can also specify one of the common formats
+            ANSIC       = "Mon Jan _2 15:04:05 2006"
+            UnixDate    = "Mon Jan _2 15:04:05 MST 2006"
+            RubyDate    = "Mon Jan 02 15:04:05 -0700 2006"
+            RFC822      = "02 Jan 06 15:04 MST"
+            RFC822Z     = "02 Jan 06 15:04 -0700"
+            RFC850      = "Monday, 02-Jan-06 15:04:05 MST"
+            RFC1123     = "Mon, 02 Jan 2006 15:04:05 MST"
+            RFC1123Z    = "Mon, 02 Jan 2006 15:04:05 -0700"
+            RFC3339     = "2006-01-02T15:04:05Z07:00"
+            RFC3339Nano = "2006-01-02T15:04:05.999999999Z07:00"
+            Kitchen     = "3:04PM"
+            // Handy time stamps.
+            Stamp      = "Jan _2 15:04:05"
+            StampMilli = "Jan _2 15:04:05.000"
+            StampMicro = "Jan _2 15:04:05.000000"
+            StampNano  = "Jan _2 15:04:05.000000000"
+      OutputFormat:
+        required: true
+        sample: 01-02-2006
+        description: |
+          The format of the date currently. Use this table to determine your format
+          Year	06   2006
+          Month	01   1   Jan   January
+          Day	02   2   _2   (width two, right justified)
+          Weekday	Mon   Monday
+          Hours	03   3   15
+          Minutes	04   4
+          Seconds	05   5
+          ms μs ns	.000   .000000   .000000000
+          ms μs ns	.999   .999999   .999999999   (trailing zeros removed)
+          am/pm	PM   pm
+          Timezone	MST
+          Offset	-0700   -07   -07:00   Z0700   Z07:00
+
+          For example, to parse a date in the format of 2019-09-10 you would use the input format of
+
+          2006-01-02
+
+          You can also specify one of the common formats
+          ANSIC       = "Mon Jan _2 15:04:05 2006"
+          UnixDate    = "Mon Jan _2 15:04:05 MST 2006"
+          RubyDate    = "Mon Jan 02 15:04:05 -0700 2006"
+          RFC822      = "02 Jan 06 15:04 MST"
+          RFC822Z     = "02 Jan 06 15:04 -0700"
+          RFC850      = "Monday, 02-Jan-06 15:04:05 MST"
+          RFC1123     = "Mon, 02 Jan 2006 15:04:05 MST"
+          RFC1123Z    = "Mon, 02 Jan 2006 15:04:05 -0700"
+          RFC3339     = "2006-01-02T15:04:05Z07:00"
+          RFC3339Nano = "2006-01-02T15:04:05.999999999Z07:00"
+          Kitchen     = "3:04PM"
+          // Handy time stamps.
+          Stamp      = "Jan _2 15:04:05"
+          StampMilli = "Jan _2 15:04:05.000"
+          StampMicro = "Jan _2 15:04:05.000000"
+          StampNano  = "Jan _2 15:04:05.000000000"

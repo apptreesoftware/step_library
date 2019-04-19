@@ -1,0 +1,36 @@
+name: cache
+version: 1.0
+lang: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  push@1.0:
+    inputs:
+      Record:
+        required: true
+        description: The record to push into the cache
+        sample: '{"key" : "value"}'
+      Id:
+        required: true
+        description: Used as this records ID in the cache.
+      CacheName:
+        required: true
+        description: The name of the cache you would like to store this record in
+  pull@1.0:
+    inputs:
+      Id:
+        required: true
+        description: The ID of the record you want to pull from the cache
+      CacheName:
+        required: true
+        description: The name of the cache you would like to store this record in
+    outputs:
+      Record:
+        description: The record that was fetched from the cache. If the record was not found in the cache this will be null
+      Found:
+        description: A boolean of whether the record was found in the cache or not

@@ -1,0 +1,80 @@
+name: common
+version: 1.0
+lang: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  filter@1.0:
+    inputs:
+      Records:
+        required: true
+        description: The list of records you would like to filter
+      Filter:
+        required: true
+        description: The filter you would like to apply. The filter must be in javascript format. Referencing the record must start with `record`
+        sample: record.firstName == 'matthew'
+    outputs:
+      Records:
+        description: The filtered records
+  string_length@1.0:
+    inputs:
+      Text:
+        required: true
+        description: A string you'd like the length of
+    outputs:
+      Count:
+        description: the length of the string
+  slice@1.0:
+    inputs:
+      Text:
+        required: true
+        description: A string you'd like to slice
+      StartIndex:
+        required: true
+        description: The index to start slicing at
+      EndIndex:
+        required: false
+        description: defaults to string.length
+    outputs:
+      Text:
+        description: The new string
+  fail_workflow@1.0:
+    inputs:
+      Message:
+        required: true
+        description: The message to display about why the workflow failed
+  object_compare@1.0:
+    inputs:
+      Left:
+        required: true
+        description: A record to compare
+      Right:
+        required: true
+        description: A record to compare
+      FieldsToCompare:
+        required: false
+        description: If provided, only these fields in the two object will be compared for equality
+        sample: '["field1", "field2"]'
+      FieldsToExclude:
+        required: false
+        description: If provided, these fields will be ignored during the object comparison
+        sample: '["field1", "field2"]'
+    outputs:
+      Equal:
+        description: True if the objects are equal, False if they are not.
+      FieldsThatDiffered:
+        description: A list of fields that were different between the left & right object
+  sleep@1.0:
+    inputs:
+      Seconds:
+        required: false
+        description: Amount of time, in seconds, to sleep for
+      Millis:
+        required: false
+        description: Amount of time, in milliseconds, to sleep for
+    outputs: {}

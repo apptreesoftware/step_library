@@ -1,0 +1,202 @@
+name: Accruent.Famis
+lang: NETCORE21
+version: '1.0'
+executables:
+  linux:
+    amd64: Accruent.Famis.Steps.dll
+  darwin:
+    amd64: Accruent.Famis.Steps.dll
+  windows:
+    amd64: Accruent.Famis.Steps.dll
+
+steps:
+  update@1.0:
+    description: ''
+    inputs:
+      Record:
+        required: true
+        description: a json formatted object that you would like to create or update
+        sample: ''
+      Endpoint:
+        required: true
+        description: the endpoint of the entity you are trying to update
+        sample: ''
+      Url:
+        required: true
+        description: FAMIS service url
+        sample: ''
+      Username:
+        required: true
+        description: FAMIS service username
+        sample: ''
+      Password:
+        required: true
+        description: FAMIS service password
+      Filter:
+        required: true
+        description: The filter to use when fetching record
+      Expand:
+        required: false
+        description: User to create or update
+        sample: ''
+    outputs:
+      Success:
+        description: the success status of the upsert
+      Message:
+        description: the response message of the upsert
+      Record:
+        description: the returned record from the upsert
+  fetch_record@1.0:
+    description: Fetches a single record from famis
+    inputs:
+      Endpoint:
+        required: true
+        description: the endpoint to use for this record
+        sample: ''
+      Expand:
+        required: false
+        description: optional expand value
+        sample: ''
+      Url:
+        required: true
+        description: FAMIS service url
+        sample: ''
+      Filter:
+        required: true
+        description: filter to use when fetching record
+        sample: ''
+      Username:
+        required: true
+        description: FAMIS service username
+        sample: ''
+      Password:
+        required: true
+        description: FAMIS service password
+        sample: ''
+    outputs:
+      Record:
+        description: the fetched record
+  fetch_records@1.0:
+    description: Fetches a list of records from famis
+    inputs:
+      Endpoint:
+        required: true
+        description: the endpoint to use for this record
+        sample: ''
+      Filter:
+        required: false
+        description: optional filter to use when fetching records
+        sample: ''
+      Expand:
+        required: false
+        description: optional expand value
+        sample: ''
+      Offset:
+        required: false
+        description: optional page offset, default is 0
+        sample: ''
+      Limit:
+        required: false
+        description: optional maximum number of records to return
+        sample: ''
+      Url:
+        required: true
+        description: FAMIS service url
+        sample: ''
+      Username:
+        required: true
+        description: FAMIS service username
+        sample: ''
+      Password:
+        required: true
+        description: FAMIS service password
+        sample: ''
+    outputs:
+      Records:
+        description: the fetched records
+  create@1.0:
+    description: ''
+    inputs:
+      Record:
+        required: true
+        description: a json formatted object that you would like to create or update
+        sample: ''
+      Endpoint:
+        required: true
+        description: the endpoint of the entity you are trying to update
+        sample: ''
+      Url:
+        required: true
+        description: FAMIS service url
+        sample: ''
+      Username:
+        required: true
+        description: FAMIS service username
+        sample: ''
+      Password:
+        required: true
+        description: FAMIS service password
+        sample: ''
+      Id:
+        required: true
+        description: the id of the record to update
+    outputs:
+      Success:
+        description: the success status of the upsert
+      Message:
+        description: the response message of the upsert
+      Record:
+        description: the returned record from the upsert
+  convert_concur_charge@1.0:
+    description: ''
+    inputs:
+      ChargeLine:
+        required: true
+        description: The pipe delimited charge from the concur file
+        sample: ''
+    outputs:
+      Record:
+        description: A FAMIS Other cost converted from a concur charge
+  convert_banner_user@1.0:
+    description: Converts a Banner Requester to a Famis User.
+    inputs:
+      BannerUser:
+        required: true
+        description: The banner requester to convert
+        sample: ''
+      ProfileId:
+        required: true
+        description: The default profile id to apply to this user. This is a required field in FAMIS.
+        sample: ''
+      StateId:
+        required: true
+        description: The default State id to apply to this user. This is a required field in FAMIS
+        sample: ''
+      CountryId:
+        required: true
+        description: The default Country id to apply to this user. This is a required field in FAMIS
+        sample: ''
+      ActiveFlag:
+        required: true
+        description: The Active status of this user in FAMIS. This is a required field in FAMIS
+        sample: ''
+      CompanyId:
+        required: true
+        description: The default Company id to apply to this user. This is a required field in FAMIS
+        sample: ''
+      Addr1:
+        required: true
+        description: The default Street address to apply to this user. This is a required field in FAMIS
+        sample: ''
+      City:
+        required: true
+        description: The default City to apply to this user. This is a required field in FAMIS
+        sample: ''
+      Zip:
+        required: true
+        description: The default Zip to apply to this user. This is a required field in FAMIS
+        sample: ''
+    outputs:
+      FamisUser:
+        description: The converted famis user
+

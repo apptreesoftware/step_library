@@ -1,0 +1,7 @@
+main_linux*
+main_darwin*
+main_windows*
+.idea
+bin
+obj
+publish/

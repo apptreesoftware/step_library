@@ -1,0 +1,86 @@
+name: firebase
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+firebase_inputs: &firebase_inputs
+  StorageBucket:
+    required: true
+    description: "the storage bucket for firebase"
+  AuthOverrides:
+    required: false
+    description: "optional auth overrides to use"
+  DatabaseUrl:
+    required: true
+    description: "the url for your firebase db"
+  ProjectId:
+    required: true
+    description: "firebase project identifier"
+  ServiceAccountId:
+    required: true
+    description: "service account ID for firebase"
+  CollectionPath:
+    required: true
+    description: "the path to the collection to query from the root"
+
+
+steps:
+  query@1.0:
+    description: "Performs a query"
+    inputs:
+      <<: *firebase_inputs
+      QueryParameters:
+        required: false
+        description: "a list of query parameters which contain a fieldName, operator, and field value which will be used to build your query. if omitted then all records will be returned"
+        sample: '[{"fieldName": "myField", "operator": "==", "fieldValue": "mySearchVal"},{"fieldName": "myField2", "operator": "<=", "fieldValue": 2}]'
+    outputs:
+      Records:
+        description: "The records returned from the query."
+  query_and_queue@1.0:
+    description: "query firebase for records and queue them to a different workflow"
+    inputs:
+      <<: *firebase_inputs
+      QueryParameters:
+        required: false
+        description: "a list of query parameters which contain a fieldName, operator, and field value which will be used to build your query. if omitted then all records will be returned"
+        sample: '[{"fieldName": "myField", "operator": "==", "fieldValue": "mySearchVal"},{"fieldName": "myField2", "operator": "<=", "fieldValue": 2}]'
+      Workflow:
+        required: true
+        description: "the workflow to queue the records to"
+    outputs:
+      Records:
+        description: "The records returned from the query."
+  update_document@1.0:
+    description: "update a document or list of documents with selected fields"
+    inputs:
+      <<: *firebase_inputs
+      QueryParameters:
+        required: false
+        description: "a list of query parameters which contain a fieldName, operator, and field value which will be used to build your query. if omitted then all records will be returned"
+        sample: '[{"fieldName": "myField", "operator": "==", "fieldValue": "mySearchVal"},{"fieldName": "myField2", "operator": "<=", "fieldValue": 2}]'
+      UpdateFields:
+        required: true
+        description: "a key value map to update on each record"
+      MaxUpdateSize:
+        required: false
+        description: "optionally put a limit on the expected number of records, if left empty or set to zero no limit will be imposed"
+    outputs:
+      RecordsUpdated:
+        description: "a count of the number of records which were updated"
+  upsert@1.0:
+    description: "create or replace an existing option with record from input"
+    inputs:
+      <<: *firebase_inputs
+      Record:
+        required: true
+        description: "the object you would like to push to firebase"
+      RecordId:
+        required: true
+        description: "the id for this object"

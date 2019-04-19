@@ -1,0 +1,77 @@
+name: filesystem
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+  file_read_lines@1.0:
+    inputs:
+      FilePath:
+        required: true
+        description: The local file path that you would like to parse.
+      FieldNames:
+        required: false
+        description: The field names that will be used in mapping each line to an object. Can be omitted if using headers as field names.
+      UseHeaderAsFieldNames:
+        required: true
+        description: A flag indicating whether or not field names are being passed in or parsed from the file headers.
+      FieldDelimiter:
+        required: true
+        description: The string delimiter used to separate fields in a line
+    outputs:
+      Records:
+        description: Each line of the file as a list of map objects
+  list_directory_contents@1.0:
+    inputs:
+      DirectoryPath:
+        required: true
+        description: The local file path that you would like to parse.
+      MatchPattern:
+        description: Only return files matching this pattern
+        required: false
+      Relative:
+        description: Should the output files include the full path or relative path?
+        required: false
+    outputs:
+      Files:
+        description: A list of the files and directories found
+  read_lines_and_queue@1.0:
+    inputs:
+      FilePaths:
+        required: true
+        description: A list of files to process
+        sample: "['/files/1.txt', 'files/2.txt']"
+      Workflow:
+        required: true
+        description: The workflow that you want to queue up
+      MoveToDirectoryAfterProcessing:
+        required: false
+        description: (Optional) After processing the file, you can provide it a directory to move the file to
+        sample: /files/archive
+    outputs: {}
+  file_move@1.0:
+    inputs:
+      FilePath:
+        required: true
+        description: the path including file name of the file that you would like to move
+      ToDirectory:
+        required: true
+        description: where you would like the file moved to, does not include the filename
+      FileName:
+        required: false
+        description: an optional file name that can be specified, if omitted then the file will retain its name
+  write_file@1.0:
+    inputs:
+      FilePath:
+        required: true
+        description: the path including file name of the file that you would like to move
+      Contents:
+        required: true
+        description: The record to be written as a line in the file

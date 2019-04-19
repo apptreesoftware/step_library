@@ -1,0 +1,26 @@
+name: logger
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+#Logs a single record.
+  log_fields@1.0:
+    inputs:
+      FieldNames:
+        required: false
+        description: The field names that will be used in mapping each line to an object. Can be omitted if using headers as field names. If empty, the field names will default to the record's field name. For example, "{name:eric}" would print "name":"eric", unless you passed in a field name, such as "banana". Now, the step would print "banana":"eric"
+        sample: "-fieldA -fieldB -fieldC"
+      Record:
+        required: true
+        description: the record you'd like to log
+        sample: '{"fieldA": "eric", "fieldB": "windmill", "fieldC":"2019"}'
+
+

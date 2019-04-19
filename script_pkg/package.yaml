@@ -1,0 +1,33 @@
+# Step meta data:
+name: script
+version: 1.0
+runtime: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+  js@1.0:
+    description: run javascript
+    inputs:
+      Script:
+        required: true
+        description: "the script you'd like to run written in java script"
+        sample: |
+          function callMethod(data) {
+            return data * 1.5;
+          }
+
+          var output = callMethod(multiplier);
+          return output;
+      ScriptVars:
+        required: true
+        description: "a map of values you'd like to make available as variables in your script"
+        sample: "{\"multiplier\": 32}"
+    outputs:
+      ReturnValue:
+        description: "The value returned from your script"

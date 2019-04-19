@@ -1,0 +1,34 @@
+# Step meta data:
+name: twitter
+version: 1.0
+runtime: go
+exec: main
+
+steps:
+  tweet@1.0:
+    description: Tweet to twitter as part of your workflow
+    inputs:
+      Text:
+        required: true
+        description: "The text you'd like to tweet"
+        sample: "Just postin' to Twitter..."
+      AccessToken:
+        required: true
+        description: "Your twitter API account Access Token"
+        sample: "jhf78dsfu34fn38faefjasdhkf"
+      AccessTokenSecret:
+        required: true
+        description: "Your twitter API account AccessTokenSecret"
+        sample: "jhf78d/lkgjdsfkdsjf ldksjfsfu34fn38faefjasdhkf"
+      ConsumerKey:
+        required: true
+        description: "Your twitter API account Consumer Key"
+        sample: "jhf78d/lkgjdsfkdsjf ldksjfsfu34fn38faefjasdhkf"
+      ConsumerSecret:
+        required: true
+        description: "Your twitter API account ConsumerSecret key"
+        sample: "jhf78d/lkgjdsfkdsjf ldksjfsfu34fn38faefjasdhkf"
+    outputs:
+      Success:
+        description: "A boolean that tells you if your tweet was successfully
+          posted."
