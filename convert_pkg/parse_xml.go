@@ -37,7 +37,7 @@ func (w ParseXml) Execute(in step.Context) (interface{}, error) {
 	}
 
 	return ParseXmlOutput{
-		Json: obj,
+		Record: obj,
 	}, nil
 }
 
