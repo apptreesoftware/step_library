@@ -83,7 +83,7 @@ steps:
       Template:
         required: true
         description: The template string to use. This step uses the golang template system. https://golang.org/pkg/text/template/
-        sample: {{.FirstName}} - {{.LastName}}
+        sample: '{{.FirstName}} - {{.LastName}}'
       Record:
         required: true
         description: The record to populate the template with

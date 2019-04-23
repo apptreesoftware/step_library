@@ -11,10 +11,10 @@ github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMx
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
-github.com/apptreesoftware/go-workflow v0.0.0-20190327223655-16afc7ef7929 h1:W0jgBH/9CXmoA6oAQm8boioWfmQ8BHZlW1btaFNIhp8=
-github.com/apptreesoftware/go-workflow v0.0.0-20190327223655-16afc7ef7929/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b h1:xM4Bk09dUA1wEMTCoJnLvd5Z3KBlBs47Xqh+2oJHn3M=
 github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
+github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f h1:WgMMVTGM4h47uFFLBE5iIg9Wx2aKHYkOnk+jbN6aG00=
+github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
