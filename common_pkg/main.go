@@ -11,5 +11,6 @@ func main() {
 	step.Register(ObjectCompare{})
 	step.Register(FailWorkflow{})
 	step.Register(Sleep{})
+	step.Register(Template{})
 	step.Run()
 }

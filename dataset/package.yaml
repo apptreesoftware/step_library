@@ -1,0 +1,20 @@
+name: apptree_v1
+version: 1.0
+lang: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  describe@1.0:
+    inputs:
+      Model:
+        required: true
+        description: The record to push into the cache
+        sample: '{"key" : "value"}'
+    outputs:
+      config:
+        description: "The AppTree Mobile dataset configuration"

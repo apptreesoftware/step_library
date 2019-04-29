@@ -24,7 +24,8 @@ const contentTypeHeaderKey = "Content-Type"
 const bearer = "Bearer"
 const valueKey = "value"
 const defaultTimeout = time.Minute * 1
-const defaultWoBatchSize = 100
+const defaultWoBatchSize = 1000
+const defaultBatchSize = 1000
 
 type Fetch struct {
 	authItem AuthItem
@@ -105,12 +106,8 @@ func (fetch Fetch) performPagedFetch(uri *url.URL, endpoint string, handler Page
 	}
 	defer resp.Body.Close()
 
-	var parsedResp PagedResponse
-	if strings.HasSuffix(endpoint, "workorders") {
-		parsedResp = NewWorkOrderPagedResponse(defaultWoBatchSize, *uri)
-	} else {
-		parsedResp = &NextLinkPagedResponse{}
-	}
+	parsedResp := createPagedResponseForEntity(endpoint, uri)
+
 	dec := jsoniter.NewDecoder(resp.Body)
 	err = dec.Decode(&parsedResp)
 	if err != nil {
@@ -123,6 +120,18 @@ func (fetch Fetch) performPagedFetch(uri *url.URL, endpoint string, handler Page
 		return fetch.performPagedFetch(&nextUri, endpoint, handler)
 	}
 	return nil
+}
+
+func createPagedResponseForEntity(endpoint string, uri *url.URL) PagedResponse {
+	// Some Endpoints do not support the standard ODATA @nextLink paging
+	// For those, we have to manually page through them.
+	// To make things worse, the workOrders endpoint has a different default page size
+	if strings.HasSuffix(endpoint, "workorders") {
+		return NewManualPagedResponse(defaultWoBatchSize, *uri)
+	} else if strings.HasSuffix(endpoint, "spaces") {
+		return NewManualPagedResponse(defaultBatchSize, *uri)
+	}
+	return &NextLinkPagedResponse{}
 }
 
 func (fetch Fetch) buildRequest(method, url string, body io.Reader) (*http.Request, error) {

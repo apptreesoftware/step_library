@@ -89,28 +89,28 @@ func (r *NextLinkPagedResponse) NextPageUrl() url.URL {
 	return *uri
 }
 
-type WorkOrderPagedResponse struct {
+type ManualPagedResponse struct {
 	Value      []jsoniter.RawMessage `json:"value"`
 	BatchSize  int
 	currentUrl url.URL
 }
 
-func NewWorkOrderPagedResponse(batchSize int, currentUrl url.URL) *WorkOrderPagedResponse {
-	return &WorkOrderPagedResponse{BatchSize: batchSize, currentUrl: currentUrl}
+func NewManualPagedResponse(batchSize int, currentUrl url.URL) *ManualPagedResponse {
+	return &ManualPagedResponse{BatchSize: batchSize, currentUrl: currentUrl}
 }
 
-func (r *WorkOrderPagedResponse) GetCurrent() []jsoniter.RawMessage {
+func (r *ManualPagedResponse) GetCurrent() []jsoniter.RawMessage {
 	return r.Value
 }
 
-func (r *WorkOrderPagedResponse) HasMoreResults() bool {
+func (r *ManualPagedResponse) HasMoreResults() bool {
 	if len(r.Value) == r.BatchSize && r.BatchSize > 0 {
 		return true
 	}
 	return false
 }
 
-func (r WorkOrderPagedResponse) NextPageUrl() url.URL {
+func (r ManualPagedResponse) NextPageUrl() url.URL {
 	newUrl := r.currentUrl
 	q := newUrl.Query()
 	currentSkip := q.Get(skipKey)
