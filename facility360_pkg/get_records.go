@@ -24,7 +24,7 @@ const contentTypeHeaderKey = "Content-Type"
 const bearer = "Bearer"
 const valueKey = "value"
 const defaultTimeout = time.Minute * 1
-const defaultWoBatchSize = 1000
+const defaultWoBatchSize = 100
 const defaultBatchSize = 1000
 
 type Fetch struct {
