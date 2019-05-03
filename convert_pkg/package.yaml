@@ -17,6 +17,15 @@ steps:
     outputs:
       Record:
         description: parsed XML as json object
+  parse_json_array@1.0:
+    inputs:
+      String:
+        required: true
+        description: The string to parse into a json object
+        sample: '[{"key" : "value"}]'
+    outputs:
+      Records:
+        description: The array of records
   queue_children@1.0:
     inputs:
       Record:

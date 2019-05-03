@@ -6,6 +6,7 @@ import (
 
 func main() {
 	step.Register(ParseJsonObject{})
+	step.Register(ParseJsonArray{})
 	step.Register(ParseXml{})
 	step.Register(MapRecords{})
 	step.Register(SetFields{})

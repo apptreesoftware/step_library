@@ -1,6 +1,4 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b h1:xM4Bk09dUA1wEMTCoJnLvd5Z3KBlBs47Xqh+2oJHn3M=
-github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f h1:WgMMVTGM4h47uFFLBE5iIg9Wx2aKHYkOnk+jbN6aG00=
 github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/basgys/goxml2json v1.1.0 h1:4ln5i4rseYfXNd86lGEB+Vi652IsIXIvggKM/BhUKVw=
