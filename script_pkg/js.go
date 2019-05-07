@@ -33,10 +33,10 @@ func (j JavascriptRunner) Execute(ctx step.Context) (interface{}, error) {
 		return nil, err
 	}
 
-	return j.execute(input)
+	return j.execute(input, ctx.Environment().Debug)
 }
 
-func (JavascriptRunner) execute(input ScriptInput) (ScriptOutput, error) {
+func (JavascriptRunner) execute(input ScriptInput, debug bool) (ScriptOutput, error) {
 	vm := otto.New()
 
 	for key, value := range input.ScriptVars {
@@ -44,6 +44,10 @@ func (JavascriptRunner) execute(input ScriptInput) (ScriptOutput, error) {
 		if err != nil {
 			return ScriptOutput{}, err
 		}
+	}
+
+	if debug {
+		println(input.Script)
 	}
 
 	jsScript := fmt.Sprintf(`(function() {

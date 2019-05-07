@@ -12,7 +12,7 @@ func TestScript(t *testing.T) {
 	}
 
 	runner := JavascriptRunner{}
-	output, err := runner.execute(input)
+	output, err := runner.execute(input, true)
 	if err != nil {
 		t.Error(err)
 		t.FailNow()
@@ -27,7 +27,7 @@ func TestScript(t *testing.T) {
 	input.ScriptVars["myMap"] = map[string]interface{}{"name": name}
 	input.Script = "return myMap.name;\n"
 
-	output, err = runner.execute(input)
+	output, err = runner.execute(input, true)
 	if err != nil {
 		t.Error(err)
 		t.FailNow()
