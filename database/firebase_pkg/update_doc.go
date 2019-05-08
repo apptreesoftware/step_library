@@ -22,7 +22,7 @@ type UpdateDocument struct {
 }
 
 func (UpdateDocument) Name() string {
-	return "update_doc"
+	return "update_document"
 }
 
 func (UpdateDocument) Version() string {
