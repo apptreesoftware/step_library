@@ -16,12 +16,15 @@ type PostWebhookInput struct {
 }
 
 type GetWebhookInput struct {
-	Url     string
+	Url    string
 	Header http.Header
 }
 
 type WebhookOutput struct {
 	ResponseBody string
+	StatusCode   int
+	IsSuccess    bool
+	Message      string
 }
 
 type PostWebhook struct {
@@ -52,9 +55,6 @@ func (PostWebhook) Execute(ctx step.Context) (interface{}, error) {
 	}
 	request.Header = input.Header
 	resp, err := http.DefaultClient.Do(request)
-	if err != nil {
-		return nil, err
-	}
 	return handleResponse(resp, err)
 }
 
@@ -85,23 +85,30 @@ func (GetWebhook) Execute(ctx step.Context) (interface{}, error) {
 	}
 	request.Header = input.Header
 	resp, err := http.DefaultClient.Do(request)
-	if err != nil {
-		return nil, err
-	}
 	return handleResponse(resp, err)
 }
 
 func handleResponse(resp *http.Response, err error) (interface{}, error) {
+	webhookOutput := WebhookOutput{}
 	if err != nil {
-		return nil, err
+		webhookOutput.IsSuccess = false
+		webhookOutput.Message = err.Error()
+		if resp != nil {
+			webhookOutput.StatusCode = resp.StatusCode
+		}
+		return &webhookOutput, nil
 	}
-	if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
+	webhookOutput.StatusCode = resp.StatusCode
+	webhookOutput.IsSuccess = resp.StatusCode >= 200 && resp.StatusCode <= 299
+	if resp.Body != nil {
 		defer resp.Body.Close()
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			return nil, err
+			webhookOutput.IsSuccess = false
+			webhookOutput.Message = fmt.Sprintf("error occured reading body: %s", err.Error())
+		} else {
+			webhookOutput.ResponseBody = string(body)
 		}
-		return &WebhookOutput{ResponseBody: string(body)}, nil
 	}
-	return nil, fmt.Errorf("invalid response code %d", resp.StatusCode)
+	return &webhookOutput, nil
 }
