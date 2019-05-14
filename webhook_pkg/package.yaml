@@ -10,6 +10,16 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 
+webhook_outputs: &webhook_outputs
+  ResponseBody:
+    description: ""
+  StatusCode:
+    description: "the status code"
+  IsSuccess:
+    description: "a boolean indicating if the call was successful"
+  Message:
+    description: "an error message"
+
 steps:
   get@1.0:
     description: Performs a GET webhook
@@ -21,13 +31,8 @@ steps:
       Header:
         required: false
         description: "A list of headers with an array of values to add to that header."
-        sample:
-          Content-Type:
-            - application/json
     outputs:
-      ResponseBody:
-        description: ""
-        sample:
+      <<: *webhook_outputs
   post@1.0:
     description: Posts a webhook
     inputs:
@@ -40,12 +45,8 @@ steps:
       Header:
         required: false
         description: "A list of headers with an array of values to add to that header."
-        sample:
-          Content-Type:
-            - application/json
       Url:
         required: true
         description: ""
     outputs:
-      ResponseBody:
-        description: ""
+      <<: *webhook_outputs
