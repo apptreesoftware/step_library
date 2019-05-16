@@ -66,3 +66,28 @@ steps:
       MatchColumn:
         required: false
         description: "The db column used to identify the record to update"
+  read_rows_and_queue@1.0:
+    description: Read rows from a google sheet and queue new workflows from each
+    inputs:
+      SpreadsheetId:
+        required: true
+        description: "The ID of the Google Spreadsheet"
+        sample: XD23223211212
+      SheetIndex:
+        required: false
+        description: "The index of the sheet you want to use. Defaults to the first sheet."
+        sample: 0
+      Credentials:
+        required: true
+        description: "Your Google Sheets credentials JSON. To create your credentials see https://developers.google.com/sheets/api/quickstart/go"
+        sample: '{}'
+      Fields:
+        required: true
+        description: "The names of the fields in the order they are defined within the spreadsheet"
+        sample: |
+          - firstName
+          - lastName
+          - email
+      Workflow:
+        required: true
+        description: The workflow that you want to queue up
