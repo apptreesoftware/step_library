@@ -12,5 +12,6 @@ func main() {
 	step.Register(FailWorkflow{})
 	step.Register(Sleep{})
 	step.Register(Template{})
+	step.Register(SpawnWorkflow{})
 	step.Run()
 }

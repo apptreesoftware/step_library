@@ -91,3 +91,12 @@ steps:
     outputs:
         Output:
           description: The final string after being run through the template system.
+  spawn_workflow@1.0:
+    inputs:
+      Workflow:
+        required: true
+        description: the workflow to spawn
+      TriggerBody:
+        required: false
+        description: the trigger body to be passed to the workflow
+    outputs: {}
