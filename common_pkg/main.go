@@ -13,5 +13,6 @@ func main() {
 	step.Register(Sleep{})
 	step.Register(Template{})
 	step.Register(SpawnWorkflow{})
+	step.Register(ArrayLength{})
 	step.Run()
 }

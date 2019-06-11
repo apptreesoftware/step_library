@@ -14,9 +14,8 @@ func TestQuery(t *testing.T) {
 	input := QueryInput{
 		QueryParameters: getQueryParams(),
 	}
-	input.StorageBucket = os.Getenv("FIREBASE_STORAGE_BUCKET")
 	input.ServiceAccountJson = os.Getenv("FIREBASE_JSON")
-	input.CollectionPath = "apps"
+	input.CollectionPath = "entries"
 
 	step := Query{}
 	res, err := step.execute(input, "runString")
@@ -37,9 +36,8 @@ func TestQueryAndQueue(t *testing.T) {
 	engine := createEngine()
 	input := QueryQueueInput{
 		QueryParameters: getQueryParams(),
-		Workflow: "fake_workflow_two",
+		Workflow:        "fake_workflow_two",
 	}
-	input.StorageBucket = os.Getenv("FIREBASE_STORAGE_BUCKET")
 	input.ServiceAccountJson = os.Getenv("FIREBASE_JSON")
 	input.CollectionPath = "apps"
 
@@ -61,10 +59,9 @@ func TestQueryAndQueue(t *testing.T) {
 func TestUpdate(t *testing.T) {
 	input := UpdateDocumentInput{
 		QueryParameters: getQueryParams(),
-		UpdateFields: map[string]interface{}{"newField": "newStringVal"},
-		MaxUpdateSize: 1,
+		UpdateFields:    map[string]interface{}{"newField": "newStringVal"},
+		MaxUpdateSize:   1,
 	}
-	input.StorageBucket = os.Getenv("FIREBASE_STORAGE_BUCKET")
 	input.ServiceAccountJson = os.Getenv("FIREBASE_JSON")
 	input.CollectionPath = "apps"
 
@@ -81,10 +78,9 @@ func TestUpdate(t *testing.T) {
 
 func TestUpsert(t *testing.T) {
 	input := UpsertInput{
-		Record: map[string]interface{}{"someField": 1, "field2": "string val", "field3": true, "addedField": "run2"},
+		Record:   map[string]interface{}{"someField": 1, "field2": "string val", "field3": true, "addedField": "run2"},
 		RecordId: "alexis2.test",
 	}
-	input.StorageBucket = os.Getenv("FIREBASE_STORAGE_BUCKET")
 	input.ServiceAccountJson = os.Getenv("FIREBASE_JSON")
 	input.CollectionPath = "apps"
 
@@ -98,9 +94,9 @@ func TestUpsert(t *testing.T) {
 
 func getQueryParams() []QueryParam {
 	query := QueryParam{
-		FieldName:  "findMe",
+		FieldName:  "synced",
 		Operator:   "==",
-		FieldValue: "hello",
+		FieldValue: true,
 	}
 	return []QueryParam{query}
 }

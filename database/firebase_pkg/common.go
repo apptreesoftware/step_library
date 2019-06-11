@@ -3,15 +3,13 @@ package main
 import (
 	"cloud.google.com/go/firestore"
 	"context"
-	"firebase.google.com/go"
+	firebase "firebase.google.com/go"
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"google.golang.org/api/option"
-	"io/ioutil"
 )
 
 type FirebaseInput struct {
-	StorageBucket      string
 	ServiceAccountJson string
 	CollectionPath     string
 }
@@ -19,39 +17,28 @@ type FirebaseInput struct {
 type QueryParam struct {
 	FieldName  string
 	Operator   string
-	FieldValue string
+	FieldValue interface{}
 }
 
 type QueryOutput struct {
 	Records []map[string]interface{}
 }
 
-func GetFirebaseAppFromConfig(serviceJson, storageBucket, runId string) (*firebase.App, error) {
-	ctx := context.Background()
-	tmpFile, err := ioutil.TempFile("", fmt.Sprintf("%sserviceAccount.json", runId))
+func GetFirebaseAppFromConfig(serviceJson, runId string) (*firebase.App, error) {
+	opt := option.WithCredentialsJSON([]byte(serviceJson))
+	app, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error initializing app: %v", err)
 	}
-	_, err = tmpFile.WriteString(serviceJson)
-	if err != nil {
-		return nil, err
-	}
-
-	opt := option.WithCredentialsFile(tmpFile.Name())
-	config := &firebase.Config{
-		StorageBucket: storageBucket,
-	}
-	return firebase.NewApp(ctx, config, opt)
+	return app, nil
 }
 
-func QueryFirebase(app *firebase.App, coll string, queryParams []QueryParam) ([]*firestore.DocumentSnapshot, error) {
+func QueryFirebase(store *firestore.Client, coll string, queryParams []QueryParam) ([]*firestore.DocumentSnapshot, error) {
 	ctx := context.Background()
-	store, err := app.Firestore(ctx)
-	if err != nil {
-		return nil, err
-	}
-
 	collection := store.Collection(coll)
+	if collection == nil {
+		return nil, fmt.Errorf("Invalid collection path: %s", coll)
+	}
 	query := collection.Query
 	for _, queryParam := range queryParams {
 		query = query.Where(queryParam.FieldName, queryParam.Operator, queryParam.FieldValue)
@@ -68,6 +55,7 @@ func ParseAndQueueRecords(docs []*firestore.DocumentSnapshot, workflow string, e
 		if err != nil {
 			return records, err
 		}
+		record["_id"] = snap.Ref.ID
 		if workflow != "" {
 			err = engine.AddToQueue(workflow, record)
 			if err != nil {
@@ -79,5 +67,3 @@ func ParseAndQueueRecords(docs []*firestore.DocumentSnapshot, workflow string, e
 
 	return records, nil
 }
-
-

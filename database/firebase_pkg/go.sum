@@ -11,8 +11,6 @@ github.com/Shopify/toxiproxy v2.1.4+incompatible/go.mod h1:OXgGpZ6Cli1/URJOF1DMx
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/apache/thrift v0.12.0/go.mod h1:cp2SuWMxlEZw2r+iP2GNCdIi4C1qmUzdZFSVb+bacwQ=
-github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b h1:xM4Bk09dUA1wEMTCoJnLvd5Z3KBlBs47Xqh+2oJHn3M=
-github.com/apptreesoftware/go-workflow v0.0.0-20190417191803-3da7584c654b/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f h1:WgMMVTGM4h47uFFLBE5iIg9Wx2aKHYkOnk+jbN6aG00=
 github.com/apptreesoftware/go-workflow v0.0.0-20190422155832-a31ef04a817f/go.mod h1:YvMhZ1zgHINU4oHpRLD2/FJ5YbvxUxCdzdYBcZjzUYg=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
@@ -151,6 +149,8 @@ golang.org/x/tools v0.0.0-20181219222714-6e267b5cc78e/go.mod h1:n7NCudcB/nEzxVGm
 golang.org/x/tools v0.0.0-20190114222345-bf090417da8b/go.mod h1:n7NCudcB/nEzxVGmLbDWY5pfWTLqBcC2KZ6jyYvM4mQ=
 golang.org/x/tools v0.0.0-20190226205152-f727befe758c/go.mod h1:9Yl7xja0Znq3iFh3HoIrodX9oNMXvdceNzlUR8zjMvY=
 golang.org/x/tools v0.0.0-20190312170243-e65039ee4138/go.mod h1:LCzVGOaR6xXOjkQ3onu1FJEFr0SW1gC7cKk1uF8kGRs=
+golang.org/x/xerrors v0.0.0-20190513163551-3ee3066db522 h1:bhOzK9QyoD0ogCnFro1m2mz41+Ib0oOhfJnBp5MR4K4=
+golang.org/x/xerrors v0.0.0-20190513163551-3ee3066db522/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 google.golang.org/api v0.0.0-20181220000619-583d854617af/go.mod h1:4mhQ8q/RsB7i+udVvVy5NUi08OU8ZlA0gRVgrF7VFY0=
 google.golang.org/api v0.2.0/go.mod h1:IfRCZScioGtypHNTlz3gFk67J8uePVW7uDTBzXuIkhU=
 google.golang.org/api v0.3.0 h1:UIJY20OEo3+tK5MBlcdx37kmdH6EnRjGkW78mc6+EeA=

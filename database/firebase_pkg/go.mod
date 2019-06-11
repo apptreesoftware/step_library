@@ -11,6 +11,7 @@ require (
 	github.com/googleapis/gax-go v2.0.2+incompatible // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	go.opencensus.io v0.20.0 // indirect
+	golang.org/x/xerrors v0.0.0-20190513163551-3ee3066db522
 	google.golang.org/api v0.3.0
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )

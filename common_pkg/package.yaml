@@ -100,3 +100,11 @@ steps:
         required: false
         description: the trigger body to be passed to the workflow
     outputs: {}
+  array_length@1.0:
+    inputs:
+      Array:
+        required: true
+        description: The array you want to count the length of
+    outputs:
+      Count:
+        description: "The number of items in the array"

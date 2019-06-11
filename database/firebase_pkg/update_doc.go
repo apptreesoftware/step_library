@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
+	"golang.org/x/xerrors"
 )
 
 type UpdateDocumentInput struct {
@@ -40,12 +41,17 @@ func (u UpdateDocument) Execute(in step.Context) (interface{}, error) {
 }
 
 func (UpdateDocument) execute(input UpdateDocumentInput, runId string) (*UpdateDocumentOutput, error) {
-	app, err := GetFirebaseAppFromConfig(input.ServiceAccountJson, input.StorageBucket, runId)
+	app, err := GetFirebaseAppFromConfig(input.ServiceAccountJson, runId)
 	if err != nil {
 		return &UpdateDocumentOutput{}, err
 	}
+	store, err := app.Firestore(context.Background())
+	if err != nil {
+		return nil, xerrors.Errorf("Unable to connect to firestore: %w", err)
+	}
+	defer store.Close()
 
-	snaps, err := QueryFirebase(app, input.CollectionPath, input.QueryParameters)
+	snaps, err := QueryFirebase(store, input.CollectionPath, input.QueryParameters)
 	if err != nil {
 		return &UpdateDocumentOutput{}, err
 	}

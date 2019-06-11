@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
+	"golang.org/x/xerrors"
 )
 
 type UpsertInput struct {
@@ -33,16 +34,17 @@ func (u Upsert) Execute(in step.Context) (interface{}, error) {
 }
 
 func (Upsert) execute(input UpsertInput, runId string) (interface{}, error) {
-	app, err := GetFirebaseAppFromConfig(input.ServiceAccountJson, input.StorageBucket, runId)
+	app, err := GetFirebaseAppFromConfig(input.ServiceAccountJson, runId)
 	if err != nil {
 		return &UpdateDocumentOutput{}, err
 	}
 
 	ctx := context.Background()
-	store, err := app.Firestore(ctx)
+	store, err := app.Firestore(context.Background())
 	if err != nil {
-		return nil, err
+		return nil, xerrors.Errorf("Unable to connect to firestore: %w", err)
 	}
+	defer store.Close()
 
 	collection := store.Collection(input.CollectionPath)
 	doc := collection.Doc(input.RecordId)

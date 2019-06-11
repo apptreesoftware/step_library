@@ -1,4 +1,4 @@
-HOST=https://io.apptreesoftware.com
+HOST=https://platform.apptreeio.com
 
 test: |
 	echo ${HOST}

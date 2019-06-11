@@ -11,21 +11,9 @@ executables:
     amd64: main_windows_amd64.exe
 
 firebase_inputs: &firebase_inputs
-  StorageBucket:
+  ServiceAccountJson:
     required: true
-    description: "the storage bucket for firebase"
-  AuthOverrides:
-    required: false
-    description: "optional auth overrides to use"
-  DatabaseUrl:
-    required: true
-    description: "the url for your firebase db"
-  ProjectId:
-    required: true
-    description: "firebase project identifier"
-  ServiceAccountId:
-    required: true
-    description: "service account ID for firebase"
+    description: The service account json to access your firebase instance.
   CollectionPath:
     required: true
     description: "the path to the collection to query from the root"
