@@ -98,7 +98,7 @@ steps:
         description: the workflow to spawn
       TriggerBody:
         required: false
-        description: the trigger body to be passed to the workflow
+        description: Either a String or Object to trigger the workflow with. If an object is passed, it will automatically be converted to a json string
     outputs: {}
   array_length@1.0:
     inputs:

@@ -4,11 +4,10 @@ import "github.com/apptreesoftware/go-workflow/pkg/step"
 
 type SpawnWorkflowInput struct {
 	Workflow    string
-	TriggerBody string
+	TriggerBody interface{}
 }
 
 type SpawnWorkflow struct {
-
 }
 
 func (SpawnWorkflow) Name() string {
@@ -30,4 +29,3 @@ func (SpawnWorkflow) Execute(in step.Context) (interface{}, error) {
 	err = engine.AddToQueue(input.Workflow, input.TriggerBody)
 	return nil, err
 }
-
