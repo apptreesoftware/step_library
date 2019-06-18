@@ -8,5 +8,6 @@ func main() {
 	step.Register(FetchAndQueue{})
 	step.Register(CreateRecord{})
 	step.Register(UpdateRecord{})
+	step.Register(GetCount{})
 	step.Run()
 }

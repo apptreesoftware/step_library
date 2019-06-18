@@ -165,6 +165,9 @@ func (fetch Fetch) buildUrl(input FetchInput) (*url.URL, error) {
 	if input.Top > 0 {
 		q.Add("$top", fmt.Sprintf("%d", input.Top))
 	}
+	if input.Count {
+		q.Add("$count", "true")
+	}
 	uri.RawQuery = q.Encode()
 	uri = odataUrl(*uri)
 	return uri, nil

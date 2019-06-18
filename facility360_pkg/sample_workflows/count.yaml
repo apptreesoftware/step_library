@@ -1,0 +1,16 @@
+package_overrides:
+  facility360:
+    host: localhost:4000
+
+workflows:
+  count:
+    steps:
+      - facility360:get_count@1.0:
+          debug: true
+          inputs:
+            Url: https://unf.famis.com
+            Username:
+            Password:
+            Endpoint: /MobileWebServices/apis/360facility/v1/spaces
+          outputs:
+            Count: spaceCount

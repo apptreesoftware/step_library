@@ -122,3 +122,26 @@ steps:
         description: the id of the record you wish to update
     outputs:
       <<: *upsert_outputs
+  get_count@1.0:
+    inputs:
+      Username:
+        required: true
+        description: 360facility/FAMIS username
+      Password:
+        required: true
+        description: 360facility/FAMIS password
+      Url:
+        required: true
+        description: 360facility/FAMIS environment url
+        sample: https://mycompany.famis.com
+      Endpoint:
+        required: true
+        description: The endpoint to count the records of
+        sample: 'MobileWebServices/apis/360facility/v1/spaces'
+      Filter:
+        required: false
+        description: The ODATA formatted filter to use when querying the records
+        sample: Id eq 1
+    outputs:
+      Count:
+        description: The count of records at this endpoint

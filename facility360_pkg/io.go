@@ -42,6 +42,7 @@ type FetchInput struct {
 	Expand   string
 	Skip     int
 	Top      int
+	Count    bool
 }
 
 type FetchSingleOutput struct {
