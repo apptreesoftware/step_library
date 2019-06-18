@@ -1,0 +1,25 @@
+name: date
+version: 1.0
+lang: go
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  from_epoch@1.0:
+    inputs:
+      Seconds:
+        required: false
+        description: The time since Jan 1 1970 in seconds
+      Millis:
+        required: false
+        description: The time since Jan 1 1970 in milliseconds
+      Nanos:
+        required: false
+        description: The time since Jan 1 1970 in nanoseconds
+    outputs:
+      Date:
+        description: The parsed date

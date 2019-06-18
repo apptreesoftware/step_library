@@ -58,6 +58,10 @@ build-facility360:
 	cd facility360_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-facility360: build-facility360 |
 	apptree publish package -d facility360_pkg --host ${HOST}
+build-date:
+	cd date_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-date: build-date |
+	apptree publish package -d date_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow
@@ -72,7 +76,8 @@ updatesdk: |
 	cd facility360_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd script_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/firebase_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
-publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase
+	cd date_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date
 
 publish-dotnet: publish-famis
 
