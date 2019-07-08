@@ -1,4 +1,4 @@
-module twitter_pkg
+module twilio_pkg
 
 go 1.12
 
