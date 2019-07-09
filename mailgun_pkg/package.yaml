@@ -11,9 +11,9 @@ steps:
       Domain:
         required: true
         description: The sender domain
-      SenderUsername:
+      Sender:
         required: true
-        description: The sender username which the message will be from
+        description: The sender which the message will be from
       ApiKey:
         required: true
         description: Mailgun API Key
@@ -34,3 +34,5 @@ steps:
         description: Boolean that tells you if your email was successfully queued.
       EmailId:
         description: Id assigned to email
+      ErrorMessage:
+        description: Any error messages encountered

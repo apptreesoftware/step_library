@@ -10,7 +10,7 @@ import (
 
 type SendEmailInput struct {
 	Domain           string
-	SenderUsername   string
+	Sender           string
 	ApiKey           string
 	Subject          string
 	HtmlMessage      string
@@ -55,7 +55,7 @@ func (s SendEmail) execute(input SendEmailInput) (interface{}, error) {
 	}
 
 	mg := mailgun.NewMailgun(input.Domain, input.ApiKey)
-	message := mg.NewMessage(input.SenderUsername, input.Subject, input.PlainTextMessage, input.To)
+	message := mg.NewMessage(input.Sender, input.Subject, input.PlainTextMessage, input.To)
 	if input.HtmlMessage != "" {
 		message.SetHtml(input.HtmlMessage)
 	}

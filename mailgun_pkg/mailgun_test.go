@@ -16,13 +16,13 @@ func TestSendEmail_Execute(t *testing.T) {
 	to := os.Getenv("MAILGUN_TO_TEST")
 
 	input := SendEmailInput{
-		Domain: domain,
-		SenderUsername: username,
-		ApiKey: apiKey,
-		Subject: subject,
+		Domain:           domain,
+		Sender:           username,
+		ApiKey:           apiKey,
+		Subject:          subject,
 		PlainTextMessage: ptMessage,
-		HtmlMessage: htmlMessage,
-		To: to,
+		HtmlMessage:      htmlMessage,
+		To:               to,
 	}
 
 	sendEmail := SendEmail{}
