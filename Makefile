@@ -62,6 +62,10 @@ build-date:
 	cd date_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-date: build-date |
 	apptree publish package -d date_pkg --host ${HOST}
+build-mailgun: |
+			cd mailgun_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-mailgun: build-mailgun |
+	apptree publish package -d mailgun_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow
@@ -77,7 +81,8 @@ updatesdk: |
 	cd script_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/firebase_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd date_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
-publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date
+	cd mailgun_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun
 
 publish-dotnet: publish-famis
 
