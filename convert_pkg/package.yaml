@@ -9,14 +9,20 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 steps:
-  parse_xml_to_object@1.0:
+  shorten_url@1.0:
     inputs:
-      XML:
+      FirebaseApiKey:
         required: true
-        description: XML you'd like to parse in a string
+        description: Firebase api key used for authentication
+      FirebaseUrlPrefix:
+        required: true
+        description: The url prefix from firebase
+      UrlToShorten:
+        required: true
+        description: The url with query params that you would like to shorten
     outputs:
-      Record:
-        description: parsed XML as json object
+      ShortUrl:
+        description: The shortened url from Firebase
   parse_json_array@1.0:
     inputs:
       String:
