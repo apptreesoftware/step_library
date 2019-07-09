@@ -63,9 +63,9 @@ build-date:
 publish-date: build-date |
 	apptree publish package -d date_pkg --host ${HOST}
 build-mailgun: |
-			cd database/mailgun_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+			cd mailgun_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-mailgun: build-mailgun |
-	apptree publish package -d database/mailgun_pkg --host ${HOST}
+	apptree publish package -d mailgun_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow
