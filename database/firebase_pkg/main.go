@@ -7,5 +7,6 @@ func main() {
 	step.Register(QueryAndQueue{})
 	step.Register(UpdateDocument{})
 	step.Register(Upsert{})
+	step.Register(ShortenUrl{})
 	step.Run()
 }

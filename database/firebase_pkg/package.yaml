@@ -72,3 +72,18 @@ steps:
       RecordId:
         required: true
         description: "the id for this object"
+  shorten_url@1.0:
+    description: "shorten a long URL with query parameters to a shorter one using firebase dynamic links"
+    inputs:
+      FirebaseApiKey:
+        required: true
+        description: "the firebase api project api key"
+      FirebaseUrlPrefix:
+        required: true
+        description: "the dynamic link url prefix from firebase"
+      Url:
+        required: true
+        description: "the url to shorten"
+    outputs:
+      ShortUrl:
+        description: "the generated short url"
