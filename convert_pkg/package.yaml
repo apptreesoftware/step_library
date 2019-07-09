@@ -9,20 +9,6 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 steps:
-  shorten_url@1.0:
-    inputs:
-      FirebaseApiKey:
-        required: true
-        description: Firebase api key used for authentication
-      FirebaseUrlPrefix:
-        required: true
-        description: The url prefix from firebase
-      UrlToShorten:
-        required: true
-        description: The url with query params that you would like to shorten
-    outputs:
-      ShortUrl:
-        description: The shortened url from Firebase
   parse_json_array@1.0:
     inputs:
       String:
