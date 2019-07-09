@@ -4,6 +4,14 @@ version: 1.0
 runtime: go
 exec: main
 
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
 steps:
   send_email@1.0:
     description: Send a formatted email to an email address
