@@ -13,7 +13,7 @@ import (
 type ShortenUrlInput struct {
 	FirebaseApiKey    string
 	FirebaseUrlPrefix string
-	UrlToShorten      string
+	Url               string
 }
 
 type ShortenUrlOutput struct {
@@ -57,7 +57,7 @@ func (s ShortenUrl) Execute(in step.Context) (interface{}, error) {
 }
 
 func (s ShortenUrl) execute(input ShortenUrlInput) (interface{}, error) {
-	escapedUrl := url.QueryEscape(input.UrlToShorten)
+	escapedUrl := url.QueryEscape(input.Url)
 	requestBody := UrlShortenRequest{
 		LongDynamicLink: fmt.Sprintf("%s/?link=%s", input.FirebaseUrlPrefix, escapedUrl),
 	}

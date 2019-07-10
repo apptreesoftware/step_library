@@ -18,7 +18,7 @@ func TestShortenUrl_Execute(t *testing.T) {
 	input := ShortenUrlInput{
 		FirebaseApiKey:    firebaseApi,
 		FirebaseUrlPrefix: urlPrefix,
-		UrlToShorten:      origUrl,
+		Url:               origUrl,
 	}
 
 	shorten := ShortenUrl{}
