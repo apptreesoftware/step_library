@@ -5,6 +5,7 @@ import (
 )
 
 func main() {
+	step.Register(CreateMessageGroup{})
 	step.Register(CreateMessage{})
 	step.Register(ParseFulfillment{})
 

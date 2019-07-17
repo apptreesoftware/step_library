@@ -6,19 +6,14 @@ import (
 )
 
 type CreateMessageInput struct {
-	Message     models.MessageInput    `json:"message"`
-	UserContext map[string]interface{} `json:"userContext"`
-	Context     map[string]interface{} `json:"context"`
+	Message            models.MessageBase     `json:"message"`
+	UserContext        map[string]interface{} `json:"userContext"`
+	Context            map[string]interface{} `json:"context"`
+	OnCompleteWorkflow string                 `json:"onCompleteWorkflow"`
 }
 
 type CreateMessageOutput struct {
-	Response Response
-}
-
-type Response struct {
-	Message     models.MessageData     `json:"message"`
-	UserContext map[string]interface{} `json:"userContext"`
-	Context     map[string]interface{} `json:"context"`
+	Response models.FulfillmentResponse
 }
 
 type CreateMessage struct {
@@ -49,21 +44,12 @@ func (CreateMessage) execute(input CreateMessageInput, engine step.Engine) (*Cre
 	}
 
 	workflowUrl := ""
-	if input.Message.OnCompleteWorkflow != "" {
-		workflowUrl, err = engine.GetWorkflowUrl(input.Message.OnCompleteWorkflow, nil)
+	if input.OnCompleteWorkflow != "" {
+		workflowUrl, err = engine.GetWorkflowUrl(input.OnCompleteWorkflow, nil)
 		if err != nil {
 			return &CreateMessageOutput{}, err
 		}
 	}
-
-	response := Response{
-		Message: models.MessageData{
-			MessageBase: input.Message.MessageBase,
-			OnCompleteUrl: workflowUrl,
-		},
-		UserContext: input.UserContext,
-		Context: input.Context,
-	}
-
+	response := models.NewMessageResponse(input.Message, workflowUrl, input.UserContext, input.Context)
 	return &CreateMessageOutput{Response: response}, nil
 }

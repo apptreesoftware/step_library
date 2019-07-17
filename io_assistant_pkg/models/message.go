@@ -11,11 +11,6 @@ type MessageBase struct {
 	Label   string           `json:"label"`
 }
 
-type MessageInput struct {
-	MessageBase
-	OnCompleteWorkflow string `json:"onCompleteWorkflow"`
-}
-
 type MessageData struct {
 	MessageBase
 	OnCompleteUrl string `json:"onCompleteUrl"`
