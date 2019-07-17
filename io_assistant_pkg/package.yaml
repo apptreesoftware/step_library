@@ -1,0 +1,30 @@
+name: io_assistant
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+#Logs a single record.
+  create_message@1.0:
+    inputs:
+      Message:
+        required: true
+        description: The message object to pass back
+      UserContext:
+        required: false
+        description: a map of value to add to the user context which will persist across interactions
+      Context:
+        required: false
+        description: a map of values to add to the context
+    outputs:
+      Response:
+        description: the message that has been formatted and validated for the io assistant
+
+
