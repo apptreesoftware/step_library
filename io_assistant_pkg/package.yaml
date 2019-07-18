@@ -62,4 +62,18 @@ steps:
     outputs:
       fulfillmentRequest:
         description: the body parse to a fulfillment request which has state, userContext, and context maps
+  build_select_options@1.0:
+    inputs:
+      Records:
+        required: true
+        description: the list of records that you would like to build assistant select options from
+      IdField:
+        required: true
+        description: the name of the field that should be used as the select option ID
+      TextField:
+        required: true
+        description: the name of the field that should be displayed for the select option
+    outputs:
+      Options:
+        description: the list of records formatted as select options for an assistant message
 
