@@ -10,7 +10,7 @@ type ParseFulfillmentInput struct {
 }
 
 type ParseFulfillmentOutput struct {
-	FulfillmentRequest FulfillmentRequest `json:"fulfillmentRequest"`
+	Request FulfillmentRequest `json:"request"`
 }
 
 type FulfillmentRequest struct {
@@ -48,5 +48,5 @@ func (ParseFulfillment) execute(input ParseFulfillmentInput) (interface{}, error
 		return nil, err
 	}
 
-	return ParseFulfillmentOutput{FulfillmentRequest: fulfillmentRequest}, nil
+	return ParseFulfillmentOutput{Request: fulfillmentRequest}, nil
 }

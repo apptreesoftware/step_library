@@ -7,17 +7,16 @@ import (
 )
 
 type BuildOptionsInput struct {
-	Records   []map[string]interface{}
-	IdField   string
-	TextField string
+	Records   []map[string]interface{} `json:"records"`
+	IdField   string                   `json:"idField"`
+	TextField string                   `json:"textField"`
 }
 
 type BuildOptionsOutput struct {
-	Options []models.MessageOption
+	Options []models.MessageOption `json:"options"`
 }
 
 type BuildOptions struct {
-
 }
 
 func (BuildOptions) Name() string {
@@ -63,4 +62,3 @@ func (BuildOptions) execute(input BuildOptionsInput) (*BuildOptionsOutput, error
 	}
 	return &BuildOptionsOutput{Options: options}, nil
 }
-

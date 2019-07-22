@@ -3,12 +3,14 @@ package models
 import "errors"
 
 type MessageBase struct {
-	Id      string           `json:"id"`
-	Type    MessageType      `json:"type"`
-	Icon    string           `json:"icon"`
-	Text    string           `json:"text"`
-	Options []*MessageOption `json:"options"`
-	Label   string           `json:"label"`
+	Id        string           `json:"id,omitempty"`
+	Type      MessageType      `json:"type,omitempty"`
+	Icon      string           `json:"icon,omitempty"`
+	Text      string           `json:"text,omitempty"`
+	Options   []*MessageOption `json:"options,omitempty"`
+	Label     string           `json:"label,omitempty"`
+	YesAnswer string           `json:"yesAnswer,omitempty"`
+	NoAnswer  string           `json:"noAnswer,omitempty"`
 }
 
 type MessageData struct {
@@ -37,6 +39,11 @@ func (m MessageBase) ValidateMessageInput() error {
 			if option.Text == "" {
 				return errors.New("options must have text for display")
 			}
+		}
+	}
+	if m.Type == PromptBool {
+		if m.YesAnswer == "" || m.NoAnswer == "" {
+			return errors.New("yes/no response values are required for prompt bool types")
 		}
 	}
 	return nil
