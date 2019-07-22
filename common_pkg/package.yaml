@@ -9,19 +9,6 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 steps:
-  find_in_array@1.0:
-    inputs:
-      Records:
-        required: true
-        description: The list of records you would like to search through
-      MatchField:
-        required: true
-        description: The field that you would like to match on
-      MatchValue:
-        description: The value you would like to match on
-    outputs:
-      Record:
-        description: The first record encountered whose field matched
   filter@1.0:
     inputs:
       Records:

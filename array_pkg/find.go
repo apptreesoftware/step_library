@@ -5,29 +5,29 @@ import (
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 )
 
-type FindInArrayInput struct {
+type FindInput struct {
 	Records    []map[string]interface{}
 	MatchField string
 	MatchValue interface{}
 }
 
-type FindInArrayOutput struct {
+type FindOutput struct {
 	Record map[string]interface{}
 }
 
-type FindInArray struct {
+type Find struct {
 }
 
-func (FindInArray) Name() string {
-	return "find_in_array"
+func (Find) Name() string {
+	return "find"
 }
 
-func (FindInArray) Version() string {
+func (Find) Version() string {
 	return "1.0"
 }
 
-func (f FindInArray) Execute(in step.Context) (interface{}, error) {
-	input := FindInArrayInput{}
+func (f Find) Execute(in step.Context) (interface{}, error) {
+	input := FindInput{}
 	err := in.BindInputs(&input)
 	if err != nil {
 		return nil, err
@@ -36,10 +36,10 @@ func (f FindInArray) Execute(in step.Context) (interface{}, error) {
 	return f.execute(input)
 }
 
-func (FindInArray) execute(input FindInArrayInput) (*FindInArrayOutput, error) {
+func (Find) execute(input FindInput) (*FindOutput, error) {
 	for _, record := range input.Records {
 		if record[input.MatchField] == input.MatchValue {
-			return &FindInArrayOutput{Record: record}, nil
+			return &FindOutput{Record: record}, nil
 		}
 	}
 	return nil, errors.New("record not found")
