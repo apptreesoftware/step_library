@@ -14,6 +14,5 @@ func main() {
 	step.Register(Template{})
 	step.Register(SpawnWorkflow{})
 	step.Register(ArrayLength{})
-	step.Register(FindInArray{})
 	step.Run()
 }
