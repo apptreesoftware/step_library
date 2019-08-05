@@ -133,17 +133,3 @@ func parseRow(sheet *sheets.Sheet, rowIndex int) []string {
 	}
 	return rowData[0:lastDataIndex]
 }
-
-type ReadSheetInput struct {
-	SpreadsheetId       string
-	SheetIndex          uint
-	SheetName           string
-	Credentials         string
-	Fields              []string
-	UseFirstRowAsFields bool
-}
-
-type ReadSheetOutput struct {
-	SheetName string
-	Rows      []map[string]string
-}

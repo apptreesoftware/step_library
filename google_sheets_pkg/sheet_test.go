@@ -10,9 +10,12 @@ func TestReadSheetUseRowAsFields(t *testing.T) {
 	authToken := os.Getenv("SHEET_AUTH_TOKEN")
 
 	input := ReadSheetInput{
-		SpreadsheetId:       sheetId,
-		SheetIndex:          0,
-		Credentials:         authToken,
+		InputBase: InputBase{
+			SpreadsheetId: sheetId,
+			SheetIndex:    0,
+			Credentials:   authToken,
+		},
+		Fields:              nil,
 		UseFirstRowAsFields: true,
 	}
 
@@ -39,10 +42,13 @@ func TestGetSheetByName(t *testing.T) {
 	authToken := os.Getenv("SHEET_AUTH_TOKEN")
 
 	input := ReadSheetInput{
-		SpreadsheetId: sheetId,
-		SheetName:     "Contacts",
-		Credentials:   authToken,
-		Fields:        []string{"Value"},
+		InputBase: InputBase{
+			SpreadsheetId: sheetId,
+			SheetName:     "Contacts",
+			Credentials:   authToken,
+		},
+		Fields:              []string{"Value"},
+		UseFirstRowAsFields: false,
 	}
 
 	step := ReadSheet{}
@@ -68,13 +74,16 @@ func TestReadSheetFieldsInput(t *testing.T) {
 	authToken := os.Getenv("SHEET_AUTH_TOKEN")
 
 	input := ReadSheetInput{
-		SpreadsheetId: sheetId,
-		SheetIndex:    0,
-		Credentials:   authToken,
+		InputBase: InputBase{
+			SpreadsheetId: sheetId,
+			SheetIndex:    0,
+			Credentials:   authToken,
+		},
 		Fields: []string{
 			"ConfigParam",
 			"ConfigParamValue",
 		},
+		UseFirstRowAsFields: false,
 	}
 
 	step := ReadSheet{}
