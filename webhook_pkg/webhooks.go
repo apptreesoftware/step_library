@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/apptreesoftware/go-workflow/pkg/core"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
+	"github.com/moul/http2curl"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -54,6 +56,8 @@ func (PostWebhook) Execute(ctx step.Context) (interface{}, error) {
 		return nil, err
 	}
 	request.Header = input.Header
+
+	printCurl(request, ctx.Environment())
 	resp, err := http.DefaultClient.Do(request)
 	return handleResponse(resp, err)
 }
@@ -84,6 +88,8 @@ func (GetWebhook) Execute(ctx step.Context) (interface{}, error) {
 		return nil, err
 	}
 	request.Header = input.Header
+
+	printCurl(request, ctx.Environment())
 	resp, err := http.DefaultClient.Do(request)
 	return handleResponse(resp, err)
 }
@@ -111,4 +117,11 @@ func handleResponse(resp *http.Response, err error) (interface{}, error) {
 		}
 	}
 	return &webhookOutput, nil
+}
+
+func printCurl(request *http.Request, env *core.Environment) {
+	if env.Debug {
+		command, _ := http2curl.GetCurlCommand(request)
+		println(command.String())
+	}
 }
