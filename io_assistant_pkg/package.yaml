@@ -29,6 +29,9 @@ steps:
         required: false
         description: a map of values to add to the context
         sample: '{"onThreadCompleteUrl": "https://example.com"}'
+      complete:
+        required: false
+        description: a bool indicating that this message should mark the conversation as complete
     outputs:
       response:
         description: the fulfillment response that has been formatted and validated for the io assistant
