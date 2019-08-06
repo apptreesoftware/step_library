@@ -27,7 +27,7 @@ func (m CreateMessageGroupInput) ValidateGroup() error {
 }
 
 type CreateMessageGroupOutput struct {
-	Response models.FulfillmentResponse
+	Response models.FulfillmentResponse `json:"response"`
 }
 
 type CreateMessageGroup struct {

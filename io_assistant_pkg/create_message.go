@@ -13,7 +13,7 @@ type CreateMessageInput struct {
 }
 
 type CreateMessageOutput struct {
-	Response models.FulfillmentResponse
+	Response models.FulfillmentResponse `json:"response"`
 }
 
 type CreateMessage struct {

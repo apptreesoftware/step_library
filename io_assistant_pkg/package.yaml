@@ -13,45 +13,45 @@ executables:
 steps:
   create_message@1.0:
     inputs:
-      Message:
+      message:
         required: true
         description: The message object to pass back
         sample: '{"type": "promptText, "text": "What does the control panel say?", "id": "controlPanelOutput"}'
-      OnCompleteWorkflow:
+      onCompleteWorkflow:
         required: false
         description: the workflow that should be called once this group of questions has been answered
         sample: following_workflow
-      UserContext:
+      userContext:
         required: false
         description: a map of value to add to the user context which will persist across interactions
         sample: '{"store": "userStore3"}'
-      Context:
+      context:
         required: false
         description: a map of values to add to the context
         sample: '{"onThreadCompleteUrl": "https://example.com"}'
     outputs:
-      Response:
+      response:
         description: the fulfillment response that has been formatted and validated for the io assistant
   create_message_group@1.0:
     inputs:
-      Messages:
+      messages:
         required: true
         description: The group to pass back
         sample: '[{"id": "sampleMessage", "type": "promptBool", "text": "Do you love the AppTree assistant?"}]'
-      OnCompleteWorkflow:
+      onCompleteWorkflow:
         required: false
         description: the workflow that should be called once this group of questions has been answered
         sample: following_workflow
-      UserContext:
+      userContext:
         required: false
         description: a map of value to add to the user context which will persist across interactions
         sample: '{"store": "userStore3"}'
-      Context:
+      context:
         required: false
         description: a map of values to add to the context
         sample: '{"onThreadCompleteUrl": "https://example.com"}'
     outputs:
-      Response:
+      response:
         description: the fulfillment response that has been formatted and validated for the io assistant
   parse_fulfillment@1.0:
     inputs:
@@ -60,20 +60,20 @@ steps:
         description: the request body from the io assistant as a string
         sample: '{"state": {"controlPanelOutput": "error_code_01"}, "userContext": {"store": "userStore3"}, "context": {"onThreadCompleteUrl": "https://example.com"}}'
     outputs:
-      fulfillmentRequest:
+      request:
         description: the body parse to a fulfillment request which has state, userContext, and context maps
   build_select_options@1.0:
     inputs:
-      Records:
+      records:
         required: true
         description: the list of records that you would like to build assistant select options from
-      IdField:
+      idField:
         required: true
         description: the name of the field that should be used as the select option ID
-      TextField:
+      textField:
         required: true
         description: the name of the field that should be displayed for the select option
     outputs:
-      Options:
+      options:
         description: the list of records formatted as select options for an assistant message
 
