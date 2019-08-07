@@ -14,6 +14,7 @@ type CreateSRInput struct {
 	Description      string
 	Requester        string
 	ConnectionString string
+	AttachmentUrl    string
 }
 
 func (input CreateSRInput) Validate() []string {
@@ -62,8 +63,8 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', '3', '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT') as POTHOLE_REQUEST from dual",
-		input.SiteId, input.Description, input.Requester)
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', '3', '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
+		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
@@ -72,7 +73,7 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 
 	rows, err := db.Query(sqlString)
 	if err != nil {
-		return nil, err
+		return nil, xerrors.Errorf("Unable to run statement: %w", err)
 	}
 
 	defer rows.Close()

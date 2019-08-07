@@ -24,3 +24,7 @@ steps:
         required: true
         sample: There is a pothole that is approx. 2 inches wide
         description: A description of the problem
+      AttachmentUrl:
+        required: true
+        sample: https://google.com/image.png
+        description: The url for an attachment
