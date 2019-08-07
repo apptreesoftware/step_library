@@ -63,7 +63,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', '3', '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
 		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
 	db, err := sql.Open("goracle", input.ConnectionString)
