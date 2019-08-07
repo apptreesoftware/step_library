@@ -79,9 +79,9 @@ build-array: |
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-famis: |
-			cd famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
+			cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
 publish-famis: build-famis |
-	apptree publish package -d famis_pkg --host ${HOST}
+	apptree publish package -d database/famis_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow

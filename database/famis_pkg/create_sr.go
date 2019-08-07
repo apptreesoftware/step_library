@@ -2,8 +2,10 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
+	"github.com/apptreesoftware/step_library/database/db_common"
 	"golang.org/x/xerrors"
 	_ "gopkg.in/goracle.v2"
 	"strings"
@@ -63,7 +65,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTED', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
 		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
 	db, err := sql.Open("goracle", input.ConnectionString)
@@ -71,21 +73,22 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
 	}
 
-	rows, err := db.Query(sqlString)
+	command := db_common.DatabaseCommand{
+		ConnectionString: input.ConnectionString,
+		Sql: sqlString,
+	}
+	queryResult, err := db_common.PerformQuery(db, command)
 	if err != nil {
-		return nil, xerrors.Errorf("Unable to run statement: %w", err)
+		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
 	}
 
-	defer rows.Close()
-	var srId string
-	for rows.Next() {
-		err = rows.Scan(&srId)
-		if err != nil {
-			return &CreateSROutput{}, xerrors.Errorf("Unable to read results: %w", err)
+	if rowOutput, ok := queryResult.(db_common.RowOutput); ok {
+		srInterface := rowOutput.Results[0]["POTHOLE_REQUEST"]
+		if srId, ok := srInterface.(string); ok {
+			return &CreateSROutput{ServiceRequestId: srId}, nil
 		}
+
 	}
-	if err := rows.Err(); err != nil {
-		return &CreateSROutput{}, xerrors.Errorf("Unable to read results: %w", err)
-	}
-	return &CreateSROutput{ServiceRequestId: srId}, nil
+
+	return nil, errors.New("Unable to read response")
 }
