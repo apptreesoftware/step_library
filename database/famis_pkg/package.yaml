@@ -28,3 +28,6 @@ steps:
         required: true
         sample: https://google.com/image.png
         description: The url for an attachment
+    outputs:
+      ServiceResponse:
+        description: A json service response

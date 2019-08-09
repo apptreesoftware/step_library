@@ -37,7 +37,7 @@ func (input CreateSRInput) Validate() []string {
 }
 
 type CreateSROutput struct {
-	ServiceRequestId string
+	ServiceResponse map[string]interface{}
 }
 
 type CreateRequest struct {
@@ -83,10 +83,7 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	}
 
 	if rowOutput, ok := queryResult.(db_common.RowOutput); ok {
-		srInterface := rowOutput.Results[0]["POTHOLE_REQUEST"]
-		if srId, ok := srInterface.(string); ok {
-			return &CreateSROutput{ServiceRequestId: srId}, nil
-		}
+		return &CreateSROutput{ServiceResponse: rowOutput.Results[0]}, nil
 
 	}
 
