@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"github.com/apptreesoftware/step_library/database/db_common"
