@@ -37,7 +37,7 @@ func (input CreateSRInput) Validate() []string {
 }
 
 type CreateSROutput struct {
-	ServiceResponse map[string]interface{}
+	ServiceResponse interface{}
 }
 
 type CreateRequest struct {
@@ -82,10 +82,5 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
 	}
 
-	if rowOutput, ok := queryResult.(db_common.RowOutput); ok {
-		return &CreateSROutput{ServiceResponse: rowOutput.Results[0]}, nil
-
-	}
-
-	return nil, errors.New("Unable to read response")
+	return &CreateSROutput{ServiceResponse: queryResult}, nil
 }
