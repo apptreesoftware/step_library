@@ -36,7 +36,7 @@ func (input CreateSRInput) Validate() []string {
 }
 
 type CreateSROutput struct {
-	ServiceResponse interface{}
+	ServiceResponse map[string]interface{}
 }
 
 type CreateRequest struct {
@@ -64,7 +64,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTED', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
 		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
 	db, err := sql.Open("goracle", input.ConnectionString)
@@ -74,12 +74,19 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 
 	command := db_common.DatabaseCommand{
 		ConnectionString: input.ConnectionString,
-		Sql: sqlString,
+		Sql:              sqlString,
 	}
 	queryResult, err := db_common.PerformQuery(db, command)
 	if err != nil {
 		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
 	}
+	output, ok := queryResult.(*db_common.RowOutput)
+	if !ok {
+		return &CreateSROutput{}, xerrors.Errorf("Response was not correctly parsed")
+	}
+	if len(output.Results) == 0 {
+		return &CreateSROutput{}, xerrors.Errorf("Response contained no data")
+	}
 
-	return &CreateSROutput{ServiceResponse: queryResult}, nil
+	return &CreateSROutput{ServiceResponse: output.Results[0]}, nil
 }
