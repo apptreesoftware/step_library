@@ -94,5 +94,6 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	}
 
 	println("returning response")
+	println(fmt.Sprintf("%v", output.Results[0]))
 	return &CreateSROutput{ServiceResponse: output.Results[0]}, nil
 }
