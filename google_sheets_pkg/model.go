@@ -17,3 +17,15 @@ type ReadSheetOutput struct {
 	SheetName string
 	Rows      []map[string]string
 }
+
+type BatchWriteInput struct {
+	InputBase
+	Overwrite    bool
+	Records      []interface{}
+	MatchColumns map[string]string
+	IdColumn     string
+}
+
+type BatchWriteOutput struct {
+	NumberProcessed int
+}
