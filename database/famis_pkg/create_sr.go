@@ -78,23 +78,21 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	}
 	queryResult, err := db_common.PerformQuery(db, command)
 	if err != nil {
-		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
+		return nil, xerrors.Errorf("Error creating service request: %w", err)
 	}
 
 	output, ok := queryResult.(*db_common.RowOutput)
 	if !ok {
-		return &CreateSROutput{}, xerrors.Errorf("Response was not correctly parsed")
+		return nil, xerrors.Errorf("Response was not correctly parsed")
 	}
 	if len(output.Results) == 0 {
-		return &CreateSROutput{}, xerrors.Errorf("Response contained no data")
+		return nil, xerrors.Errorf("Response contained no data")
 	}
 
 	requestId, ok := output.Results[0]["POTHOLE_REQUEST"].(string)
 	if !ok {
-		return &CreateSROutput{}, xerrors.Errorf("Response ID was not a string")
+		return nil, xerrors.Errorf("Response ID was not a string")
 	}
-
-	println("returning response")
-	println(fmt.Sprintf("id: %s", requestId))
+	
 	return &CreateSROutput{ServiceRequestId: requestId}, nil
 }
