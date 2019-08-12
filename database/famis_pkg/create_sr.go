@@ -64,14 +64,17 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
+	println("Creating sql string")
 	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
 		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
+	println("Connecting to oracle")
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
 	}
 
+	println("Running command")
 	command := db_common.DatabaseCommand{
 		ConnectionString: input.ConnectionString,
 		Sql:              sqlString,
@@ -80,6 +83,8 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	if err != nil {
 		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
 	}
+
+	println("parsing output")
 	output, ok := queryResult.(*db_common.RowOutput)
 	if !ok {
 		return &CreateSROutput{}, xerrors.Errorf("Response was not correctly parsed")
@@ -88,5 +93,6 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		return &CreateSROutput{}, xerrors.Errorf("Response contained no data")
 	}
 
+	println("returning response")
 	return &CreateSROutput{ServiceResponse: output.Results[0]}, nil
 }
