@@ -29,5 +29,5 @@ steps:
         sample: https://google.com/image.png
         description: The url for an attachment
     outputs:
-      ServiceResponse:
-        description: A json service response
+      ServiceRequestId:
+        description: the Id of the created service request
