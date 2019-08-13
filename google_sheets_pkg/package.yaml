@@ -118,20 +118,23 @@ steps:
         required: true
         description: "The list of object fields to be inserted. These should be ordered exactly as you want them to appear in the sheet."
         sample: |
-          - - Username1
-            - Address1
-          - - Username2
-            - Address2
+          [{"username": "billy", "name": "Billy Jean"},{"username": "user1": "name": "Betty Sue"}]
       ClearSheet:
         required: false
         description: "A flag indicating if sheet should be cleared before records are synced."
       MatchColumn:
         required: false
         description: "The column index to match new values on if updating records rather than appending all records"
-        sample: 1
+        sample: "username"
       Update:
         required: true
         description: "A flag indicating if you would like to update records using the match column value or if they should just be appended"
+      Fields:
+        required: true
+        description: "A map of column indexes to their matched field name"
+        sample: |
+          0: username
+          1: name
     outputs:
       RecordsCreated:
         description: "The count of records created"

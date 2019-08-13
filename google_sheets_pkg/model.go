@@ -1,5 +1,7 @@
 package main
 
+import "google.golang.org/api/sheets/v4"
+
 type InputBase struct {
 	SpreadsheetId string
 	SheetIndex    uint
@@ -20,13 +22,40 @@ type ReadSheetOutput struct {
 
 type BatchWriteInput struct {
 	InputBase
-	Records     [][]interface{}
-	MatchColumn int
+	Records     []map[string]interface{}
+	Fields      map[int]string
+	MatchColumn string
 	Update      bool
 	ClearSheet  bool
+}
+
+func (b BatchWriteInput) GetHighestFieldIndex() int {
+	highestIndex := 0
+	for key, _ := range b.Fields {
+		if key > highestIndex {
+			highestIndex = key
+		}
+	}
+	return highestIndex
+}
+
+func (b BatchWriteInput) GetIndexForId() (index int, ok bool) {
+	for k, val := range b.Fields {
+		if val == b.MatchColumn {
+			index = k
+			ok = true
+			return
+		}
+	}
+	return
 }
 
 type BatchWriteOutput struct {
 	RecordsUpdated int
 	RecordsCreated int
+}
+
+type DataHelper struct {
+	Data      *sheets.RowData
+	StartCell string
 }

@@ -61,7 +61,7 @@ func GetSheet(input InputBase, srv *sheets.Service) (*sheets.Sheet, error) {
 
 func ClearSheet(input InputBase, srv *sheets.Service) error {
 	clearReq := sheets.BatchClearValuesRequest{
-		Ranges: []string{"A1:ZZ"},
+		Ranges: []string{"A2:ZZ"},
 	}
 	_, err := srv.Spreadsheets.Values.BatchClear(input.SpreadsheetId, &clearReq).Do()
 	if err != nil {
