@@ -1,4 +1,4 @@
-HOST=https://platform.apptreeio.com
+HOST=http://localhost:80
 
 test: |
 	echo ${HOST}

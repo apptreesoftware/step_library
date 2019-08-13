@@ -20,12 +20,12 @@ type ReadSheetOutput struct {
 
 type BatchWriteInput struct {
 	InputBase
-	Overwrite    bool
-	Records      []interface{}
-	MatchColumns map[string]string
-	IdColumn     string
+	Records     [][]interface{}
+	MatchColumn int
+	Update      bool
 }
 
 type BatchWriteOutput struct {
-	NumberProcessed int
+	RecordsUpdated int
+	RecordsCreated int
 }
