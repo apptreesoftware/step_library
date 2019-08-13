@@ -23,6 +23,7 @@ type BatchWriteInput struct {
 	Records     [][]interface{}
 	MatchColumn int
 	Update      bool
+	ClearSheet  bool
 }
 
 type BatchWriteOutput struct {

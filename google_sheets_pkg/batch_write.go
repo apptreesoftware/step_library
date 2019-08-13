@@ -33,21 +33,34 @@ func (BatchWrite) execute(input BatchWriteInput) (*BatchWriteOutput, error) {
 		return nil, err
 	}
 
-	sheet, err := GetSheet(input.InputBase, srv)
-	if err != nil {
-		return nil, err
-	}
-
-	existingRecordMap := make(map[string]string)
-	if input.Update {
-		existingRecordMap = getExistingRecordMap(sheet, input.MatchColumn)
-	}
-	data := sheet.Data
-	defaultRange := data[0]
-	rows := defaultRange.RowData
-	appendCounter := len(rows) + 1
 	created := 0
 	updated := 0
+	appendCounter := 1
+
+	existingRecordMap := make(map[string]string)
+
+	if input.ClearSheet {
+		err := ClearSheet(input.InputBase, srv)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		sheet, err := GetSheet(input.InputBase, srv)
+		if err != nil {
+			return nil, err
+		}
+
+		data := sheet.Data
+		defaultRange := data[0]
+		rows := defaultRange.RowData
+		appendCounter = len(rows) + 1
+
+		if input.Update {
+			existingRecordMap = getExistingRecordMap(sheet, input.MatchColumn)
+		}
+
+	}
+
 	for _, record := range input.Records {
 		idValue := fmt.Sprintf("%v", record[input.MatchColumn])
 		rowIndex := existingRecordMap[idValue]

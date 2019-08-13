@@ -122,6 +122,9 @@ steps:
             - Address1
           - - Username2
             - Address2
+      ClearSheet:
+        required: false
+        description: "A flag indicating if sheet should be cleared before records are synced."
       MatchColumn:
         required: false
         description: "The column index to match new values on if updating records rather than appending all records"

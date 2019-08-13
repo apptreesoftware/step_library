@@ -59,41 +59,13 @@ func GetSheet(input InputBase, srv *sheets.Service) (*sheets.Sheet, error) {
 	return spreadsheet.Sheets[input.SheetIndex], nil
 }
 
-func ParseFields(sheet *sheets.Sheet, fields []string, startRow int) []map[string]string {
-	var rowValues []map[string]string
-	data := sheet.Data
-	defaultRange := data[0]
-	rows := defaultRange.RowData
-	rows = rows[startRow:]
-	for _, row := range rows {
-		rowMap := map[string]string{}
-		values := row.Values
-		for columnIndex, cellValue := range values {
-			if columnIndex >= len(fields) {
-				break
-			}
-			value := cellValue.FormattedValue
-			fieldName := fields[columnIndex]
-			rowMap[fieldName] = value
-		}
-		rowValues = append(rowValues, rowMap)
+func ClearSheet(input InputBase, srv *sheets.Service) error {
+	clearReq := sheets.BatchClearValuesRequest{
+		Ranges: []string{"A1:ZZ"},
 	}
-	return rowValues
-}
-
-func ParseRow(sheet *sheets.Sheet, rowIndex int) []string {
-	var rowData []string
-	data := sheet.Data
-	defaultRange := data[0]
-	rows := defaultRange.RowData
-	lastDataIndex := 0
-	row := rows[rowIndex]
-	for columnIndex, cellValue := range row.Values {
-		value := cellValue.FormattedValue
-		rowData = append(rowData, value)
-		if len(value) != 0 {
-			lastDataIndex = columnIndex
-		}
+	_, err := srv.Spreadsheets.Values.BatchClear(input.SpreadsheetId, &clearReq).Do()
+	if err != nil {
+		return xerrors.Errorf("Unable to clear sheet: %w", err)
 	}
-	return rowData[0:lastDataIndex]
+	return nil
 }
