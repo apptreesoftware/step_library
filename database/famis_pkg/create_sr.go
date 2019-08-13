@@ -71,6 +71,7 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
 	}
+	defer db.Close()
 
 	command := db_common.DatabaseCommand{
 		ConnectionString: input.ConnectionString,
