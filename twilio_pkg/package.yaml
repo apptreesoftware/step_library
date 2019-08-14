@@ -17,9 +17,6 @@ twilio_inputs: &twilio_inputs
   TwilioAuthToken:
     required: true
     description: Twilio auth toke to use when sending sms messages for further diagnostic instructions and interactions
-  From:
-    required: true
-    description: The phone number to send messages from
   To:
     required: true
     description: Phone number to send sms to
@@ -32,6 +29,23 @@ steps:
     description: Sends an sms message to the phone number provided
     inputs:
       <<: *twilio_inputs
+      From:
+        required: true
+        description: The phone number to send messages from
+    outputs:
+      Success:
+        description: a boolean indicator if the message was sent successfully
+      MessageId:
+        description: Id of the message created which can be used to track status of message
+      ErrorMessage:
+        description: any error messages encountered
+  send_sms_copilot@1.0:
+    description: Sends an sms message to the phone number provided using a twilio message service
+    inputs:
+      <<: *twilio_inputs
+      MessagingServiceSid:
+        required: true
+        description: The messaging service SID from twilio
     outputs:
       Success:
         description: a boolean indicator if the message was sent successfully
