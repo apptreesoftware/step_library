@@ -1,0 +1,46 @@
+# Step meta data:
+name: mailgun
+version: 1.0
+runtime: go
+exec: main
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+steps:
+  send_email@1.0:
+    description: Send a formatted email to an email address
+    inputs:
+      Domain:
+        required: true
+        description: The sender domain
+      Sender:
+        required: true
+        description: The sender which the message will be from
+      ApiKey:
+        required: true
+        description: Mailgun API Key
+      Subject:
+        required: true
+        description: Email subject
+      HtmlMessage:
+        required: false
+        description: A formatted html message which may be stylized
+      PlainTextMessage:
+        required: true
+        description: The plain text message for the email which may be formatted
+      To:
+        required: true
+        description: The email address to send email to
+    outputs:
+      Success:
+        description: Boolean that tells you if your email was successfully queued.
+      EmailId:
+        description: Id assigned to email
+      ErrorMessage:
+        description: Any error messages encountered

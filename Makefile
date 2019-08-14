@@ -4,7 +4,7 @@ test: |
 	echo ${HOST}
 all: publish
 build: build-dotnet build-go |
-build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase
+build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist build-array
 build-dotnet: build-famis
 build-postgres: |
 			cd database/postgres_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
@@ -62,6 +62,26 @@ build-date:
 	cd date_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-date: build-date |
 	apptree publish package -d date_pkg --host ${HOST}
+build-mailgun: |
+			cd mailgun_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-mailgun: build-mailgun |
+	apptree publish package -d mailgun_pkg --host ${HOST}
+build-twilio: |
+			cd twilio_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-twilio: build-twilio |
+	apptree publish package -d twilio_pkg --host ${HOST}
+build-io-assist: |
+			cd io_assistant_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-io-assist: build-io-assist |
+	apptree publish package -d io_assistant_pkg --host ${HOST}
+build-array: |
+			cd array_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+publish-array: build-array |
+	apptree publish package -d array_pkg --host ${HOST}
+build-famis: |
+			cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
+publish-famis: build-famis |
+	apptree publish package -d database/famis_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow
@@ -77,7 +97,11 @@ updatesdk: |
 	cd script_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/firebase_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd date_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
-publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date
+	cd mailgun_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+	cd twilio_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+	cd io_assistant_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+	cd array_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist publish-array
 
 publish-dotnet: publish-famis
 

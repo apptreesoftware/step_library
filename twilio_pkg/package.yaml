@@ -1,0 +1,41 @@
+name: twilio
+version: 1.0
+lang: go
+
+executables:
+  linux:
+    amd64: main_linux_amd64
+  darwin:
+    amd64: main_darwin_amd64
+  windows:
+    amd64: main_windows_amd64.exe
+
+twilio_inputs: &twilio_inputs
+  TwilioAccountSid:
+    required: true
+    description: Twilio account sid to use when sending sms messages for further diagnostic instructions and interactions
+  TwilioAuthToken:
+    required: true
+    description: Twilio auth toke to use when sending sms messages for further diagnostic instructions and interactions
+  From:
+    required: true
+    description: The phone number to send messages from
+  To:
+    required: true
+    description: Phone number to send sms to
+  Message:
+    required: true
+    description: the message to send
+
+steps:
+  send_sms@1.0:
+    description: Sends an sms message to the phone number provided
+    inputs:
+      <<: *twilio_inputs
+    outputs:
+      Success:
+        description: a boolean indicator if the message was sent successfully
+      MessageId:
+        description: Id of the message created which can be used to track status of message
+      ErrorMessage:
+        description: any error messages encountered
