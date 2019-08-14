@@ -11,6 +11,25 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 
+inputBase: &input_base
+  SpreadsheetId:
+    required: true
+    description: "The ID of the Google Spreadsheet"
+    sample: XD23223211212
+  SheetIndex:
+    required: false
+    description: "The index of the sheet you want to use. Defaults to the first sheet."
+    sample: 0
+  Credentials:
+    required: true
+    description: "Your Google Sheets credentials JSON. To create your credentials see https://developers.google.com/sheets/api/quickstart/go"
+    sample: '{}'
+  SheetName:
+    required: true
+    description: "The name of the sheet"
+    sample: "Sheet1"
+
+
 #The steps in this package
 steps:
   read@1.0:
@@ -91,3 +110,34 @@ steps:
       Workflow:
         required: true
         description: The workflow that you want to queue up
+  batch_write@1.0:
+    description: Write a list of objects to a sheet
+    inputs:
+      <<: *input_base
+      Records:
+        required: true
+        description: "The list of object fields to be inserted. These should be ordered exactly as you want them to appear in the sheet."
+        sample: |
+          [{"username": "billy", "name": "Billy Jean"},{"username": "user1": "name": "Betty Sue"}]
+      ClearSheet:
+        required: false
+        description: "A flag indicating if sheet should be cleared before records are synced."
+      MatchColumn:
+        required: false
+        description: "The column index to match new values on if updating records rather than appending all records"
+        sample: "username"
+      Update:
+        required: true
+        description: "A flag indicating if you would like to update records using the match column value or if they should just be appended"
+      Fields:
+        required: true
+        description: "A map of column indexes to their matched field name"
+        sample: |
+          0: username
+          1: name
+    outputs:
+      RecordsCreated:
+        description: "The count of records created"
+      RecordsUpdated:
+        description: "The count of records updated"
+
