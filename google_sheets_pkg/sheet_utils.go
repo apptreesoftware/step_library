@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func ValidateInputAndGetConf(input InputBase, readOnly bool) (*sheets.Service, error) {
+func GetSheetsService(input InputBase, readOnly bool) (*sheets.Service, error) {
 	if input.Credentials == "" {
 		return nil, errors.New("No credentials were provided. Please provide your google service account key using the `Credentials` input")
 	}
@@ -29,7 +29,7 @@ func ValidateInputAndGetConf(input InputBase, readOnly bool) (*sheets.Service, e
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to create spreadsheet service: %v", err)
 	}
-	return srv, err
+	return srv, nil
 }
 
 func GetSheet(input InputBase, srv *sheets.Service) (*sheets.Sheet, error) {

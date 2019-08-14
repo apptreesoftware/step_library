@@ -1,12 +1,9 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
-	"golang.org/x/oauth2/google"
 	"golang.org/x/xerrors"
-	"google.golang.org/api/option"
 	"google.golang.org/api/sheets/v4"
 	"strings"
 )
@@ -42,14 +39,9 @@ func (ReadSheet) execute(input ReadSheetInput) (*ReadSheetOutput, error) {
 		return nil, errors.New("No credentials were provided. Please provide your google service account key using the `Credentials` input")
 	}
 
-	conf, err := google.JWTConfigFromJSON([]byte(input.Credentials), "https://www.googleapis.com/auth/spreadsheets.readonly")
+	srv, err := GetSheetsService(input.InputBase, true)
 	if err != nil {
 		return nil, err
-	}
-	ctx := context.Background()
-	srv, err := sheets.NewService(ctx, option.WithHTTPClient(conf.Client(ctx)))
-	if err != nil {
-		return nil, xerrors.Errorf("Unable to create spreadsheet service: %v", err)
 	}
 	spreadsheet, err := srv.Spreadsheets.
 		Get(input.SpreadsheetId).

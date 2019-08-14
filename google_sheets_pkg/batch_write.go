@@ -29,7 +29,7 @@ func (s BatchWrite) Execute(ctx step.Context) (interface{}, error) {
 }
 
 func (BatchWrite) execute(input BatchWriteInput) (*BatchWriteOutput, error) {
-	srv, err := ValidateInputAndGetConf(input.InputBase, false)
+	srv, err := GetSheetsService(input.InputBase, false)
 	if err != nil {
 		return nil, err
 	}
