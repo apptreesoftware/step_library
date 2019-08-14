@@ -9,5 +9,6 @@ func main() {
 	step.Register(WriteToSheet{})
 	step.Register(ReadRowsAndQueue{})
 	step.Register(BatchWrite{})
+	step.Register(CacheBatchWrite{})
 	step.Run()
 }

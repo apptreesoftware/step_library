@@ -9,6 +9,14 @@ type InputBase struct {
 	Credentials   string
 }
 
+type BatchBase struct {
+	InputBase
+	Fields      map[int]string
+	MatchColumn string
+	Update      bool
+	ClearSheet  bool
+}
+
 type ReadSheetInput struct {
 	InputBase
 	Fields              []string
@@ -21,15 +29,11 @@ type ReadSheetOutput struct {
 }
 
 type BatchWriteInput struct {
-	InputBase
+	BatchBase
 	Records     []map[string]interface{}
-	Fields      map[int]string
-	MatchColumn string
-	Update      bool
-	ClearSheet  bool
 }
 
-func (b BatchWriteInput) GetHighestFieldIndex() int {
+func (b BatchBase) GetHighestFieldIndex() int {
 	highestIndex := 0
 	for key, _ := range b.Fields {
 		if key > highestIndex {
@@ -39,7 +43,7 @@ func (b BatchWriteInput) GetHighestFieldIndex() int {
 	return highestIndex
 }
 
-func (b BatchWriteInput) GetIndexForId() (index int, ok bool) {
+func (b BatchBase) GetIndexForId() (index int, ok bool) {
 	for k, val := range b.Fields {
 		if val == b.MatchColumn {
 			index = k
@@ -58,4 +62,10 @@ type BatchWriteOutput struct {
 type DataHelper struct {
 	Data      *sheets.RowData
 	StartCell string
+}
+
+type CacheBatchWriteInput struct {
+	BatchBase
+	CacheName string
+	Filter map[string]interface{}
 }

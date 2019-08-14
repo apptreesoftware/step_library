@@ -140,4 +140,37 @@ steps:
         description: "The count of records created"
       RecordsUpdated:
         description: "The count of records updated"
+  cache_batch_write@1.0:
+    description: Write a list of objects to a sheet
+    inputs:
+      <<: *input_base
+      ClearSheet:
+        required: false
+        description: "A flag indicating if sheet should be cleared before records are synced."
+      MatchColumn:
+        required: false
+        description: "The column index to match new values on if updating records rather than appending all records"
+        sample: "username"
+      Update:
+        required: true
+        description: "A flag indicating if you would like to update records using the match column value or if they should just be appended"
+      Fields:
+        required: true
+        description: "A map of column indexes to their matched field name"
+        sample: |
+          0: username
+          1: name
+      Filter:
+        required: true
+        description: "The filter to use for fetching records from cache"
+        sample: '{"Group": "test"}'
+      CacheName:
+        required: true
+        description: "The name of the cache to pull records from"
+        sample: "MyTestCache"
+    outputs:
+      RecordsCreated:
+        description: "The count of records created"
+      RecordsUpdated:
+        description: "The count of records updated"
 
