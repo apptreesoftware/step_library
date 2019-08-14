@@ -1,0 +1,33 @@
+name: famis
+version: 1.0
+lang: go
+executables:
+  windows:
+    amd64: main_windows_amd64.exe
+steps:
+  create_request@1.0:
+    description: Create a request in famis
+    inputs:
+      ConnectionString:
+        required: true
+        sample: "oracle://user:passw@service_name OR user/passw@service_name OR advanced connection user/pass@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=hostname)(PORT=port)))(CONNECT_DATA=(SERVICE_NAME=sn)))"
+        description: Oracle Connection string
+      Requester:
+        required: true
+        sample: STERLING, KEVIN
+        description: The user making the request
+      SiteId:
+        required: true
+        sample: 00851
+        description: The ID of the site
+      Description:
+        required: true
+        sample: There is a pothole that is approx. 2 inches wide
+        description: A description of the problem
+      AttachmentUrl:
+        required: true
+        sample: https://google.com/image.png
+        description: The url for an attachment
+    outputs:
+      ServiceRequestId:
+        description: the Id of the created service request

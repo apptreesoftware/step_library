@@ -9,14 +9,6 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 steps:
-  parse_xml_to_object@1.0:
-    inputs:
-      XML:
-        required: true
-        description: XML you'd like to parse in a string
-    outputs:
-      Record:
-        description: parsed XML as json object
   parse_json_array@1.0:
     inputs:
       String:
