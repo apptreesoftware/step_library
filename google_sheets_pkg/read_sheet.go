@@ -43,9 +43,14 @@ func (ReadSheet) execute(input ReadSheetInput) (*ReadSheetOutput, error) {
 	if err != nil {
 		return nil, err
 	}
-	spreadsheet, err := srv.Spreadsheets.
+	getCall := srv.Spreadsheets.
 		Get(input.SpreadsheetId).
-		IncludeGridData(true).
+		IncludeGridData(true)
+
+	if len(input.Ranges) > 0 {
+		getCall = getCall.Ranges(input.Ranges...)
+	}
+	spreadsheet, err := getCall.
 		Do()
 
 	if err != nil {

@@ -54,6 +54,11 @@ steps:
           - firstName
           - lastName
           - email
+      Ranges:
+        required: false
+        description: A list of ranges to limit read too
+        sample: |
+          - A1:D
     outputs:
       Rows:
         description: "The output of each row"
