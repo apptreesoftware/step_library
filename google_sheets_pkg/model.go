@@ -70,3 +70,10 @@ type CacheBatchWriteInput struct {
 	CacheName string
 	Filter    map[string]interface{}
 }
+
+type WriteToSheetInput struct {
+	InputBase
+	Cells         []interface{}
+	MatchColumn   int
+	MatchValue    string
+}

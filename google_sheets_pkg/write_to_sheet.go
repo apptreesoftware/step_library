@@ -1,11 +1,10 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
-	"golang.org/x/oauth2/google"
-	"gopkg.in/Iwark/spreadsheet.v2"
+	"golang.org/x/xerrors"
+	"google.golang.org/api/sheets/v4"
 )
 
 type WriteToSheet struct{}
@@ -29,69 +28,51 @@ func (w WriteToSheet) Execute(ctx step.Context) (interface{}, error) {
 }
 
 func (WriteToSheet) execute(input WriteToSheetInput) error {
-	conf, err := google.JWTConfigFromJSON([]byte(input.Credentials), spreadsheet.Scope)
-	if err != nil {
-		return err
-	}
-	client := conf.Client(context.Background())
-	service := spreadsheet.NewServiceWithClient(client)
-	googleSheet, err := service.FetchSpreadsheet(input.SpreadsheetId)
-	if err != nil {
-		return err
-	}
-	sheet, err := googleSheet.SheetByIndex(input.SheetIndex)
+	srv, err := GetSheetsService(input.InputBase, false)
 	if err != nil {
 		return err
 	}
 
-	isUpdate := false
-	// If user put `MatchValue` input AND Document isn't brand new
-	// sheet.Rows refers to the number of rows _with_ data in the Sheet
-	// blank rows aren't counted.
-	if input.MatchValue != "" && len(sheet.Rows) > 0 {
-		isUpdate = true
+	sheet, err := GetSheet(input.InputBase, srv)
+	if err != nil {
+		return err
 	}
 
-	// find the row to be updated, if it exists
-	recordRowIdxToUpdate := -1
-	if isUpdate {
-		for idx, row := range sheet.Rows {
-			if row[input.MatchColumn].Value == input.MatchValue {
-				recordRowIdxToUpdate = idx
+	data := sheet.Data
+	defaultRange := data[0]
+	rows := defaultRange.RowData
+
+	updating := false
+	appendCounter := len(rows) +1
+	for idx, row := range rows {
+		values := row.Values
+		if input.MatchColumn > len(values) {
+			continue
+		}
+		matchVal := values[input.MatchColumn]
+		if matchVal != nil {
+			value := matchVal.FormattedValue
+			if value == input.MatchValue {
+				updating = true
+				appendCounter = idx+1
 				break
 			}
 		}
-		if recordRowIdxToUpdate == -1 {
-			fmt.Printf("Record with value %s in column %v doesn't exist. Adding the record to the end of the sheet", input.MatchValue, input.MatchColumn)
-			isUpdate = false
-		}
 	}
 
-	// Finally, if this is an update form, update Row @ recordRowIdxToUpdate
-	data := sheet.Properties.GridProperties
-	var newRow int
-	if isUpdate {
-		newRow = recordRowIdxToUpdate
-		// If it isn't an update form,
-		// OR the record wasn't found
-		// add the record to the end
+	var vr sheets.ValueRange
+	vr.Values = append(vr.Values, input.Cells)
+	rowIndex := fmt.Sprintf("A%d", appendCounter)
+
+	if updating {
+		_, err = srv.Spreadsheets.Values.Update(input.SpreadsheetId, rowIndex, &vr).ValueInputOption("RAW").Do()
 	} else {
-		newRow = int(data.RowCount)
+		_, err = srv.Spreadsheets.Values.Append(input.SpreadsheetId, rowIndex, &vr).ValueInputOption("RAW").Do()
 	}
-
-	// Update the record
-	for colIdx, cellVal := range input.Cells {
-		sheet.Update(int(newRow), colIdx, fmt.Sprintf("%v", cellVal))
+	if err != nil {
+		return xerrors.Errorf("Error encountered saving row: %v", err)
 	}
-	err = sheet.Synchronize()
-	return err
+	return nil
 }
 
-type WriteToSheetInput struct {
-	SpreadsheetId string
-	SheetIndex    uint
-	Credentials   string
-	Cells         []interface{}
-	MatchColumn   int
-	MatchValue    string
-}
+
