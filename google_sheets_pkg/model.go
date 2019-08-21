@@ -21,6 +21,7 @@ type ReadSheetInput struct {
 	InputBase
 	Fields              []string
 	UseFirstRowAsFields bool
+	Ranges              []string
 }
 
 type ReadSheetOutput struct {
@@ -30,7 +31,7 @@ type ReadSheetOutput struct {
 
 type BatchWriteInput struct {
 	BatchBase
-	Records     []map[string]interface{}
+	Records []map[string]interface{}
 }
 
 func (b BatchBase) GetHighestFieldIndex() int {
@@ -67,5 +68,12 @@ type DataHelper struct {
 type CacheBatchWriteInput struct {
 	BatchBase
 	CacheName string
-	Filter map[string]interface{}
+	Filter    map[string]interface{}
+}
+
+type WriteToSheetInput struct {
+	InputBase
+	Cells         []interface{}
+	MatchColumn   int
+	MatchValue    string
 }

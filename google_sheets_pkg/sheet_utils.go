@@ -8,7 +8,6 @@ import (
 	"golang.org/x/xerrors"
 	"google.golang.org/api/option"
 	"google.golang.org/api/sheets/v4"
-	"log"
 	"strings"
 )
 
@@ -152,7 +151,7 @@ func UpdateRecordsBatch(input BatchBase, srv *sheets.Service, records []map[stri
 			_, err = srv.Spreadsheets.Values.Append(input.SpreadsheetId, rowIndex, &vr).ValueInputOption("RAW").Do()
 		}
 		if err != nil {
-			log.Fatalf("Unable to update data from sheet. %v", err)
+			return nil, xerrors.Errorf("Error encountered saving row: %v", err)
 		}
 	}
 	return &BatchWriteOutput{RecordsUpdated: updated, RecordsCreated: created}, nil
