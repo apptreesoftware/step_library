@@ -5,6 +5,7 @@ type FulfillmentResponse struct {
 	MessageGroup *MessageGroup          `json:"messageGroup,omitempty"`
 	UserContext  map[string]interface{} `json:"userContext,omitempty"`
 	Context      map[string]interface{} `json:"context,omitempty"`
+	Complete     bool                   `json:"complete"`
 }
 
 func NewMessageGroupResponse(messages []MessageOption, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}) FulfillmentResponse {
@@ -18,7 +19,7 @@ func NewMessageGroupResponse(messages []MessageOption, workflowUrl string, userC
 	}
 }
 
-func NewMessageResponse(input MessageBase, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}) FulfillmentResponse {
+func NewMessageResponse(input MessageBase, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}, complete bool) FulfillmentResponse {
 	return FulfillmentResponse{
 		Message: &MessageData{
 			MessageBase:   input,
@@ -26,5 +27,6 @@ func NewMessageResponse(input MessageBase, workflowUrl string, userContext map[s
 		},
 		UserContext: userContext,
 		Context:     context,
+		Complete:    complete,
 	}
 }

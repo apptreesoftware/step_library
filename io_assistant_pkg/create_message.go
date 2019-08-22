@@ -10,6 +10,7 @@ type CreateMessageInput struct {
 	UserContext        map[string]interface{} `json:"userContext"`
 	Context            map[string]interface{} `json:"context"`
 	OnCompleteWorkflow string                 `json:"onCompleteWorkflow"`
+	Complete           bool                   `json:"complete"`
 }
 
 type CreateMessageOutput struct {
@@ -50,6 +51,6 @@ func (CreateMessage) execute(input CreateMessageInput, engine step.Engine) (*Cre
 			return &CreateMessageOutput{}, err
 		}
 	}
-	response := models.NewMessageResponse(input.Message, workflowUrl, input.UserContext, input.Context)
+	response := models.NewMessageResponse(input.Message, workflowUrl, input.UserContext, input.Context, input.Complete)
 	return &CreateMessageOutput{Response: response}, nil
 }
