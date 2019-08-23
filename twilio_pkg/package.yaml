@@ -43,7 +43,7 @@ steps:
     description: Sends an sms message to the phone number provided using a twilio message service
     inputs:
       <<: *twilio_inputs
-      MessagingServiceSid:
+      MessageServiceSid:
         required: true
         description: The messaging service SID from twilio
     outputs:
