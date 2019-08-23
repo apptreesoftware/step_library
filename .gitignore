@@ -5,3 +5,5 @@ main_windows*
 bin
 obj
 publish/
+**/.vscode
+**/node_modules
