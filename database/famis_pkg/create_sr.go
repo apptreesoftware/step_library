@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"github.com/apptreesoftware/step_library/database/db_common"
@@ -65,30 +64,36 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTED', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
 		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
 
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
 	}
+	defer db.Close()
 
 	command := db_common.DatabaseCommand{
 		ConnectionString: input.ConnectionString,
-		Sql: sqlString,
+		Sql:              sqlString,
 	}
 	queryResult, err := db_common.PerformQuery(db, command)
 	if err != nil {
-		return &CreateSROutput{}, xerrors.Errorf("Error creating service request: %w", err)
+		return nil, xerrors.Errorf("Error creating service request: %w", err)
 	}
 
-	if rowOutput, ok := queryResult.(db_common.RowOutput); ok {
-		srInterface := rowOutput.Results[0]["POTHOLE_REQUEST"]
-		if srId, ok := srInterface.(string); ok {
-			return &CreateSROutput{ServiceRequestId: srId}, nil
-		}
-
+	output, ok := queryResult.(*db_common.RowOutput)
+	if !ok {
+		return nil, xerrors.Errorf("Response was not correctly parsed")
+	}
+	if len(output.Results) == 0 {
+		return nil, xerrors.Errorf("Response contained no data")
 	}
 
-	return nil, errors.New("Unable to read response")
+	requestId, ok := output.Results[0]["POTHOLE_REQUEST"].(string)
+	if !ok {
+		return nil, xerrors.Errorf("Response ID was not a string")
+	}
+	
+	return &CreateSROutput{ServiceRequestId: requestId}, nil
 }
