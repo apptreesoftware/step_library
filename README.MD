@@ -18,11 +18,11 @@ version: 1.0
 
 executables:
   linux:
-    amd64: main-linux
+    amd64: index-linux
   darwin:
-    amd64: main-macos
+    amd64: index-macos
   windows:
-    amd64: main-windows.exe
+    amd64: index-windows.exe
 
 steps:
   <step_name>@1.0:
