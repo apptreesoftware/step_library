@@ -7,3 +7,4 @@ obj
 publish/
 **/.vscode
 **/node_modules
+/array_pkg/package-lock.json

@@ -1,0 +1,81 @@
+{
+  "find" : {
+    "Records": [
+      {
+        "FirstName": "Abe",
+        "LastName": "Foster"
+      },
+      {
+        "FirstName": "Henry",
+        "LastName": "Lee"
+      },
+      {
+        "FirstName": "Matt",
+        "LastName": "Smith"
+      },
+      {
+        "FirstName": "Mellissa",
+        "LastName": "Tort"
+      }
+    ],
+    "MatchValue" : "Abe",
+    "MatchField" : "FirstName"
+  },
+  "insert_object": {
+    "Records": [
+      {
+        "FirstName": "Abe",
+        "LastName": "Foster"
+      },
+      {
+        "FirstName": "Henry",
+        "LastName": "Lee"
+      },
+      {
+        "FirstName": "Matt",
+        "LastName": "Smith"
+      },
+      {
+        "FirstName": "Mellissa",
+        "LastName": "Tort"
+      }
+    ],
+    "Object": [
+      {
+        "FirstName": "Rob",
+        "LastName": "Guinn"
+      },
+      {
+        "First": "Lindsay",
+        "Last": "Foster"
+      }
+    ]
+  },
+  "remove_object": {
+    "Records": [
+      {
+        "FirstName": "Abe",
+        "LastName": "Foster"
+      },
+      {
+        "FirstName": "Henry",
+        "LastName": "Lee"
+      },
+      {
+        "FirstName": "Matt",
+        "LastName": "Smith"
+      },
+      {
+        "FirstName": "Mellissa",
+        "LastName": "Tort"
+      },
+      {
+        "FirstName": "Lindsay",
+        "LastName": "Foster"
+      }
+    ],
+    "MatchValue" : "Abe",
+    "MatchField" : "FirstName",
+    "Index": null
+  }
+}
