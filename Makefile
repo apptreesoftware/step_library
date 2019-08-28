@@ -3,8 +3,9 @@ HOST=https://platform.apptreeio.com
 test: |
 	echo ${HOST}
 all: publish
-build: build-dotnet build-go |
-build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist build-array
+build: build-dotnet build-go build-node |
+build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist
+build-node: build-array
 build-dotnet: build-famis
 build-postgres: |
 			cd database/postgres_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
@@ -38,10 +39,6 @@ build-logger: |
 	cd logger_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-logger: build-logger |
 	apptree publish package -d logger_pkg --host ${HOST}
-build-famis: |
-	cd NetCoreSteps/Accruent.Famis.Steps && dotnet publish -o publish -c Release
-publish-famis: build-famis |
-	apptree publish package -d NetCoreSteps/Accruent.Famis.Steps/publish --host ${HOST}
 build-filesystem: |
 	cd filesystem_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-filesystem: build-filesystem |
@@ -75,11 +72,11 @@ build-io-assist: |
 publish-io-assist: build-io-assist |
 	apptree publish package -d io_assistant_pkg --host ${HOST}
 build-array: |
-			cd array_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+	cd array_pkg && pkg -t node12-linux-x64,node12-macos-x64 index.js
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-famis: |
-			cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
+	cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
 publish-famis: build-famis |
 	apptree publish package -d database/famis_pkg --host ${HOST}
 updatesdk: |
@@ -101,11 +98,11 @@ updatesdk: |
 	cd twilio_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd io_assistant_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd array_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
-publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist publish-array
-
+publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist
+publish-node: publish-array
 publish-dotnet: publish-famis
 
-publish: publish-go publish-dotnet
+publish: publish-go publish-dotnet publish-node
 
 # To add a new step package:
 # 1. add "build-<PACKAGE>: |" command

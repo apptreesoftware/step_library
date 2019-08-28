@@ -25,7 +25,7 @@ steps:
           var output = callMethod(multiplier);
           return output;
       ScriptVars:
-        required: true
+        required: false
         description: "a map of values you'd like to make available as variables in your script"
         sample: "{\"multiplier\": 32}"
     outputs:
