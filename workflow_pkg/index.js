@@ -1,7 +1,7 @@
-let apptree = require('../../go-workflow/node');
+let apptree = require('apptree-workflow-sdk');
 
-apptree.addStep('exit', '1.0', exitWorkflowSuccess());
-apptree.addStep('fail', '1.0', exitWorkflowFail());
+apptree.addStep('exit', '1.0', exitWorkflowSuccess);
+apptree.addStep('fail', '1.0', exitWorkflowFail);
 
 apptree.run();
 
