@@ -1,14 +1,11 @@
 name: array
 version: 1.0
-lang: go
 
 executables:
   linux:
-    amd64: main_linux_amd64
+    amd64: index-linux
   darwin:
-    amd64: main_darwin_amd64
-  windows:
-    amd64: main_windows_amd64.exe
+    amd64: index-macos
 
 steps:
   find@1.0:
@@ -20,7 +17,36 @@ steps:
         required: true
         description: The field that you would like to match on
       MatchValue:
+        required: true
         description: The value you would like to match on
     outputs:
       Record:
-        description: The first record encountered whose field matched
+        description: The first record encountered whose field matched, null if no match
+  insert_object@1.0:
+    inputs:
+      Records:
+        required: true
+        description: The list of records you want to add to
+      Object:
+        required: true
+        description: The record(s) that you would like to add to the list of records it could be a single object or an array
+    outputs:
+      Records:
+        description: The new list of records
+  remove_object@1.0:
+    inputs:
+      Records:
+        required: true
+        description: The list of records you want to remove a record from
+      MatchField:
+        required: false
+        description: The field that you would like to match on in order to remove
+      MatchValue:
+        required: false
+        description: The value you would like to match on in order to remove
+      Index:
+        required: false
+        description: The index of the item/object to remove if not removing by key/value
+    outputs:
+      Records:
+        description: The new list of records

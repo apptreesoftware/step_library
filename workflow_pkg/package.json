@@ -1,0 +1,14 @@
+{
+  "name": "workflow_pkg",
+  "version": "1.0.0",
+  "description": "Workflow steps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apptree-workflow-sdk": "0.0.9"
+  },
+  "author": "",
+  "license": "ISC"
+}

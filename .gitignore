@@ -7,3 +7,6 @@ obj
 publish/
 **/.vscode
 **/node_modules
+index-macos
+index-linux
+index-windows.exe
