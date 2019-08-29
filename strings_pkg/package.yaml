@@ -1,0 +1,93 @@
+name: strings
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+
+steps:
+  length@1.0:
+    inputs:
+      String:
+        required: true
+        description: The string you want to get the length of
+        sample: "Hello World"
+    outputs:
+      Count:
+        description: The length of the string
+  trimlef@1.0:
+    inputs:
+      String:
+        required: true
+        desciprtion: The string you want to remove leading white spaces of
+        sample: "     Hello World"
+    outputs:
+      String:
+        description: Trimmed string
+  trimright@1.0:
+    inputs:
+      String:
+        required: true
+        desciprtion: The string you want to remove trailing white spaces of
+        sample: "Hello World     "
+    outputs:
+      String:
+        description: Trimmed string
+  trim@1.0:
+    inputs:
+      String:
+        required: true
+        desciprtion: The string you want to remove both the leading or the trailing white spaces of
+        sample: "     Hello World     "
+    outputs:
+      String:
+        description: Trimmed string
+  substring@1.0:
+    inputs:
+      String:
+        required: true
+        desciprtion: The string you want to remove both the leading or the trailing white spaces of
+        sample: "Hello world!"
+      StartIndex:
+        required: false
+        desciprtion: The starting position for the part of the string you want to return
+        sample: 6
+      EndIndex:
+        required: false
+        description: The ending position for the part of the string you want to return
+        sample: 11
+    outputs:
+      String:
+        description: Substringed string
+  concact@1.0:
+    inputs:
+      String1:
+        required: true
+        desciprtion: The first string you want to concat
+        sample: "01234"
+      String2:
+        required: true
+        desciprtion: The first string you want to concat
+        sample: "56789"
+    outputs:
+      String:
+        description: Concatenated string
+  indexof@1.0:
+    inputs:
+      String:
+        required: true
+        desciprtion: The string you want to search in
+        sample: "Hello world, welcome to the universe"
+      SearchString:
+        required: true
+        desciprtion: The letter or string you want to search the position of
+        sample: "welcome"
+      StartPosition:
+        required: false
+        description: At which position to start the search in the string
+        sample: 5
+    outputs:
+      StringPosition:
+        description: Position of letter or string
