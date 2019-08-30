@@ -1,0 +1,15 @@
+{
+  "name": "strings_pkg",
+  "version": "1.0.0",
+  "description": "A string package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henry Lee",
+  "license": "ISC",
+  "dependencies": {
+    "apptree-workflow-sdk": "0.0.9"
+  },
+  "devDependencies": {}
+}

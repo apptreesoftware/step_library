@@ -1,0 +1,28 @@
+{
+  "length" : {
+    "String" : "  Hello World     "
+  },
+  "trimleft" : {
+    "String" : "  Hello World     "
+  },
+  "trimright" : {
+    "String" : "     Hello World     "
+  },
+  "trim" : {
+    "String" : "     Hello World     "
+  },
+  "substring" : {
+    "String" : "Hello World",
+    "StartIndex" : 6,
+    "EndIndex" : 11
+  },
+  "concat" : {
+    "String1" : "Hello World",
+    "String2" : ", welcome to the universe"
+  },
+  "indexof" : {
+    "String" : "Hello world, welcome to the universe",
+    "SearchString" : "welcome",
+    "StartPosition" : 0
+  }
+}
