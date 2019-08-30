@@ -1,0 +1,30 @@
+name: ems
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+
+steps:
+  get_templates@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientId:
+        required: true
+        description: EMS Web ClientId
+      Secret:
+        required: true
+        description: EMS Web Secret
+      Username:
+        required: true
+        description: EMS Web Client Username
+      Password:
+        required: true
+        description: EMS Web Client Password
+    outputs:
+      Records:
+        description: Array of Templates returned by EMS Web Service
