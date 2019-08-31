@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apptree-workflow-sdk": "0.0.10"
+    "apptree-workflow-sdk": "0.0.10",
+    "axios": "^0.19.0"
   }
 }

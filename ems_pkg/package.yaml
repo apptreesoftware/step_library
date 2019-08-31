@@ -19,12 +19,6 @@ steps:
       Secret:
         required: true
         description: EMS Web Secret
-      Username:
-        required: true
-        description: EMS Web Client Username
-      Password:
-        required: true
-        description: EMS Web Client Password
     outputs:
-      Records:
+      Templates:
         description: Array of Templates returned by EMS Web Service
