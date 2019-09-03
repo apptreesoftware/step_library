@@ -7,10 +7,10 @@ import (
 )
 
 type CreateMessageGroupInput struct {
-	OnCompleteWorkflow string                 `json:"onCompleteWorkflow"`
-	Messages           []models.MessageOption `json:"messages"`
-	UserContext        map[string]interface{} `json:"userContext"`
-	Context            map[string]interface{} `json:"context"`
+	OnCompleteUrl string                   `json:"onCompleteUrl"`
+	Messages      []map[string]interface{} `json:"messages"`
+	UserContext   map[string]interface{}   `json:"userContext"`
+	Context       map[string]interface{}   `json:"context"`
 }
 
 func (m CreateMessageGroupInput) ValidateGroup() error {
@@ -18,10 +18,13 @@ func (m CreateMessageGroupInput) ValidateGroup() error {
 		return errors.New("message group must contain at least 1 message")
 	}
 	for _, message := range m.Messages {
-		err := message.Validate()
-		if err != nil {
-			return err
+		if _, ok := message["id"].(string); !ok {
+			return errors.New("Each message in a group must have an id")
 		}
+	}
+	if m.OnCompleteUrl == "" {
+		return errors.New("A message group must have a onCompleteUrl " +
+			"that will be called when all questions in the group have been answered.")
 	}
 	return nil
 }
@@ -57,15 +60,11 @@ func (CreateMessageGroup) execute(input CreateMessageGroupInput, engine step.Eng
 		return &CreateMessageGroupOutput{}, err
 	}
 
-	workflowUrl := ""
-	if input.OnCompleteWorkflow != "" {
-		workflowUrl, err = engine.GetWorkflowUrl(input.OnCompleteWorkflow, nil)
-		if err != nil {
-			return &CreateMessageGroupOutput{}, err
-		}
-	}
-
-	response := models.NewMessageGroupResponse(input.Messages, workflowUrl, input.UserContext, input.Context)
+	response := models.NewMessageGroupResponse(
+		input.Messages,
+		input.OnCompleteUrl,
+		input.UserContext,
+		input.Context)
 
 	return &CreateMessageGroupOutput{Response: response}, nil
 }

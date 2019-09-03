@@ -3,6 +3,7 @@ let apptree = require('apptree-workflow-sdk');
 apptree.addStep('find', '1.0', findObject);
 apptree.addStep('insert_object', '1.0', insertObject);
 apptree.addStep('remove_object', '1.0', removeObject);
+apptree.addStep('first', '1.0', first);
 
 apptree.run();
 
@@ -24,6 +25,15 @@ function findObject(inputs) {
     });
 
     return { 'Record': object };
+}
+
+function first(inputs) {
+    apptree.validateInputs('Records');
+    const array = inputs['Records'];
+    if (array.length === 0) {
+        return {'IsEmpty' : true}
+    }
+    return {'IsEmpty' : false, 'Record' : array[0]};
 }
 
 function insertObject(inputs) {

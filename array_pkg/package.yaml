@@ -22,6 +22,16 @@ steps:
     outputs:
       Record:
         description: The first record encountered whose field matched, null if no match
+  first@1.0:
+    inputs:
+      Records:
+        required: true
+        description: The list of records
+    outputs:
+      IsEmpty:
+        description: Whether the array was empty. If this is set to `true` then `Record` will be nil
+      Record:
+        description: The first record in the array if the size of the array is > 0
   insert_object@1.0:
     inputs:
       Records:

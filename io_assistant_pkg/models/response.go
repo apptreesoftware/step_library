@@ -1,14 +1,14 @@
 package models
 
 type FulfillmentResponse struct {
-	Message      *MessageData           `json:"message,omitempty"`
+	Message      map[string]interface{} `json:"message,omitempty"`
 	MessageGroup *MessageGroup          `json:"messageGroup,omitempty"`
 	UserContext  map[string]interface{} `json:"userContext,omitempty"`
 	Context      map[string]interface{} `json:"context,omitempty"`
 	Complete     bool                   `json:"complete"`
 }
 
-func NewMessageGroupResponse(messages []MessageOption, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}) FulfillmentResponse {
+func NewMessageGroupResponse(messages []map[string]interface{}, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}) FulfillmentResponse {
 	return FulfillmentResponse{
 		MessageGroup: &MessageGroup{
 			Messages:      messages,
@@ -19,12 +19,9 @@ func NewMessageGroupResponse(messages []MessageOption, workflowUrl string, userC
 	}
 }
 
-func NewMessageResponse(input MessageBase, workflowUrl string, userContext map[string]interface{}, context map[string]interface{}, complete bool) FulfillmentResponse {
+func NewMessageResponse(message map[string]interface{}, userContext map[string]interface{}, context map[string]interface{}, complete bool) FulfillmentResponse {
 	return FulfillmentResponse{
-		Message: &MessageData{
-			MessageBase:   input,
-			OnCompleteUrl: workflowUrl,
-		},
+		Message:     message,
 		UserContext: userContext,
 		Context:     context,
 		Complete:    complete,

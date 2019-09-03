@@ -72,11 +72,11 @@ build-io-assist: |
 publish-io-assist: build-io-assist |
 	apptree publish package -d io_assistant_pkg --host ${HOST}
 build-array: |
-	cd array_pkg && pkg -t node12-linux-x64,node12-macos-x64 index.js
+	cd array_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-workflow: |
-	cd workflow_pkg && pkg -t node12-linux-x64,node12-macos-x64 index.js
+	cd workflow_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-workflow: build-workflow |
 	apptree publish package -d workflow_pkg --host ${HOST}
 build-famis: |
