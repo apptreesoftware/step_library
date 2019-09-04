@@ -2,7 +2,7 @@
   "name": "main",
   "bin": "index.js",
   "dependencies": {
-    "apptree-workflow-sdk": "0.0.3"
+    "apptree-workflow-sdk": "0.0.13"
   },
   "devDependencies": {},
   "scripts": {}

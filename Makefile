@@ -75,6 +75,18 @@ build-array: |
 	cd array_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
+build-object: |
+	cd object_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+publish-object: build-object |
+	apptree publish package -d object_pkg --host ${HOST}
+build-json: |
+	cd json_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+publish-json : build-json |
+	apptree publish package -d json_pkg --host ${HOST}
+build-famis-equip: |
+	cd database/famis_equipment_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+publish-famis-equip : build-famis-equip |
+	apptree publish package -d database/famis_equipment_pkg --host ${HOST}
 build-workflow: |
 	cd workflow_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-workflow: build-workflow |

@@ -1,0 +1,29 @@
+name: famis_equipment
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+
+steps:
+  equipment_lookup@1.0:
+    inputs:
+      ConnectionString:
+        required: true
+        description: The Postgres connection string
+      EquipmentType:
+        required: false
+        description: Base equipment type you want to look up
+      EquipmentSubType:
+        required: false
+        description: Equipment Sub Type
+      EquipmentSubType2:
+        required: false
+        description: Equipment SubType 2
+    outputs:
+      Options:
+        description: A list of further equipment sub options
+      Workflow:
+        description: The workflow ID, if available, for the hierarchy of equipment given

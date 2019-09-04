@@ -3,9 +3,9 @@ version: 1.0
 
 executables:
   linux:
-    amd64: object_pkg-linux
+    amd64: index-linux
   darwin:
-    amd64: object_pkg-macos
+    amd64: index-macos
 
 steps:
   new@1.0:

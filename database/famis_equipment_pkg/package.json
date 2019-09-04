@@ -1,15 +1,15 @@
 {
-  "name": "object_pkg",
+  "name": "famis_equipment_pkg",
   "version": "1.0.0",
-  "description": "A step package for creating and manipulating objects",
+  "description": "A package to query the famis equipment cache",
   "main": "index.js",
-  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apptree-workflow-sdk": "0.0.13"
+    "apptree-workflow-sdk": "0.0.13",
+    "pg": "^7.12.1"
   }
 }
