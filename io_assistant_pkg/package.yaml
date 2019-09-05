@@ -71,4 +71,12 @@ steps:
     outputs:
       options:
         description: the list of records formatted as select options for an assistant message
+  build_options_list@1.0:
+    inputs:
+      records:
+        required: true
+        description: the list of strings that you would like to convert to a select list
+    outputs:
+      options:
+        description: the list of records formatted as select options for an assistant message
 

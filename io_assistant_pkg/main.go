@@ -9,6 +9,7 @@ func main() {
 	step.Register(CreateMessageGroup{})
 	step.Register(CreateMessage{})
 	step.Register(ParseFulfillment{})
+	step.Register(BuildOptionsList{})
 
 	step.Run()
 }
