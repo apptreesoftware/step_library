@@ -1,9 +1,71 @@
 {
-  "get_templates": {
+  "get_client_token": {
     "HostUrl": "https://apptree.int.emsplayground.com",
     "ClientId": "GK9fG1q5TyuI9ZpRDkG1_g",
-    "Secret": "axfoS3soY-9zHptYQj3soJ-AsLewWN2eOV-O2ZTPwZg",
+    "Secret": "axfoS3soY-9zHptYQj3soJ-AsLewWN2eOV-O2ZTPwZg"
+  },
+  "get_auth_token": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
     "Username": "apptree@emsdev.com",
-    "Password": "1234"
+    "Password": "1234",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_templates": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_setup_types": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_timezones": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_room_types": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "search_buildings": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU",
+    "SearchText": "Inverness"
+  },
+  "get_buildings": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_event_types": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU"
+  },
+  "get_groups_by_webuserid": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU",
+    "WebUserId": "10205"
+  },
+  "search_bookings_by_roomid": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU",
+    "RoomId": 12389
+  },
+  "get_floors_by_buildingid": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3ODY5NDU0LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.iUbc5HEieMR-TDaX1EaNPLeqjWafyIsmUbiDzevTFdM",
+    "BuildingId": 267
+  },
+  "search_room_availability": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3ODY5NDU0LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.iUbc5HEieMR-TDaX1EaNPLeqjWafyIsmUbiDzevTFdM",
+    "BuildingId": 276,
+    "Attendance": 3,
+    "RoomTypeIds": [2,6],
+    "FloorIds": [6],
+    "Dates": ["2019-09-07T12:14:18-06:00", "2019-09-08T12:14:18-06:00"],
+    "EventStartTime": "2019-09-05T12:14:18-06:00",
+    "EventEndTime": "2019-09-05T12:14:18-06:00",
+    "ExcludeUnavailable": true,
+    "WebTemplateId": 23,
+    "TimeZoneId": 83
   }
 }

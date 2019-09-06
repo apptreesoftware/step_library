@@ -8,7 +8,7 @@ executables:
     amd64: index-macos
 
 steps:
-  get_templates@1.0:
+  get_client_token@1.0:
     inputs:
       HostUrl:
         required: true
@@ -20,5 +20,196 @@ steps:
         required: true
         description: EMS Web Secret
     outputs:
+      ClientToken:
+        description: Ems Client Token
+  get_auth_token@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      Password:
+        required: true
+        description: EMS Password
+      Username:
+        required: true
+        description: EMS Username
+      ClientToken:
+        required: true
+        description: EMS ClientToken obtained from get_client_token step
+    outputs:
+      AuthToken:
+        description: Ems Auth Token
+  search_room_availability@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      BuildingId:
+        required: true
+        description: BuildingId you want to filter bookings by
+      Attendance:
+        required: true
+        description: The number of people attending the event (seating requirements)
+      RoomTypeIds:
+        required: true
+        description: Array of RoomTypeIds that are desirable for the Reservation/Booking
+      FloorIds:
+        required: true
+        description: Array of FloorIds to filter the results by
+      Dates:
+        required: true
+        description: Array of dates in RFC3339 that will filter results based the year/month/day, time is disregarded
+      EventStartTime:
+        required: true
+        description: RFC3339 date, only time portion is used to return results available after the start time
+      EventEndTime:
+        required: true
+        description: RFC3339 date, only time portion is used to return results available before the end time
+      ExcludeUnavailable:
+        required: true
+        description: Boolean, whether unavailable rooms are to be included in results
+      WebTemplateId:
+        required: true
+        description: WebTemplate to filter results by
+      TimeZoneId:
+        required: true
+        description: Timezone the requestor is requesting from/for
+    outputs:
+      Rooms:
+        description: Array of Rooms returned by EMS Web Service that match the Filters
+  search_bookings_by_roomid@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      RoomId:
+        required: true
+        description: RoomId you want to filter bookings by
+    outputs:
+      Bookings:
+        description: Array of Bookins returned by EMS Web Service that match the RoomId Filter
+  get_floors_by_buildingid@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      BuildingId:
+        requried: true
+        description: BuildingId for which you are requesting existing floors
+    outputs:
+      Floors:
+        description: Array of Floors returned by EMS Web Service
+  get_groups@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      Groups:
+        description: Array of Groups returned by EMS Web Service
+  get_groups_by_webuserid@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      WebUserId:
+        required: true
+        description: EMS Group filtered to those associated to a User
+    outputs:
+      Groups:
+        description: Array of Groups returned by EMS Web Service the Web User is associated with
+  get_event_types@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      EventTypes:
+        description: Array of Event Types returned by EMS Web Service
+  search_buildings@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      SearchText:
+        required: true
+        description: Text to us in the Search Building Api, Searches the Description Field
+    outputs:
+      Buildings:
+        description: Array of Buildings returned by EMS Web Service that match the Search Text
+  get_buildings@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      Buildings:
+        description: Array of All Buildings returned by EMS Web Service
+  get_templates@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
       Templates:
         description: Array of Templates returned by EMS Web Service
+  get_room_types@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      RoomTypes:
+        description: Array of Room Types returned by EMS Web Service
+  get_setup_types@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      SetupTypes:
+        description: Array of Setup Types returned by EMS Web Service
+  get_timezones@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+    outputs:
+      Timezones:
+        description: Array of Timezones returned by EMS Web Service
