@@ -17,8 +17,39 @@ apptree.addStep('get_groups', '1.0', getGroups);
 apptree.addStep('get_groups_by_webuserid', '1.0', getGroupsByWebUserId);
 apptree.addStep('search_bookings_by_roomid', '1.0', searchBookingsByRoomId);
 apptree.addStep('search_room_availability', '1.0', searchRoomAvailability);
+apptree.addStep('create_reservation', '1.0', createReservation);
 
 apptree.run();
+
+async function createReservation(inputs) {
+    apptree.validateInputs('AuthToken', 'HostUrl', 'EmailAddress', 'EventName', 'Bookings',
+        'GroupId', 'EventTypeId', 'ProcessTemplateId', 'RoomRecordType', 'Phone', 'BillingReference');
+    const host = inputs['HostUrl'];
+    const authToken = inputs['AuthToken'];
+    const contactId = inputs['ContactId'];
+    const comment = inputs['Comment'];
+    const emailAddress = inputs['EmailAddress'];
+    const eventName = inputs['EventName'];
+    const bookings = inputs['Bookings'];
+    const groupId = inputs['GroupId'];
+    const eventTypeId = inputs['EventTypeId'];
+    const processTemplateId = inputs['ProcessTemplateId'];
+    const roomRecordType = inputs['RoomRecordType'];
+    const phone = inputs['Phone'];
+    const billingReference = inputs['BillingReference'];
+    const endpoint = "/platform/api/v1/reservations/actions/create";
+    const url = buildUrl(host, endpoint);
+
+    let data = {contactId: contactId, comment: comment, emailAddress: emailAddress, eventName: eventName, bookings: bookings,
+        groupId: groupId, eventTypeId: eventTypeId, processTemplateId: processTemplateId, roomRecordType: roomRecordType,
+        phone: phone, billingReference: billingReference};
+
+    let response = await axios.post(url, data, createConfig(authToken));
+
+    let bookingIds = response.data.id;
+
+    return {'Bookings' : bookingIds};
+}
 
 async function searchRoomAvailability(inputs) {
     apptree.validateInputs('ClientToken', 'HostUrl', 'BuildingId', 'Attendance', 'RoomTypeIds',
@@ -61,12 +92,14 @@ async function searchBookingsByRoomId(inputs) {
     d.setDate(d.getDate() - 2);
     let date = d.toISOString();
     let data = {roomIds: array, includeCancelled: false, minDateChanged: date};
-
-    let response = await axios.post(url, data, createConfig(clientToken));
-
-    let bookings = response.data.results;
-
-    return {'Bookings' : bookings};
+    let bookings = [];
+    try{
+        let response = await axios.post(url, data, createConfig(clientToken));
+        bookings = response.data.results;
+        return {'Bookings' : bookings};
+    }catch(err){
+        return {'Bookings' : null};
+    }
 }
 
 async function getFloorsByBuildingId(inputs) {

@@ -39,6 +39,49 @@ steps:
     outputs:
       AuthToken:
         description: Ems Auth Token
+  create_reservation@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      AuthToken:
+        required: true
+        description: EMS Auth Token obtained from get_auth_token step, after using get_client_token step
+      ContactId:
+        requried: true
+        description: Id of the Contact the Reservation is being made for
+      Comment:
+        requried: true
+        description: Comment that is applicable to the Reservation
+      EmailAddress:
+        requried: true
+        description: Email Address of the Contact making the Reservation
+      EventName:
+        requried: true
+        description: Name of the Event
+        sample: Apptree Meeting Test
+      Bookings:
+        requried: true
+        description: Array of bookings to be applied to the Reservation
+        sample: '"bookings":[{"endTime":"2019-09-08T19:14:18Z","startTime":"2019-09-08T18:14:18Z","roomId":12389,"roomRecordType":"NotSet"}]'
+      GroupId:
+        required: true
+        description: GroupId the Contact is making the reservation for
+      EventTypeId:
+        required: true
+        description: Id for the type of event the reservation is being made for
+      ProcessTemplateId:
+        required: true
+        description: Process Template used to create the Reservation
+      RoomRecordType:
+        required: true
+        description: Type of Rooom the Reservation is for
+      Phone:
+        required: true
+        description: Contact Phone Number
+      BillingReference:
+        required: true
+        description: The Billing Reference that will be charged for the booking
   search_room_availability@1.0:
     inputs:
       HostUrl:

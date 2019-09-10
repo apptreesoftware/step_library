@@ -46,7 +46,7 @@
   },
   "search_bookings_by_roomid": {
     "HostUrl": "https://apptree.int.emsplayground.com",
-    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY3NzgxMDE4LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.QyOsPbdeyZQVtRN9GTfBQDSTs0HS15U-mZefu_z2rGU",
+    "ClientToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjAsIkdpdmVuTmFtZSI6IiIsIkVtYWlsIjoiIiwiU2VjdXJpdHlUZW1wbGF0ZSI6MCwiQ2xpZW50SWRlbnRpZmllciI6NjcwNiwiQ2xpZW50SUQiOiJHSzlmRzFxNVR5dUk5WnBSRGtHMV9nIiwiQ2xpZW50TmFtZSI6IkFwcFRyZWUiLCJDbGllbnRUeXBlIjoiUGFydG5lciIsIlVzZXJBdXRoU3VwcG9ydGVkIjpmYWxzZSwiVXNlckF1dGhUeXBlIjowLCJMb2dnaW5nRW5hYmxlZCI6ZmFsc2UsIklnbm9yZVRlbXBsYXRlUnVsZXMiOmZhbHNlLCJEZWxlZ2F0ZVVzZXJJRCI6MCwiRGVsZWdhdGVHaXZlbk5hbWUiOiIiLCJhdWQiOiJBcHBUcmVlIiwiZXhwIjoxNTY4MTQwMDc0LCJpc3MiOiJlbXMtcmVzdC1hcGkifQ.q5iilCuCSQfkIiTRTu6sTvFZcBlLZAhTDr-VUZl79nY",
     "RoomId": 12389
   },
   "get_floors_by_buildingid": {
@@ -67,5 +67,20 @@
     "ExcludeUnavailable": true,
     "WebTemplateId": 23,
     "TimeZoneId": 83
+  },
+  "create_reservation": {
+    "HostUrl": "https://apptree.int.emsplayground.com",
+    "AuthToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjEwMjA1LCJHaXZlbk5hbWUiOiJhcHB0cmVlIiwiRW1haWwiOiJhcHB0cmVlQGVtc2Rldi5jb20iLCJTZWN1cml0eVRlbXBsYXRlIjoyLCJDbGllbnRJZGVudGlmaWVyIjo2NzA2LCJDbGllbnRJRCI6IkdLOWZHMXE1VHl1STlacFJEa0cxX2ciLCJDbGllbnROYW1lIjoiQXBwVHJlZSIsIkNsaWVudFR5cGUiOiJQYXJ0bmVyIiwiVXNlckF1dGhTdXBwb3J0ZWQiOmZhbHNlLCJVc2VyQXV0aFR5cGUiOjAsIkxvZ2dpbmdFbmFibGVkIjpmYWxzZSwiSWdub3JlVGVtcGxhdGVSdWxlcyI6ZmFsc2UsIkRlbGVnYXRlVXNlcklEIjowLCJEZWxlZ2F0ZUdpdmVuTmFtZSI6IiIsImV4cCI6MTU2Nzg5MzU4NywiaXNzIjoiZW1zLXJlc3QtYXBpIn0.NiGCnGb3biy0WudOvyslo5unPbVZ3b4Yv1fOKQwXLBQ",
+    "ContactId": 37,
+    "EventName": "Apptree Meeting part duo",
+    "Comment": "This is a test comment for an AppTree Test",
+    "EmailAddress": "abe.foster@apptreesoftware.com",
+    "Bookings": [{"endTime":"2019-09-08T19:14:18Z","startTime":"2019-09-08T18:14:18Z","roomId":12389,"roomRecordType":"NotSet"}],
+    "GroupId": 1,
+    "EventTypeId": 9,
+    "ProcessTemplateId": 23,
+    "RoomRecordType": 2,
+    "Phone": "254-319-0834",
+    "BillingReference": "123.556.6651"
   }
 }
