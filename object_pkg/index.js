@@ -6,22 +6,25 @@ apptree.addStep('update', '1.0', updateObject);
 apptree.run();
 
 function newObject(inputs) {
-    var fields = inputs['Fields'];
+    let fields = inputs['Fields'];
     return { 'Record': fields };
 }
 
 function updateObject(inputs) {
-    var fields = inputs['Fields'];
-    var object = inputs['Record'];
+    apptree.validateInputs('Record', 'Fields');
 
+    let fields = inputs['Fields'];
+    let object = inputs['Record'];
     if (object == null) {
-        process.stderr.write("You must provide the input `Record`");
-        return;
+        throw "You must provide the input `Record`";
     }
 
-    var keys = Object.entries(fields);
-    for (var key in keys) {
-        object.key = fields[key];
-    }
+    let keys = Object.keys(fields);
+    keys.forEach((k) => {
+        if (apptree.debug) {
+            console.log(`Setting ${k} = ${fields[k]}`);
+        }
+        object[k] = fields[k];
+    });
     return { 'Record': object };
 }

@@ -1,0 +1,14 @@
+{
+  "name": "workflow_pkg",
+  "version": "1.0.0",
+  "description": "Workflow steps",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "dependencies": {
+    "apptree-workflow-sdk": "0.0.10"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -7,7 +7,6 @@ obj
 publish/
 **/.vscode
 **/node_modules
-/array_pkg/package-lock.json
 index-macos
 index-linux
 index-windows.exe

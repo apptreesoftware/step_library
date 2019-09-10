@@ -3,58 +3,26 @@ version: 1.0
 
 executables:
   linux:
-    amd64: main-linux
+    amd64: index-linux
   darwin:
-    amd64: main-macos
+    amd64: index-macos
 
 steps:
   parse@1.0:
     inputs:
-      text:
+      String:
         required: true
         description: The text you want to parse as JSON
         sample: '{"key" : "value"}'
     outputs:
-      record:
+      Record:
         description: The record that was parsed from the JSON string
   parse_array@1.0:
     inputs:
-      text:
+      String:
         required: true
         description: "A string representing a json array of records to parse"
         sample: '["value1", "value2"]'
     outputs:
-      records:
+      Records:
         description: The json array parsed from the input `text`
-  set@1.0:
-    inputs:
-      record:
-        required: false
-        description: The record you want to set a new field on or null if you want to set it on an empty object.
-      key:
-        required: true
-        description: "The key to use in the new record"
-        sample: "name"
-      value:
-        required: true
-        description: "The value you want to set on the record"
-        sample: "Matthew"
-    outputs:
-      record:
-        description: The updated record with [key] set to [value]
-  set_all@1.0:
-    inputs:
-      records:
-        required: false
-        description: The list of records you want to set a new value on
-      key:
-        required: true
-        description: "The key to use in the new record"
-        sample: "name"
-      value:
-        required: true
-        description: "The value you want to set on the record"
-        sample: "Matthew"
-    outputs:
-      records:
-        description: The updated record with [key] set to [value]

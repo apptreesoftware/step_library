@@ -6,11 +6,10 @@ import (
 )
 
 type CreateMessageInput struct {
-	Message            models.MessageBase     `json:"message"`
-	UserContext        map[string]interface{} `json:"userContext"`
-	Context            map[string]interface{} `json:"context"`
-	OnCompleteWorkflow string                 `json:"onCompleteWorkflow"`
-	Complete           bool                   `json:"complete"`
+	Message     map[string]interface{} `json:"message"`
+	UserContext map[string]interface{} `json:"userContext"`
+	Context     map[string]interface{} `json:"context"`
+	Complete    bool                   `json:"complete"`
 }
 
 type CreateMessageOutput struct {
@@ -39,18 +38,6 @@ func (c CreateMessage) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateMessage) execute(input CreateMessageInput, engine step.Engine) (*CreateMessageOutput, error) {
-	err := input.Message.ValidateMessageInput()
-	if err != nil {
-		return &CreateMessageOutput{}, err
-	}
-
-	workflowUrl := ""
-	if input.OnCompleteWorkflow != "" {
-		workflowUrl, err = engine.GetWorkflowUrl(input.OnCompleteWorkflow, nil)
-		if err != nil {
-			return &CreateMessageOutput{}, err
-		}
-	}
-	response := models.NewMessageResponse(input.Message, workflowUrl, input.UserContext, input.Context, input.Complete)
+	response := models.NewMessageResponse(input.Message, input.UserContext, input.Context, input.Complete)
 	return &CreateMessageOutput{Response: response}, nil
 }

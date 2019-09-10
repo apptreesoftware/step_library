@@ -17,10 +17,6 @@ steps:
         required: true
         description: The message object to pass back
         sample: '{"type": "promptText, "text": "What does the control panel say?", "id": "controlPanelOutput"}'
-      onCompleteWorkflow:
-        required: false
-        description: the workflow that should be called once this group of questions has been answered
-        sample: following_workflow
       userContext:
         required: false
         description: a map of value to add to the user context which will persist across interactions
@@ -41,10 +37,6 @@ steps:
         required: true
         description: The group to pass back
         sample: '[{"id": "sampleMessage", "type": "promptBool", "text": "Do you love the AppTree assistant?"}]'
-      onCompleteWorkflow:
-        required: false
-        description: the workflow that should be called once this group of questions has been answered
-        sample: following_workflow
       userContext:
         required: false
         description: a map of value to add to the user context which will persist across interactions
@@ -76,6 +68,14 @@ steps:
       textField:
         required: true
         description: the name of the field that should be displayed for the select option
+    outputs:
+      options:
+        description: the list of records formatted as select options for an assistant message
+  build_options_list@1.0:
+    inputs:
+      records:
+        required: true
+        description: the list of strings that you would like to convert to a select list
     outputs:
       options:
         description: the list of records formatted as select options for an assistant message

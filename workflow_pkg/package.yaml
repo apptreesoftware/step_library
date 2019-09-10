@@ -1,0 +1,16 @@
+name: workflow
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+
+steps:
+  exit@1.0:
+    inputs: {}
+    outputs: {}
+  fail@1.0:
+    inputs: {}
+    outputs: {}
