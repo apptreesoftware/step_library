@@ -5,7 +5,7 @@ test: |
 all: publish
 build: build-dotnet build-go build-node |
 build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist
-build-node: build-array build-workflow
+build-node: build-array build-workflow build-ems
 build-dotnet: build-famis
 build-postgres: |
 			cd database/postgres_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
@@ -76,7 +76,7 @@ build-array: |
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-ems: |
-	cd ems_pkg && pkg -t node12-linux-x64,node12-macos-x64 index.js
+	cd ems_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-ems: build-ems |
 	apptree publish package -d ems_pkg --host ${HOST}
 build-famis: |
@@ -104,7 +104,7 @@ updatesdk: |
 	cd array_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd ems_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist
-publish-node: publish-array publish-workflow
+publish-node: publish-array publish-workflow publish-ems
 publish-dotnet: publish-famis
 
 publish: publish-go publish-dotnet publish-node

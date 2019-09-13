@@ -12,25 +12,30 @@ apptree.addStep('get_room_types', '1.0', getRoomTypes);
 apptree.addStep('get_buildings', '1.0', getBuildings);
 apptree.addStep('search_buildings', '1.0', searchBuildings);
 apptree.addStep('get_floors_by_buildingid', '1.0', getFloorsByBuildingId);
+apptree.addStep('get_rooms_by_buildingid', '1.0', getRoomsByBuildingId);
 apptree.addStep('get_event_types', '1.0', getEventTypes);
 apptree.addStep('get_groups', '1.0', getGroups);
 apptree.addStep('get_groups_by_webuserid', '1.0', getGroupsByWebUserId);
 apptree.addStep('search_bookings_by_roomid', '1.0', searchBookingsByRoomId);
 apptree.addStep('search_room_availability', '1.0', searchRoomAvailability);
 apptree.addStep('create_reservation', '1.0', createReservation);
+apptree.addStep('create_availability_markdown', '1.0', createAvailabilityMarkdown);
 
 apptree.run();
 
 async function createReservation(inputs) {
-    apptree.validateInputs('AuthToken', 'HostUrl', 'EmailAddress', 'EventName', 'Bookings',
-        'GroupId', 'EventTypeId', 'ProcessTemplateId', 'RoomRecordType', 'Phone', 'BillingReference');
+    apptree.validateInputs('AuthToken', 'HostUrl', 'EmailAddress', 'EventName',
+        'GroupId', 'EventTypeId', 'ProcessTemplateId', 'RoomRecordType', 'Phone', 'BillingReference',
+        'StartTime', 'EndTime', 'RoomId');
     const host = inputs['HostUrl'];
     const authToken = inputs['AuthToken'];
     const contactId = inputs['ContactId'];
     const comment = inputs['Comment'];
     const emailAddress = inputs['EmailAddress'];
     const eventName = inputs['EventName'];
-    const bookings = inputs['Bookings'];
+    const roomId = inputs['RoomId'];
+    const startTime = inputs['StartTime'];
+    const endTime = inputs['EndTime']
     const groupId = inputs['GroupId'];
     const eventTypeId = inputs['EventTypeId'];
     const processTemplateId = inputs['ProcessTemplateId'];
@@ -39,6 +44,7 @@ async function createReservation(inputs) {
     const billingReference = inputs['BillingReference'];
     const endpoint = "/platform/api/v1/reservations/actions/create";
     const url = buildUrl(host, endpoint);
+    let bookings = [{endTime: endTime, startTime: startTime, roomId: roomId, roomRecordType: roomRecordType, eventTypeId: eventTypeId}];
 
     let data = {contactId: contactId, comment: comment, emailAddress: emailAddress, eventName: eventName, bookings: bookings,
         groupId: groupId, eventTypeId: eventTypeId, processTemplateId: processTemplateId, roomRecordType: roomRecordType,
@@ -115,6 +121,22 @@ async function getFloorsByBuildingId(inputs) {
     let floors = response.data.results;
 
     return {'Floors' : floors};
+}
+
+async function getRoomsByBuildingId(inputs) {
+    apptree.validateInputs('ClientToken', 'HostUrl', 'BuildingId');
+    const host = inputs['HostUrl'];
+    const clientToken = inputs['ClientToken'];
+    const buildingIds = inputs['BuildingId'];
+    const endpoint = `/platform/api/v1/rooms/actions/search`;
+    const url = buildUrl(host, endpoint);
+    let data = {buildingIds: [buildingIds]};
+
+    let response = await axios.post(url, data, createConfig(clientToken));
+
+    let rooms = response.data.results;
+
+    return {'Rooms' : rooms};
 }
 
 async function getTemplates(inputs) {
@@ -243,6 +265,38 @@ async function getTimezones(inputs) {
     let timezones = response.data;
 
     return {'Timezones' : timezones};
+}
+
+async function createAvailabilityMarkdown(inputs) {
+    apptree.validateInputs('Bookings');
+    const bookings = inputs['Bookings'];
+    let roomDes = "";
+    if(bookings[0] !== undefined){
+        let book = bookings[0];
+        roomDes = book.room.description;
+        bookings.forEach(function (book) {
+            book.eventStartTime = formatDate(book.eventStartTime);
+            book.eventEndTime = formatDate(book.eventEndTime);
+        });
+    }else{
+        return null;
+    }
+    
+    const markdown = `# ${roomDes}\n${bookings.map(b => `- ${b.eventStartTime} to ${b.eventEndTime}\n`).join('')}`;
+
+    return {'Markdown' : markdown};
+}
+
+function formatDate(stringDate) {
+    let date = new Date(stringDate);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    let strTime = hours + ':' + minutes + ' ' + ampm;
+    return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
 }
 
 async function getClientToken(inputs) {

@@ -60,10 +60,15 @@ steps:
         requried: true
         description: Name of the Event
         sample: Apptree Meeting Test
-      Bookings:
+      RoomId:
         requried: true
-        description: Array of bookings to be applied to the Reservation
-        sample: '"bookings":[{"endTime":"2019-09-08T19:14:18Z","startTime":"2019-09-08T18:14:18Z","roomId":12389,"roomRecordType":"NotSet"}]'
+        description: Id of room to be applied to the Reservation
+      StartTime:
+        required: true
+        description: DateTimeOffset for the start of the booking
+      EndTime:
+        required: true
+        description: DateTimeOffset for the end of the booking
       GroupId:
         required: true
         description: GroupId the Contact is making the reservation for
@@ -82,6 +87,9 @@ steps:
       BillingReference:
         required: true
         description: The Billing Reference that will be charged for the booking
+    outputs:
+      Bookings:
+        description: Array of Bookings made in EMS
   search_room_availability@1.0:
     inputs:
       HostUrl:
@@ -151,6 +159,20 @@ steps:
     outputs:
       Floors:
         description: Array of Floors returned by EMS Web Service
+  get_rooms_by_buildingid@1.0:
+    inputs:
+      HostUrl:
+        required: true
+        description: Host Url
+      ClientToken:
+        required: true
+        description: EMS Client Token obtained from get_client_token step
+      BuildingId:
+        requried: true
+        description: BuildingId for which you are requesting existing rooms
+    outputs:
+      Rooms:
+        description: Array of rooms returned by EMS Web Service
   get_groups@1.0:
     inputs:
       HostUrl:
@@ -256,3 +278,11 @@ steps:
     outputs:
       Timezones:
         description: Array of Timezones returned by EMS Web Service
+  create_availability_markdown@1.0:
+    inputs:
+      Bookings:
+        required: true
+        description: Array of EMS bookings
+    outputs:
+      Markdown:
+        description: Markdown string to display the array of bookings
