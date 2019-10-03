@@ -1,0 +1,14 @@
+{
+  "name": "ms_graph_pkg",
+  "version": "1.0.0",
+  "description": "Package for run various operations against the Microsoft Graph API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apptree-workflow-sdk": "0.0.13"
+  }
+}

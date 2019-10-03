@@ -1,0 +1,44 @@
+name: ems
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+
+steps:
+  get_users@1.0:
+    inputs:
+      AuthToken:
+        required: true
+        description: Microsoft Graph Auth Token
+      Filter:
+        required: false
+        description: Filter to apply to the GET, reference; https://docs.microsoft.com/en-us/graph/query-parameters
+    outputs:
+      Users:
+        description: Array of Users
+  get_auth_token@1.0:
+    inputs:
+      Tenant:
+        required: true
+        description: Microsoft Graph Application Tenant
+      Password:
+        required: true
+        description: Microsoft Password
+      Username:
+        required: true
+        description: Microsoft Username
+      ClientId:
+        required: true
+        description: ClientId for the Microsoft Graph registered App
+      ClientSecret:
+        required: true
+        description: Client Secret for the Microsoft Graph registered App
+      Scope:
+        required: true
+        description: Scope of the Call... if not sure the default = https://graph.microsoft.com/.default
+    outputs:
+      AuthToken:
+        description: Ems Auth Token

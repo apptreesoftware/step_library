@@ -1,0 +1,14 @@
+{
+  "get_auth_token": {
+    "Tenant": "https://apptree.int.emsplayground.com",
+    "Username": "fama_apptree_api@uark.onmicrosoft.com",
+    "Password": "AUzmUJYfwXT!3E58",
+    "ClientId": "4f0db891-bc99-496e-8add-bb7edcb2b383",
+    "ClientSecret": "EuK@3LB@mgXSLSfKd5_n7/7@c26fG5Lf",
+    "Scope": "https://graph.microsoft.com/.default"
+  },
+  "get_users": {
+    "AuthToken": "https://apptree.int.emsplayground.com",
+    "Filter": "select=displayName,givenName,postalCode,userType,isResourceAccount,mail&$filter=mail ge '!'"
+  }
+}
