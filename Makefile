@@ -5,7 +5,7 @@ test: |
 all: publish
 build: build-dotnet build-go build-node |
 build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist
-build-node: build-array build-workflow build-ms_graph
+build-node: build-array build-workflow build-msgraph
 build-dotnet: build-famis
 build-postgres: |
 			cd database/postgres_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"

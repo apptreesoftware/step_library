@@ -13,25 +13,36 @@ async function getUsers(inputs) {
     apptree.validateInputs('AuthToken', 'Filter');
     const filter = inputs['Filter'];
     const authToken = inputs['AuthToken'];
-    const url = buildUrl()
 
-    let response = await axios.get(url, createConfig());
-
-    let users = response.data.value;
+    let users = await getAll(authToken,'users', filter);
 
     return {'Users' : users};
 }
 
-function formatDate(stringDate) {
-    let date = new Date(stringDate);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    let ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    let strTime = hours + ':' + minutes + ' ' + ampm;
-    return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+async function getAll(token, endPoint, filter){
+    let objects = [];
+    let hasNextLink = false;
+    let nextLink = '';
+    const url = buildUrl(endPoint, filter);
+    let response = await axios.get(url, createConfig(false, token));
+    if(response.data){
+        objects.push(response.data.value);
+    }
+    if(response.data['@odata.nextLink']){
+        hasNextLink = true;
+        nextLink = response.data['@odata.nextLink'];
+    }
+    while(hasNextLink){
+        let nextResponse = await axios.get(nextLink, createConfig(false, token));
+        objects.push(nextResponse.data.value);
+        if(nextResponse.data['@odata.nextLink']){
+            hasNextLink = true;
+            nextLink = nextResponse.data['@odata.nextLink'];
+        }else{
+            hasNextLink = false;
+        }
+    }
+    return objects;
 }
 
 async function getAuthToken(inputs){
@@ -60,13 +71,13 @@ async function getAuthToken(inputs){
     return {'AuthToken' : authToken};
 }
 
-function buildUrl(endpoint, endPoint, filter){
+function buildUrl(endPoint, filter){
     const host = 'https://graph.microsoft.com/v1.0/';
     let url = `${host}${endPoint}?$${filter}`;
     return url;
 }
 
-function createConfig(login){
+function createConfig(login, token){
     let config = {};
     if(login){
         config = {
@@ -74,7 +85,7 @@ function createConfig(login){
         };
     }else{
         config = {
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token}
         };
     }
     return config;
