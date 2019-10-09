@@ -25,7 +25,7 @@ inputBase: &input_base
     description: "Your Google Sheets credentials JSON. To create your credentials see https://developers.google.com/sheets/api/quickstart/go"
     sample: '{}'
   SheetName:
-    required: true
+    required: false
     description: "The name of the sheet"
     sample: "Sheet1"
 
