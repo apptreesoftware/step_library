@@ -5,12 +5,13 @@ const {Storage} = require('@google-cloud/storage');
 
 apptree.addStep('upload_file', '1.0', uploadFile);
 apptree.addStep('download_file', '1.0', downloadFile);
+apptree.addStep('move_file', '1.0', moveFile);
 apptree.run();
 
 
 async function uploadFile(input) {
-    apptree.validateInputs('Credential', 'FilePath', 'ProjectId', 'Bucket');
-    let credential = input['Credential'];
+    apptree.validateInputs('Credentials', 'FilePath', 'ProjectId', 'Bucket');
+    let credential = input['Credentials'];
     let filePath = input['FilePath'];
     const bucketName = input['Bucket'];
     const deleteOnUpload = input['DeleteOnUpload'];
@@ -41,8 +42,8 @@ async function uploadFile(input) {
 }
 
 async function downloadFile(input) {
-    apptree.validateInputs('Credential', 'FileName', 'ProjectId', 'Bucket', 'OutputDirectory');
-    let credential = input['Credential'];
+    apptree.validateInputs('Credentials', 'FileName', 'ProjectId', 'Bucket', 'OutputDirectory');
+    let credential = input['Credentials'];
     let fileName = input['FileName'];
     const bucketName = input['Bucket'];
     const outputDirectory = input['OutputDirectory'];
@@ -58,5 +59,33 @@ async function downloadFile(input) {
     }
 
     await bucket.file(fileName).download({destination: `${outputDirectory}/${fileName}`});
-    return {"Success": true}
+    return {"Success": true};
+}
+
+async function moveFile(input) {
+    apptree.validateInputs('Credentials', 'FileName', 'SourceBucket', 'DestinationBucket', 'ProjectId');
+    let credential = input['Credentials'];
+    let fileName = input['FileName'];
+    const scBucketName = input['SourceBucket'];
+    const destBucketName = input['DestinationBucket'];
+
+    const storage = new Storage({
+        projectId: input['ProjectId'],
+        credentials: credential,
+    });
+
+    const sourceBucket = storage.bucket(scBucketName);
+    let exists = await sourceBucket.exists();
+    if (!exists) {
+        throw "source bucket does not exist";
+    }
+
+    const destBucket = storage.bucket(destBucketName);
+    exists = await destBucket.exists();
+    if (!exists) {
+        throw "destination bucket does not exist";
+    }
+
+    await sourceBucket.file(fileName).move(destBucket);
+    return {"Success": true};
 }
