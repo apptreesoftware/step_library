@@ -31,3 +31,24 @@ steps:
     outputs:
       Success:
         description: A boolean indicating success or failure
+  download_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FileNath:
+        required: true
+        description: The name of the file to download
+      Bucket:
+        required: true
+        description: The bucket to upload to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+      ServerFilePath:
+        required: false
+        description: The path to save the file to locally
+    outputs:
+      Success:
+        description: A boolean indicating success or failure

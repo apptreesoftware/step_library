@@ -1,7 +1,10 @@
 let apptree = require('apptree-workflow-sdk');
 const fs = require('fs');
+const path = require('path');
 const {Storage} = require('@google-cloud/storage');
+
 apptree.addStep('upload_file', '1.0', uploadFile);
+apptree.addStep('download_file', '1.0', downloadFile);
 apptree.run();
 
 
@@ -35,4 +38,32 @@ async function uploadFile(input) {
         });
     }
     return {"Success" : true };
+}
+
+async function downloadFile(input) {
+    apptree.validateInputs('Credential', 'FileName', 'ProjectId', 'Bucket', 'ServerFilePath');
+    let credential = input['Credential'];
+    let fileName = input['FileName'];
+    const bucketName = input['Bucket'];
+    const serverDir = input['ServerFilePath'];
+    // const deleteOnDownload = input['DeleteOnDownload'];
+
+    const storage = new Storage({
+        projectId: input['ProjectId'],
+        credentials: credential,
+    });
+    const bucket = storage.bucket(bucketName);
+    const exists = await bucket.exists();
+    if (!exists) {
+        console.error("Bucket does not exist");
+        process.exit(1);
+    }
+
+    try {
+        await bucket.file(fileName).download({destination: `${serverDir}/${fileName}`});
+    } catch (e) {
+        console.error(`error saving file: ${e.toString()}`);
+        process.exit(1);
+    }
+    return {"Success": true}
 }
