@@ -1,5 +1,4 @@
 let apptree = require('apptree-workflow-sdk');
-let path = require('path');
 
 const {Storage} = require('@google-cloud/storage');
 apptree.addStep('upload_file', '1.0', uploadFile);
