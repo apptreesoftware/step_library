@@ -1,8 +1,9 @@
 {
   "upload_file": {
     "Credential": {},
-    "ProjectId": "apptreerevolution",
-    "Bucket" : "mybucket",
-    "FilePath" : "/Users/matthew/Desktop/MSUApptreeWS-soapui-project.xml"
+    "ProjectId": "apptreeio",
+    "Bucket" : "apptreeio_integration_test",
+    "FilePath" : "/Users/alexis/Desktop/Screen Shot 2018-11-07 at 11.03.24 AM.png",
+    "DeleteOnUpload": true
   }
 }

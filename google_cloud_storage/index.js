@@ -1,5 +1,5 @@
 let apptree = require('apptree-workflow-sdk');
-
+const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 apptree.addStep('upload_file', '1.0', uploadFile);
 apptree.run();
@@ -10,6 +10,8 @@ async function uploadFile(input) {
     let credential = input['Credential'];
     let filePath = input['FilePath'];
     const bucketName = input['Bucket'];
+    const deleteOnUpload = input['DeleteOnUpload'];
+
     const storage = new Storage({
         projectId: input['ProjectId'],
         credentials: credential,
@@ -23,5 +25,14 @@ async function uploadFile(input) {
     await bucket.upload(filePath, {
 
     });
+
+    if (deleteOnUpload) {
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                console.error("file was uploaded but did not get deleted from the local filesystem");
+            }
+            console.info("file deleted");
+        });
+    }
     return {"Success" : true };
 }
