@@ -3,7 +3,21 @@
     "Credential": {},
     "ProjectId": "apptreeio",
     "Bucket" : "apptreeio_integration_test",
-    "FilePath" : "/Users/alexis/Desktop/Screen Shot 2018-11-07 at 11.03.24 AM.png",
+    "FilePath" : "/Users/alexis/Desktop/Screen Shot 2019-10-10 at 1.01.03 PM.png",
     "DeleteOnUpload": true
+  },
+  "download_file": {
+    "Credential": {},
+    "ProjectId": "apptreeio",
+    "Bucket" : "apptreeio_integration_test",
+    "OutputDirectory": "/Users/alexis/Desktop",
+    "FileName" : "Screen Shot 2019-10-10 at 1.01.03 PM.png"
+  },
+  "move_file": {
+    "Credential": {},
+    "ProjectId": "apptreeio",
+    "SourceBucket" : "apptreeio_integration_test",
+    "DestinationBucket": "apptreeio_integration_bucket2",
+    "FileName" : "Screen Shot 2019-10-10 at 1.01.03 PM.png"
   }
 }

@@ -31,3 +31,45 @@ steps:
     outputs:
       Success:
         description: A boolean indicating success or failure
+  download_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FileName:
+        required: true
+        description: The name of the file to download
+      Bucket:
+        required: true
+        description: The bucket to upload to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+      OutputDirectory:
+        required: false
+        description: The path to save the file to locally
+    outputs:
+      Success:
+        description: A boolean indicating success or failure
+  move_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FileName:
+        required: true
+        description: The name of the file to download
+      SourceBucket:
+        required: true
+        description: The bucket to move the file from
+      DestinationBucket:
+        required: true
+        description: The bucket to move the file to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+    outputs:
+      Success:
+        description: A boolean indicating success or failure
