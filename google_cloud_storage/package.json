@@ -1,0 +1,15 @@
+{
+  "name": "google_cloud_storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^3.3.1",
+    "apptree-workflow-sdk": "0.0.13"
+  }
+}

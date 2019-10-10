@@ -1,0 +1,30 @@
+name: google_cloud_storage
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+  windows:
+    amd64: index-windows.exe
+
+steps:
+  upload_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FilePath:
+        required: true
+        description: The path to the file you want to upload
+      Bucket:
+        required: true
+        description: The bucket to upload to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+    outputs:
+      Success:
+        description: A boolean indicating success or failure

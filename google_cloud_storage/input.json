@@ -1,0 +1,8 @@
+{
+  "upload_file": {
+    "Credential": {},
+    "ProjectId": "apptreerevolution",
+    "Bucket" : "mybucket",
+    "FilePath" : "/Users/matthew/Desktop/MSUApptreeWS-soapui-project.xml"
+  }
+}
