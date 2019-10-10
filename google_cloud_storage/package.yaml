@@ -25,6 +25,9 @@ steps:
       ProjectId:
         required: true
         description: Your google cloud project ID
+      DeleteOnUpload:
+        required: false
+        description: Should this file be deleted from the server after being uploaded
     outputs:
       Success:
         description: A boolean indicating success or failure
