@@ -37,7 +37,7 @@ steps:
         required: true
         description: Your google cloud service account
         sample: '{"key" : "value"}'
-      FileNath:
+      FileName:
         required: true
         description: The name of the file to download
       Bucket:
@@ -46,7 +46,7 @@ steps:
       ProjectId:
         required: true
         description: Your google cloud project ID
-      ServerFilePath:
+      OutputDirectory:
         required: false
         description: The path to save the file to locally
     outputs:

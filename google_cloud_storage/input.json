@@ -10,7 +10,7 @@
     "Credential": {},
     "ProjectId": "apptreeio",
     "Bucket" : "apptreeio_integration_test",
-    "FileName" : "Screen Shot 2018-11-07 at 11.03.24 AM.png",
-    "ServerFilePath": "/Users/alexis/Desktop"
+    "OutputDirectory": "/Users/alexis/Desktop",
+    "FileName" : "Screen Shot 2018-11-07 at 11.03.24 AM.png"
   }
 }

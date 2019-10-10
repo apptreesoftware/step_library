@@ -41,12 +41,11 @@ async function uploadFile(input) {
 }
 
 async function downloadFile(input) {
-    apptree.validateInputs('Credential', 'FileName', 'ProjectId', 'Bucket', 'ServerFilePath');
+    apptree.validateInputs('Credential', 'FileName', 'ProjectId', 'Bucket', 'OutputDirectory');
     let credential = input['Credential'];
     let fileName = input['FileName'];
     const bucketName = input['Bucket'];
-    const serverDir = input['ServerFilePath'];
-    // const deleteOnDownload = input['DeleteOnDownload'];
+    const outputDirectory = input['OutputDirectory'];
 
     const storage = new Storage({
         projectId: input['ProjectId'],
@@ -55,15 +54,9 @@ async function downloadFile(input) {
     const bucket = storage.bucket(bucketName);
     const exists = await bucket.exists();
     if (!exists) {
-        console.error("Bucket does not exist");
-        process.exit(1);
+        throw "Bucket does not exist";
     }
 
-    try {
-        await bucket.file(fileName).download({destination: `${serverDir}/${fileName}`});
-    } catch (e) {
-        console.error(`error saving file: ${e.toString()}`);
-        process.exit(1);
-    }
+    await bucket.file(fileName).download({destination: `${outputDirectory}/${fileName}`});
     return {"Success": true}
 }
