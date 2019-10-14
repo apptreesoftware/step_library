@@ -1,4 +1,4 @@
-name: google_cloud_storage
+name: google_auth
 version: 1.0
 
 executables:
@@ -6,6 +6,8 @@ executables:
     amd64: index-linux
   darwin:
     amd64: index-macos
+  windows:
+    amd64: index-windows.exe
 
 steps:
   get_token@1.0:
