@@ -98,7 +98,7 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		return nil, xerrors.Errorf("Response contained no data")
 	}
 
-	requestId, ok := output.Results[0]["POTHOLE_REQUEST"].(string)
+	requestId, ok := output.Results[0]["APPTREE_ASSITANT_SR_REQUEST"].(string)
 	if !ok {
 		return nil, xerrors.Errorf("Response ID was not a string")
 	}
