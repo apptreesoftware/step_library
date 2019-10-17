@@ -25,9 +25,17 @@ steps:
         sample: There is a pothole that is approx. 2 inches wide
         description: A description of the problem
       AttachmentUrl:
-        required: true
+        required: false
         sample: https://google.com/image.png
         description: The url for an attachment
+      Notes:
+        required: false
+        sample: "['Turned oven off and back on', 'Rotated the cuff']"
+        description: The steps that were followed and did not resolve the issue, these will be added as a note to the request
+      EquipmentId:
+        required: false
+        sample: E4569566
+        description: The piece of equipment you are working on
     outputs:
       ServiceRequestId:
         description: the Id of the created service request

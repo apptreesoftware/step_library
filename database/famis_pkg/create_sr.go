@@ -11,11 +11,13 @@ import (
 )
 
 type CreateSRInput struct {
+	ConnectionString string
 	SiteId           string
 	Description      string
 	Requester        string
-	ConnectionString string
 	AttachmentUrl    string
+	Notes            []string
+	EquipmentId      string
 }
 
 func (input CreateSRInput) Validate() []string {
@@ -64,9 +66,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
-		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
-
+	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', ?, 'CORRECTIVE', '3', ?, 'APPTREEIO', ?, 'N', 'ASSISTANT', ?, null, ?, %s) as APPTREE_ASSITANT_SR_REQUEST", getStepsString(input.Notes))
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
@@ -77,7 +77,8 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		ConnectionString: input.ConnectionString,
 		Sql:              sqlString,
 	}
-	queryResult, err := db_common.PerformQuery(db, command)
+
+	queryResult, err := db_common.PerformQueryWithArgs(db, command, createArgsFromInput(input))
 	if err != nil {
 		return nil, xerrors.Errorf("Error creating service request: %w", err)
 	}
@@ -94,6 +95,29 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	if !ok {
 		return nil, xerrors.Errorf("Response ID was not a string")
 	}
-	
+
 	return &CreateSROutput{ServiceRequestId: requestId}, nil
+}
+
+func getStepsString(steps []string) string {
+	if steps != nil && len(steps) > 0 {
+		return fmt.Sprintf("'%s'", strings.Join(steps, "' || chr(10) || '"))
+	}
+	return "null"
+}
+
+func createArgsFromInput(input CreateSRInput) []interface{} {
+	args := make([]interface{}, 5)
+	args[0] = input.SiteId
+	args[1] = input.Description
+	args[2] = input.Requester
+	args[3] = nil
+	if input.EquipmentId != "" {
+		args[3] = input.EquipmentId
+	}
+	args[4] = nil
+	if input.AttachmentUrl != "" {
+		args[4] = input.AttachmentUrl
+	}
+	return args
 }
