@@ -85,7 +85,7 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		Sql:              sqlString,
 	}
 
-	queryResult, err := db_common.PerformQueryWithArgs(db, command, createArgsFromInput(input))
+	queryResult, err := db_common.PerformQueryWithArgs(db, command, createArgsFromInput(input)...)
 	if err != nil {
 		return nil, xerrors.Errorf("Error creating service request: %w", err)
 	}
