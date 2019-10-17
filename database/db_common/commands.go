@@ -31,7 +31,7 @@ func PerformQuery(db *sql.DB, command DatabaseCommand) (interface{}, error) {
 }
 
 func PerformQueryWithArgs(db *sql.DB, command DatabaseCommand, args ...interface{}) (interface{}, error) {
-	rows, err := db.Query(command.Sql, args)
+	rows, err := db.Query(command.Sql, args...)
 	if err != nil {
 		return nil, err
 	}
