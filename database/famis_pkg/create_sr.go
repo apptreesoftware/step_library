@@ -73,7 +73,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := "select atio_create_sr(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) as APPTREE_ASSITANT_SR_REQUEST from dual"
+	sqlString := "select atio_create_sr(:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11, :12, :13, :14) as APPTREE_ASSITANT_SR_REQUEST from dual"
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
