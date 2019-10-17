@@ -99,18 +99,12 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	}
 
 	requestId, ok := output.Results[0]["APPTREE_ASSISTANT_SR_REQUEST"].(string)
+	print(fmt.Sprintf("response: %v", output.Results))
 	if !ok {
 		return nil, xerrors.Errorf("Response ID was not a string")
 	}
 
 	return &CreateSROutput{ServiceRequestId: requestId}, nil
-}
-
-func getStepsString(steps []string) string {
-	if steps != nil && len(steps) > 0 {
-		return fmt.Sprintf("'%s'", strings.Join(steps, "' || chr(10) || '"))
-	}
-	return "null"
 }
 
 func createArgsFromInput(input CreateSRInput) []interface{} {
