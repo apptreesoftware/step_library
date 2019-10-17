@@ -30,8 +30,8 @@ steps:
         description: The url for an attachment
       Notes:
         required: false
-        sample: "['Turned oven off and back on', 'Rotated the cuff']"
-        description: The steps that were followed and did not resolve the issue, these will be added as a note to the request
+        sample: "Turned oven off and back on, Rotated the cuff"
+        description: A note to add to the request
       EquipmentId:
         required: false
         sample: E4569566
