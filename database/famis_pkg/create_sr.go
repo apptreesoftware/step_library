@@ -18,6 +18,13 @@ type CreateSRInput struct {
 	AttachmentUrl    string
 	Notes            string
 	EquipmentId      string
+	RequestStatus    string
+	RequestType      string
+	MaintenanceType  string
+	Priority         string
+	EnterUser        string
+	NeedNotification bool
+	RequestSource    string
 }
 
 func (input CreateSRInput) Validate() []string {
@@ -66,7 +73,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := "select atio_create_sr('REQUESTESD', 'S', ?, 'CORRECTIVE', '3', ?, 'APPTREEIO', ?, 'N', 'ASSISTANT', ?, null, ?, ?) as APPTREE_ASSITANT_SR_REQUEST"
+	sqlString := "select atio_create_sr(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) as APPTREE_ASSITANT_SR_REQUEST from dual"
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
@@ -107,21 +114,32 @@ func getStepsString(steps []string) string {
 }
 
 func createArgsFromInput(input CreateSRInput) []interface{} {
-	args := make([]interface{}, 6)
-	args[0] = input.SiteId
-	args[1] = input.Description
-	args[2] = input.Requester
-	args[3] = nil
+	args := make([]interface{}, 14)
+	args[0] = input.RequestStatus
+	args[1] = input.RequestType
+	args[2] = input.SiteId
+	args[3] = input.MaintenanceType
+	args[4] = input.Priority
+	args[5] = input.Description
+	args[6] = input.EnterUser
+	args[7] = input.Requester
+	args[8] = "N"
+	if input.NeedNotification {
+		args[8] = "Y"
+	}
+	args[9] = input.RequestSource
+	args[10] = nil
 	if input.EquipmentId != "" {
-		args[3] = input.EquipmentId
+		args[10] = input.EquipmentId
 	}
-	args[4] = nil
+	args[11] = nil
+	args[12] = nil
 	if input.Notes != "" {
-		args[4] = input.Notes
+		args[12] = input.Notes
 	}
-	args[5] = nil
+	args[13] = nil
 	if input.AttachmentUrl != "" {
-		args[5] = input.AttachmentUrl
+		args[13] = input.AttachmentUrl
 	}
 	return args
 }

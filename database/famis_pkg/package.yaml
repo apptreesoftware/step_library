@@ -36,6 +36,34 @@ steps:
         required: false
         sample: E4569566
         description: The piece of equipment you are working on
+      RequestStatus:
+        required: true
+        sample: REQUESTESD
+        description: the request status
+      RequestType:
+        required: true
+        sample: S
+        description: the request type
+      MaintenanceType:
+        required: true
+        sample: CORRECTIVE
+        description: the maintenance type
+      Priority:
+        required: true
+        sample: '3'
+        description: the priority that should be assigned to this request
+      EnterUser:
+        required: true
+        sample: APPTREEIO
+        description: the user entering this ticket
+      NeedNotification:
+        required: true
+        sample: false
+        description: a flag indicating if this request needs a notification to be sent
+      RequestSource:
+        required: true
+        sample: ASSISTANT
+        description: the source which the requester is creating this request from
     outputs:
       ServiceRequestId:
         description: the Id of the created service request
