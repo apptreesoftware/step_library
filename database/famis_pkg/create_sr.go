@@ -11,11 +11,20 @@ import (
 )
 
 type CreateSRInput struct {
+	ConnectionString string
 	SiteId           string
 	Description      string
 	Requester        string
-	ConnectionString string
 	AttachmentUrl    string
+	Notes            string
+	EquipmentId      string
+	RequestStatus    string
+	RequestType      string
+	MaintenanceType  string
+	Priority         string
+	EnterUser        string
+	NeedNotification bool
+	RequestSource    string
 }
 
 func (input CreateSRInput) Validate() []string {
@@ -64,9 +73,7 @@ func (c CreateRequest) Execute(in step.Context) (interface{}, error) {
 }
 
 func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
-	sqlString := fmt.Sprintf("select atio_create_sr('REQUESTESD', 'S', '%s', 'CORRECTIVE', 3, '%s', 'APPTREEIO', '%s', 'N', 'ASSISTANT', '%s') as POTHOLE_REQUEST from dual",
-		input.SiteId, input.Description, input.Requester, input.AttachmentUrl)
-
+	sqlString := "select atio_create_sr(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) as APPTREE_ASSITANT_SR_REQUEST from dual"
 	db, err := sql.Open("goracle", input.ConnectionString)
 	if err != nil {
 		return nil, xerrors.Errorf("Unable to connect to database: %w", err)
@@ -77,7 +84,8 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 		ConnectionString: input.ConnectionString,
 		Sql:              sqlString,
 	}
-	queryResult, err := db_common.PerformQuery(db, command)
+
+	queryResult, err := db_common.PerformQueryWithArgs(db, command, createArgsFromInput(input))
 	if err != nil {
 		return nil, xerrors.Errorf("Error creating service request: %w", err)
 	}
@@ -94,6 +102,44 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	if !ok {
 		return nil, xerrors.Errorf("Response ID was not a string")
 	}
-	
+
 	return &CreateSROutput{ServiceRequestId: requestId}, nil
+}
+
+func getStepsString(steps []string) string {
+	if steps != nil && len(steps) > 0 {
+		return fmt.Sprintf("'%s'", strings.Join(steps, "' || chr(10) || '"))
+	}
+	return "null"
+}
+
+func createArgsFromInput(input CreateSRInput) []interface{} {
+	args := make([]interface{}, 14)
+	args[0] = input.RequestStatus
+	args[1] = input.RequestType
+	args[2] = input.SiteId
+	args[3] = input.MaintenanceType
+	args[4] = input.Priority
+	args[5] = input.Description
+	args[6] = input.EnterUser
+	args[7] = input.Requester
+	args[8] = "N"
+	if input.NeedNotification {
+		args[8] = "Y"
+	}
+	args[9] = input.RequestSource
+	args[10] = nil
+	if input.EquipmentId != "" {
+		args[10] = input.EquipmentId
+	}
+	args[11] = nil
+	args[12] = nil
+	if input.Notes != "" {
+		args[12] = input.Notes
+	}
+	args[13] = nil
+	if input.AttachmentUrl != "" {
+		args[13] = input.AttachmentUrl
+	}
+	return args
 }
