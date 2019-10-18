@@ -72,6 +72,16 @@ steps:
       RecordId:
         required: true
         description: "the id for this object"
+  create_or_update@1.0:
+    description: "update or create a firebase object"
+    inputs:
+      <<: *firebase_inputs
+      Record:
+        required: true
+        description: "the object you would like to push to firebase"
+      RecordId:
+        required: true
+        description: "the id for this object"
   shorten_url@1.0:
     description: "shorten a long URL with query parameters to a shorter one using firebase dynamic links"
     inputs:
