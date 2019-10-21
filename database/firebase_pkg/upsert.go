@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cloud.google.com/go/firestore"
 	"context"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"golang.org/x/xerrors"
@@ -10,6 +11,7 @@ type UpsertInput struct {
 	FirebaseInput
 	Record   map[string]interface{}
 	RecordId string
+	Merge    bool
 }
 
 type Upsert struct {
@@ -48,6 +50,10 @@ func (Upsert) execute(input UpsertInput, runId string) (interface{}, error) {
 
 	collection := store.Collection(input.CollectionPath)
 	doc := collection.Doc(input.RecordId)
-	_, err = doc.Set(ctx, input.Record)
+	if input.Merge {
+		_, err = doc.Set(ctx, input.Record, firestore.MergeAll)
+	} else {
+		_, err = doc.Set(ctx, input.Record)
+	}
 	return nil, err
 }
