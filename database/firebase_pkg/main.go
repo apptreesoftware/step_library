@@ -8,6 +8,5 @@ func main() {
 	step.Register(UpdateDocument{})
 	step.Register(Upsert{})
 	step.Register(ShortenUrl{})
-	step.Register(CreateOrUpdate{})
 	step.Run()
 }
