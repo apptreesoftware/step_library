@@ -1,10 +1,10 @@
 let apptree = require('apptree-workflow-sdk');
 const { auth } = require("google-auth-library");
-apptree.addStep('get_token', '1.0', uploadFile);
+apptree.addStep('get_token', '1.0', getToken);
 apptree.run();
 
 
-async function uploadFile(input) {
+async function getToken(input) {
     apptree.validateInputs('Credential', 'Scopes');
     let credential = input['Credential'];
     let scopes = input['Scopes'];

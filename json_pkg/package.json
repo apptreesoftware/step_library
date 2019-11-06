@@ -2,7 +2,8 @@
   "name": "main",
   "bin": "index.js",
   "dependencies": {
-    "apptree-workflow-sdk": "0.0.13"
+    "apptree-workflow-sdk": "0.0.13",
+    "firebase-functions": "^3.3.0"
   },
   "devDependencies": {},
   "scripts": {}

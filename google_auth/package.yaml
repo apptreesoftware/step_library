@@ -1,18 +1,10 @@
 name: google_auth
 version: 1.0
 
-executables:
-  linux:
-    amd64: index-linux
-  darwin:
-    amd64: index-macos
-  windows:
-    amd64: index-windows.exe
-
 steps:
   get_token@1.0:
     inputs:
-      Credentials:
+      Credential:
         required: true
         description: Your google cloud service account
         sample: '{"key" : "value"}'

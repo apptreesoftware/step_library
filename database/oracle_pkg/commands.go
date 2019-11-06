@@ -2,9 +2,11 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"github.com/apptreesoftware/step_library/database/db_common"
 	_ "gopkg.in/goracle.v2"
+	"time"
 )
 
 type Query struct {
@@ -91,14 +93,33 @@ func (Execute) Version() string {
 func (Execute) Execute(in step.Context) (interface{}, error) {
 	input := db_common.DatabaseCommand{}
 	err := in.BindInputs(&input)
+	debug := in.Environment().Debug
+	if debug {
+		println("Starting Step")
+	}
 	if err != nil {
 		return nil, err
 	}
-	println(input.ConnectionString)
+	start := time.Now()
+	if debug {
+		println("Creating connection to", input.ConnectionString)
+	}
 	db, err := sql.Open("goracle", input.ConnectionString)
+	dur := (time.Now().UnixNano() - start.UnixNano()) / int64(time.Millisecond)
+	if debug {
+		println(fmt.Sprintf("Connection established after %d ms", dur))
+	}
 	if err != nil {
 		return nil, err
 	}
+	if debug {
+		println("Executing statement", input.Sql)
+	}
+	start = time.Now()
 	_, err = db_common.ExecuteStatement(db, &input)
+	dur = (time.Now().UnixNano() - start.UnixNano()) / int64(time.Millisecond)
+	if debug {
+		println(fmt.Sprintf("ExecuteStatement took %d ms", dur))
+	}
 	return nil, err
 }

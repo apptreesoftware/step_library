@@ -1,12 +1,6 @@
 name: json
 version: 1.0
 
-executables:
-  linux:
-    amd64: index-linux
-  darwin:
-    amd64: index-macos
-
 steps:
   parse@1.0:
     inputs:

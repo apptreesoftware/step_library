@@ -76,21 +76,21 @@ build-array: |
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-ems: |
-	cd ems_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-ems: build-ems |
 	apptree publish package -d ems_pkg --host ${HOST}
 build-google-cloud-storage: |
-	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t win-amd64-6.11.2 --output index-windows
+	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-google-cloud-storage: build-google-cloud-storage |
 	apptree publish package -d google_cloud_storage --host ${HOST}
 build-google-auth: |
-	cd google_auth && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t win-amd64-6.11.2 --output index-windows
+	cd google_auth && nexe -t alpine-x64-12.9.1 --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-google-auth: build-google-auth |
 	apptree publish package -d google_auth --host ${HOST}
 build-famis: |
 	cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
 publish-famis: build-famis |
-	apptree publish package -d database/famis_pkg --host ${HOST}
+	apptree.exe publish package -d database/famis_pkg --host ${HOST}
 updatesdk: |
 	cd filesystem_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd database/db_common && go mod tidy && go get github.com/apptreesoftware/go-workflow
