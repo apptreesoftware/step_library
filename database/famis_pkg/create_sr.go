@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"github.com/apptreesoftware/step_library/database/db_common"
 	"golang.org/x/xerrors"
@@ -99,7 +98,6 @@ func (CreateRequest) execute(input CreateSRInput) (*CreateSROutput, error) {
 	}
 
 	requestId, ok := output.Results[0]["APPTREE_ASSISTANT_SR_REQUEST"].(string)
-	print(fmt.Sprintf("response: %v", output.Results))
 	if !ok {
 		return nil, xerrors.Errorf("Response ID was not a string")
 	}
