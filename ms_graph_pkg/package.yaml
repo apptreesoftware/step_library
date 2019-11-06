@@ -1,4 +1,4 @@
-name: ems
+name: ms_graph
 version: 1.0
 
 executables:
@@ -41,4 +41,4 @@ steps:
         description: Scope of the Call... if not sure the default = https://graph.microsoft.com/.default
     outputs:
       AuthToken:
-        description: Ems Auth Token
+        description: Graph API Auth Token

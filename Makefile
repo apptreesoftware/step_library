@@ -118,6 +118,7 @@ updatesdk: |
 	cd twilio_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd io_assistant_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd array_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+	cd ms_graph_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist
 publish-node: publish-array publish-workflow publish-msgraph
 publish-dotnet: publish-famis

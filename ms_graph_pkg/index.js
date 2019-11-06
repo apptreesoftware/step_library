@@ -33,6 +33,7 @@ async function getAll(token, endPoint, filter){
         nextLink = response.data['@odata.nextLink'];
     }
     while(hasNextLink){
+        await new Promise(done => setTimeout(done, 200));
         let nextResponse = await axios.get(nextLink, createConfig(false, token));
         objects.push(nextResponse.data.value);
         if(nextResponse.data['@odata.nextLink']){
