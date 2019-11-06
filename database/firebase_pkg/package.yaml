@@ -72,6 +72,9 @@ steps:
       RecordId:
         required: true
         description: "the id for this object"
+      Merge:
+        required: false
+        description: "a flag indicating if the record should be replaced or fields in record merged with fields already existing on document, will default to false"
   shorten_url@1.0:
     description: "shorten a long URL with query parameters to a shorter one using firebase dynamic links"
     inputs:

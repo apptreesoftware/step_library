@@ -5,7 +5,7 @@ test: |
 all: publish
 build: build-dotnet build-go build-node |
 build-go: build-filesystem build-postgres build-googlesheets build-convert build-common build-logger build-webhook build-cache build-facility360 build-script build-firebase build-mailgun build-twilio build-io-assist
-build-node: build-array build-workflow build-msgraph
+build-node: build-array build-workflow build-ems build-ms_graph
 build-dotnet: build-famis
 build-postgres: |
 			cd database/postgres_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
@@ -75,22 +75,18 @@ build-array: |
 	cd array_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
-build-object: |
-	cd object_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
-publish-object: build-object |
-	apptree publish package -d object_pkg --host ${HOST}
-build-json: |
-	cd json_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
-publish-json : build-json |
-	apptree publish package -d json_pkg --host ${HOST}
-build-famis-equip: |
-	cd database/famis_equipment_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
-publish-famis-equip : build-famis-equip |
-	apptree publish package -d database/famis_equipment_pkg --host ${HOST}
-build-workflow: |
-	cd workflow_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
-publish-workflow: build-workflow |
-	apptree publish package -d workflow_pkg --host ${HOST}
+build-ems: |
+	cd ems_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+publish-ems: build-ems |
+	apptree publish package -d ems_pkg --host ${HOST}
+build-google-cloud-storage: |
+	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t win-amd64-6.11.2 --output index-windows
+publish-google-cloud-storage: build-google-cloud-storage |
+	apptree publish package -d google_cloud_storage --host ${HOST}
+build-google-auth: |
+	cd google_auth && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t win-amd64-6.11.2 --output index-windows
+publish-google-auth: build-google-auth |
+	apptree publish package -d google_auth --host ${HOST}
 build-famis: |
 	cd database/famis_pkg && env CC=x86_64-w64-mingw32-gcc gox -osarch="windows/amd64" -ldflags="-s -w" -output "main_windows_amd64"
 publish-famis: build-famis |
@@ -118,9 +114,10 @@ updatesdk: |
 	cd twilio_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd io_assistant_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd array_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
+	cd ems_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 	cd ms_graph_pkg && go mod tidy && go get github.com/apptreesoftware/go-workflow
 publish-go: publish-common publish-convert publish-postgres publish-googlesheets publish-filesystem publish-logger publish-cache publish-facility360 publish-script publish-webhook publish-firebase publish-date publish-mailgun publish-twilio publish-io-assist
-publish-node: publish-array publish-workflow publish-msgraph
+publish-node: publish-array publish-workflow publish-ems publish-ms_graph
 publish-dotnet: publish-famis
 
 publish: publish-go publish-dotnet publish-node

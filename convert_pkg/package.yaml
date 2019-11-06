@@ -18,6 +18,14 @@ steps:
     outputs:
       Records:
         description: The array of records
+  parse_xml_to_object@1.0:
+    inputs:
+      XML:
+        required: true
+        description: The string to parse into a json object
+    outputs:
+      Record:
+        description: Parsed object from xml input
   queue_children@1.0:
     inputs:
       Record:

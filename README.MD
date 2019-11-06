@@ -45,7 +45,7 @@ steps:
 ## To build your package for for publishing
 1. Install `pkg` using npm. Run `npm install -g pkg`
 2. `cd` into the package folder
-3. Run `pkg -t node12-linux-x64,node12-macos-x64 .` or 'pkg -t node12-linux-x64,node12-macos-x64 index.js'
+3. Run `pkg -t node12-linux-x64,node12-macos-x64 .` or 'pkg -t node12-linux-x64,node12-macos-x64 index.js' 
 
 ## To publish your package
 1. `cd` into the package folder

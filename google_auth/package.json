@@ -1,0 +1,15 @@
+{
+  "name": "google_auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apptree-workflow-sdk": "0.0.13",
+    "google-auth-library": "latest"
+  }
+}

@@ -1,0 +1,75 @@
+name: google_cloud_storage
+version: 1.0
+
+executables:
+  linux:
+    amd64: index-linux
+  darwin:
+    amd64: index-macos
+  windows:
+    amd64: index-windows.exe
+
+steps:
+  upload_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FilePath:
+        required: true
+        description: The path to the file you want to upload
+      Bucket:
+        required: true
+        description: The bucket to upload to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+      DeleteOnUpload:
+        required: false
+        description: Should this file be deleted from the server after being uploaded
+    outputs:
+      Success:
+        description: A boolean indicating success or failure
+  download_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FileName:
+        required: true
+        description: The name of the file to download
+      Bucket:
+        required: true
+        description: The bucket to upload to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+      OutputDirectory:
+        required: false
+        description: The path to save the file to locally
+    outputs:
+      Success:
+        description: A boolean indicating success or failure
+  move_file@1.0:
+    inputs:
+      Credentials:
+        required: true
+        description: Your google cloud service account
+        sample: '{"key" : "value"}'
+      FileName:
+        required: true
+        description: The name of the file to download
+      SourceBucket:
+        required: true
+        description: The bucket to move the file from
+      DestinationBucket:
+        required: true
+        description: The bucket to move the file to
+      ProjectId:
+        required: true
+        description: Your google cloud project ID
+    outputs:
+      Success:
+        description: A boolean indicating success or failure

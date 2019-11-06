@@ -30,6 +30,31 @@ func PerformQuery(db *sql.DB, command DatabaseCommand) (interface{}, error) {
 	return output, nil
 }
 
+func PerformQueryWithArgs(db *sql.DB, command DatabaseCommand, args ...interface{}) (interface{}, error) {
+	rows, err := db.Query(command.Sql, args...)
+	if err != nil {
+		return nil, err
+	}
+	cols, err := rows.Columns()
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	results := []map[string]interface{}{}
+	for rows.Next() {
+		rowMap, err := ScanIntoMap(rows, cols)
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, rowMap)
+	}
+	output := &RowOutput{
+		Results: results,
+	}
+	return output, nil
+}
+
 func PerformQueryAndQueue(db *sql.DB, command DatabaseCommandToQueue, engine step.Engine) (interface{}, error) {
 	rows, err := db.Query(command.Sql)
 	if err != nil {

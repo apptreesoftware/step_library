@@ -1,0 +1,9 @@
+{
+  "get_token@1.0": {
+    "Credential": {},
+    "Scopes" : [
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/sqlservice.admin"
+    ]
+  }
+}
