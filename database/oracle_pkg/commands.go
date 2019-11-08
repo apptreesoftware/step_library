@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/step"
 	"github.com/apptreesoftware/step_library/database/db_common"
+	"golang.org/x/xerrors"
 	_ "gopkg.in/goracle.v2"
 	"time"
 )
@@ -122,4 +123,28 @@ func (Execute) Execute(in step.Context) (interface{}, error) {
 		println(fmt.Sprintf("ExecuteStatement took %d ms", dur))
 	}
 	return nil, err
+}
+
+type ImportCSV struct {
+}
+
+func (i ImportCSV) Name() string {
+	return "import_csv"
+}
+
+func (i ImportCSV) Version() string {
+	return "1.0"
+}
+
+func (i ImportCSV) Execute(in step.Context) (interface{}, error) {
+	var input db_common.ImportCSVCommand
+	err := in.BindInputs(&input)
+	if err != nil {
+		return nil, xerrors.Errorf("Unable to bind inputs: %w", err)
+	}
+	db, err := sql.Open("goracle", input.ConnectionString)
+	if err != nil {
+		return nil, xerrors.Errorf("Could not connect to database: %w", err)
+	}
+	return db_common.ImportCSV(db, "oracle", &input)
 }

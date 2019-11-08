@@ -10,6 +10,7 @@ func main() {
 	step.Register(InsertBatch{})
 	step.Register(QueryAndQueue{})
 	step.Register(Execute{})
+	step.Register(ImportCSV{})
 	step.Register(db_common.MockExecute{})
 	step.Run()
 }

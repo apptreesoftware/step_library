@@ -1,6 +1,8 @@
 package db_common
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type DatabaseCommand struct {
 	ConnectionString string
@@ -26,6 +28,20 @@ type InsertBatchCommand struct {
 type InsertCommand struct {
 	DatabaseCommand
 	Record map[string]interface{}
+}
+
+type ImportCSVCommand struct {
+	ConnectionString string
+	TableName        string
+	Fields           []string
+	FilePath         string
+	ClearTable       bool
+	SkipFirst        bool
+}
+
+type ImportCSVOutput struct {
+	RecordCount int
+	Duration    string
 }
 
 func ScanIntoMap(rows *sql.Rows, cols []string) (map[string]interface{}, error) {

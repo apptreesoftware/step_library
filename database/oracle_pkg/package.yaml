@@ -63,3 +63,30 @@ steps:
       Sql:
         required: true
         description: ""
+  import_csv@1.0:
+    description: "Accepts a list of records and inserts them into a database."
+    inputs:
+      ConnectionString:
+        required: true
+        sample: "oracle://user:passw@service_name OR user/passw@service_name OR advanced connection user/pass@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=hostname)(PORT=port)))(CONNECT_DATA=(SERVICE_NAME=sn)))"
+        description: "Postgres Connection string"
+      TableName:
+        required: true
+        description: "The table to insert into"
+      Fields:
+        required: true
+        description: A list of keys and values where they key indicates which column to insert into, and the value is the index to use in the CSV file
+        sample: |
+          - column1:4:text
+          - column2:3:integer
+      SkipFirst:
+        required: false
+        description: Skip the first row of data in the CSV
+      ClearTable:
+        required: false
+        description: Whether the table should be cleared prior to insert
+    outputs:
+      RecordCount:
+        description: The number of records processed
+      Duration:
+        description: How long the import took

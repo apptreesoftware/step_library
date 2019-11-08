@@ -68,19 +68,19 @@ build-twilio: |
 publish-twilio: build-twilio |
 	apptree publish package -d twilio_pkg --host ${HOST}
 build-io-assist: |
-			cd io_assistant_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
+	cd io_assistant_pkg && gox -osarch="linux/amd64 darwin/amd64 windows/amd64" -ldflags="-s -w" -output "main_{{.OS}}_{{.Arch}}"
 publish-io-assist: build-io-assist |
 	apptree publish package -d io_assistant_pkg --host ${HOST}
 build-array: |
-	cd array_pkg && nexe -t alpine --output index-linux && nexe -t macos --output index-macos
+	cd array_pkg && nexe -t alpine-x64-12.9.1 --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-array: build-array |
 	apptree publish package -d array_pkg --host ${HOST}
 build-ems: |
-	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
+	cd ems_pkg && nexe -t alpine-x64-12.9.1 --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-ems: build-ems |
 	apptree publish package -d ems_pkg --host ${HOST}
 build-google-cloud-storage: |
-	cd google_cloud_storage && nexe -t alpine --build --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
+	cd google_cloud_storage && nexe -t alpine-x64-12.9.1 --output index-linux && nexe -t macos --output index-macos && nexe -t windows-x64-12.12.0 --output index-windows
 publish-google-cloud-storage: build-google-cloud-storage |
 	apptree publish package -d google_cloud_storage --host ${HOST}
 build-google-auth: |
