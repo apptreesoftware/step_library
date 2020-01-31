@@ -14,17 +14,17 @@ famis_settings: &famis_settings
   Username:
     required: true
     description: 360facility/FAMIS username
-    Password:
-      required: true
-      description: 360facility/FAMIS password
-    Url:
-      required: true
-      description: 360facility/FAMIS environment url
-      sample: https://mycompany.famis.com
-    Endpoint:
-      required: true
-      description: The endpoint to fetch records from
-      sample: 'MobileWebServices/apis/360facility/v1/spaces'
+  Password:
+    required: true
+    description: 360facility/FAMIS password
+  Url:
+    required: true
+    description: 360facility/FAMIS environment url
+    sample: https://mycompany.famis.com
+  Endpoint:
+    required: true
+    description: The endpoint to fetch records from
+    sample: 'MobileWebServices/apis/360facility/v1/spaces'
 
 upsert_inputs: &upsert_inputs
   Username:

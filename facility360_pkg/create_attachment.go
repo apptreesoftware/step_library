@@ -126,7 +126,7 @@ func getFileName(attachmentLink string) (string, error) {
 	if len(fileName) > 30 {
 		splitName := strings.Split(fileName, ".")
 		if len(splitName) < 2 {
-			return "", errors.New("Filename must include extension")
+			return "", errors.New("filename must include extension")
 		}
 		extension := splitName[len(splitName)-1]
 		name := splitName[0]
