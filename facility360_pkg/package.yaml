@@ -10,7 +10,21 @@ executables:
   windows:
     amd64: main_windows_amd64.exe
 
-
+famis_settings: &famis_settings
+  Username:
+    required: true
+    description: 360facility/FAMIS username
+    Password:
+      required: true
+      description: 360facility/FAMIS password
+    Url:
+      required: true
+      description: 360facility/FAMIS environment url
+      sample: https://mycompany.famis.com
+    Endpoint:
+      required: true
+      description: The endpoint to fetch records from
+      sample: 'MobileWebServices/apis/360facility/v1/spaces'
 
 upsert_inputs: &upsert_inputs
   Username:
@@ -39,8 +53,6 @@ upsert_outputs: &upsert_outputs
     description: the message returned from the create or update call
   Record:
     descripton: the outputted record that you created or updated
-
-
 
 fetch_records: &fetch_records
   Username:
@@ -145,3 +157,16 @@ steps:
     outputs:
       Count:
         description: The count of records at this endpoint
+  create_wo_attachment@1.0:
+    inputs:
+      RequestId:
+        required: true
+        description: The work order this attachment is being created for
+        sample: 1256
+      AttachmentLink:
+        required: true
+        description: The link to the attachment
+        sample: 'https://google.example.com/image.jpeg'
+      <<: *famis_settings
+    outputs:
+      <<: *upsert_outputs

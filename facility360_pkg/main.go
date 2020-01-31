@@ -9,5 +9,6 @@ func main() {
 	step.Register(CreateRecord{})
 	step.Register(UpdateRecord{})
 	step.Register(GetCount{})
+	step.Register(CreateAttachment{})
 	step.Run()
 }
