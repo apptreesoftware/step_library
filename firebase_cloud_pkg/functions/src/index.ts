@@ -7,10 +7,7 @@ admin.initializeApp();
 
 export const getDocument = functions.https.onRequest(async (req, resp) => {
     const inputs = req.body as GetDocumentInput;
-    if (!inputs.RecordPath || inputs.RecordPath == "") {
-        resp.status(500).send('record path is a required input');
-        return;
-    }
+    apptreeio.validateInputs(req, "RecordPath");
 
     try {
         const docRef = admin.firestore().doc(inputs.RecordPath);
@@ -30,10 +27,7 @@ export const getDocument = functions.https.onRequest(async (req, resp) => {
 
 export const query = functions.https.onRequest(async (req, resp) => {
     const inputs = req.body as QueryInput;
-    if (!inputs.CollectionPath || inputs.CollectionPath === "") {
-        resp.status(500).send(`collection path is a required input`);
-        return;
-    }
+    apptreeio.validateInputs(req, "CollectionPath");
 
     try {
         const records = await queryCollection(inputs.CollectionPath, inputs.QueryParams);
@@ -45,12 +39,9 @@ export const query = functions.https.onRequest(async (req, resp) => {
 
 export const queryAndQueue = functions.https.onRequest(async (req, resp) => {
     const client = apptreeio.createClient(req);
+    apptreeio.validateInputs(req, "CollectionPath");
 
     const inputs = req.body as QueryAndQueueInput;
-    if (!inputs.CollectionPath || inputs.CollectionPath === "") {
-        resp.status(500).send(`collection path is a required input`);
-        return;
-    }
 
     try {
         const records = await queryCollection(inputs.CollectionPath, inputs.QueryParams);
@@ -65,14 +56,7 @@ export const queryAndQueue = functions.https.onRequest(async (req, resp) => {
 
 export const upsert = functions.https.onRequest(async (req, resp) => {
     const inputs = req.body as UpsertInput;
-    if (!inputs.Record) {
-        resp.status(500).send(`record to upsert is a required input`);
-        return;
-    }
-    if (!inputs.RecordPath) {
-        resp.status(500).send(`record path is a required input`);
-        return;
-    }
+    apptreeio.validateInputs(req, "Record", "RecordPath");
 
     try {
         const docRef = admin.firestore().doc(inputs.RecordPath);
