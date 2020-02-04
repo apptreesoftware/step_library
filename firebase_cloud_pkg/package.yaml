@@ -1,0 +1,63 @@
+name: firebase_cloud
+version: 1.0
+lang: typescript
+
+steps:
+  query@1.0:
+    url: https://us-central1-apptreeio-workflow.cloudfunctions.net/query
+    description: "Performs a query"
+    inputs:
+      CollectionPath:
+        required: true
+        description: "the path to the collection to query from the root"
+      QueryParameters:
+        required: false
+        description: "a list of query parameters which contain a fieldName, operator, and field value which will be used to build your query. if omitted then all records will be returned"
+        sample: '[{"fieldName": "myField", "operator": "==", "fieldValue": "mySearchVal"},{"fieldName": "myField2", "operator": "<=", "fieldValue": 2}]'
+    outputs:
+      Records:
+        description: "The records returned from the query."
+  query_and_queue@1.0:
+    url: https://us-central1-apptreeio-workflow.cloudfunctions.net/queryAndQueue
+    description: "query firebase for records and queue them to a different workflow"
+    inputs:
+      CollectionPath:
+        required: true
+        description: "the path to the collection to query from the root"
+      QueryParameters:
+        required: false
+        description: "a list of query parameters which contain a fieldName, operator, and field value which will be used to build your query. if omitted then all records will be returned"
+        sample: '[{"fieldName": "myField", "operator": "==", "fieldValue": "mySearchVal"},{"fieldName": "myField2", "operator": "<=", "fieldValue": 2}]'
+      Workflow:
+        required: true
+        description: "the workflow to queue the records to"
+    outputs:
+      Records:
+        description: "The records returned from the query."
+  upsert@1.0:
+    url: https://us-central1-apptreeio-workflow.cloudfunctions.net/upsert
+    description: "create or replace an existing option with record from input"
+    inputs:
+      Record:
+        required: true
+        description: "the object you would like to push to firebase"
+      RecordPath:
+        required: true
+        description: "the id for this object"
+      Merge:
+        required: false
+        description: "a flag indicating if the record should be replaced or fields in record merged with fields already existing on document, will default to false"
+  getDocument@1.0:
+    url: https://us-central1-apptreeio-workflow.cloudfunctions.net/getDocument
+    description: "fetch a single document from a path"
+    inputs:
+      RecordPath:
+        required: true
+        description: "the id for this object"
+    outputs:
+      Success:
+        description: "a flag indicating if the record was fetched successfully"
+      Record:
+        description: "the fetched record"
+      Message:
+        description: "a message about the document fetching"
