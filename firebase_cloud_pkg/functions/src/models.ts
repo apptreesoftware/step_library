@@ -14,7 +14,7 @@ export interface QueryAndQueueInput {
 export interface UpsertInput {
     Record: JsonObject;
     RecordPath: string;
-    Merge: boolean;
+    Merge?: boolean;
 }
 
 export interface GetDocumentInput {

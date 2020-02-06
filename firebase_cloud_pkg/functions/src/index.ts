@@ -57,6 +57,9 @@ export const queryAndQueue = functions.https.onRequest(async (req, resp) => {
 export const upsert = functions.https.onRequest(async (req, resp) => {
     const inputs = req.body as UpsertInput;
     apptreeio.validateInputs(req, "Record", "RecordPath");
+    if (!inputs.Merge) {
+        inputs.Merge = false;
+    }
 
     try {
         const docRef = admin.firestore().doc(inputs.RecordPath);
