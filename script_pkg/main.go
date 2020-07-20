@@ -4,6 +4,7 @@ import "github.com/apptreesoftware/go-workflow/pkg/step"
 
 func main() {
 	step.Register(JavascriptRunner{})
+	step.Register(ExecRunner{})
 
 	step.Run()
 }

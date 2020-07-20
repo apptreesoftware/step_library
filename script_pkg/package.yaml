@@ -27,7 +27,23 @@ steps:
       ScriptVars:
         required: false
         description: "a map of values you'd like to make available as variables in your script"
-        sample: "{\"multiplier\": 32}"
+        sample: '{"multiplier": 32}'
     outputs:
       ReturnValue:
         description: "The value returned from your script"
+  exec@1.0:
+    description: run a command line program
+    inputs:
+      Cmd:
+        required: true
+        description: The command you would like to run
+        sample: "go"
+      Args:
+        required: false
+        description: "An array of arguments to pass to the command"
+        sample: |
+          - mod
+          - why
+    outputs:
+      Output:
+        description: "The output of the command"
