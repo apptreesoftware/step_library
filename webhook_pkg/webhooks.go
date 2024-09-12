@@ -56,7 +56,9 @@ func (PostWebhook) Execute(ctx step.Context) (interface{}, error) {
 		return nil, err
 	}
 	request.Header = input.Header
-	request.Header.Set("content-type", input.ContentType)
+	if input.ContentType != "" {
+		request.Header.Set("content-type", input.ContentType)
+	}
 
 	printCurl(request, ctx.Environment())
 	resp, err := http.DefaultClient.Do(request)
